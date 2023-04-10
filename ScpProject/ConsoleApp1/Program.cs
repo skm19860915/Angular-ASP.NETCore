@@ -12,7 +12,6 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             var s = new DAL.Repositories.UserRepo().Login("1", "2");
-
             Console.WriteLine("setve");
         }
     }
