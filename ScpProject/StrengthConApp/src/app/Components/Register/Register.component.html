@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="LoginBox" style="width:700px;height:300px;" *ngIf="registrationStep == 2">
+    Your Account Will be tied to an "Organization".
+    <br /> <br /> For example, If you are a coach for the Nebraska Cornhuskers, you
+    would
+    call your Organization "The Best Football Team In The Country". The "Organization" controls all assistant coach
+    accounts.
+    It is how we group all the coachs together.
+    <div class="whiteInputContainer" style=" width:95%; ">
+      <label for="organizationName" style="padding-right:15px"></label><input placeholder="OrganizationN Name"
+        id="organizationName" [(ngModel)]="organizationName" /></div>
+    <br />
+    <div class=" warningButton defaultButton" style="height:40px;width:40%; margin-top:40px;margin-left:0px;float:left"
+      routerLink="/Login">Cancel</div>
+    <div class=" successButton defaultButton" style="height:40px;width:40%; margin-top:40px;margin-left:0px;float:right"
+      (click)="CreateOrganization(organizationName)">Create Organization</div>
+
+  </div>
+  <div class="LoginBox" *ngIf="registrationStep == 3">
+    <div class="Logo"><img src="assets/Menu/SCP_tiny.png" width="180" style="margin-left:10px; margin-top:10px;"></div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%; ">
+      <label for="userName" style="padding-right:15px"></label><input placeholder="User Name" id="userName"
+        [(ngModel)]="userName" /></div>
+    <div style="clear:both"></div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%; ">
+      <label for="Password" style="padding-right:15px"></label><input placeholder="Password" id="Password"
+        [(ngModel)]="password" type="password" /></div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%; ">
+      <label for="confirmPassword" style="padding-right:15px"></label><input placeholder="Confirm Password"
+        id="confirmPassword" [(ngModel)]="confirmPassword" type="password" /></div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%; ">
+      <label for="email" style="padding-right:15px"></label><input placeholder="Email" id="email" [(ngModel)]="email" />
+    </div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%; ">
+      <label for="First Name" style="padding-right:15px"></label><input placeholder="First Name" id="First Name"
+        [(ngModel)]="firstName" /></div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%; ">
+      <label for="Last Name" style="padding-right:15px"></label><input placeholder="Last Name" id="Last Name"
+        [(ngModel)]="lastName" /></div>
+    <br />
+    <div class=" successButton defaultButton" style="height:40px;width:40%; margin-top:40px;margin-left:0px;float:left"
+      (click)="Register(userName,password,confirmPassword,email,firstName,lastName)">Register</div>
+    <div class=" warningButton defaultButton" style="height:40px;width:40%; margin-top:40px;margin-left:0px;float:right"
+      routerLink="/Login">Cancel</div>
+    <br />
+
+  </div>
+</div>
+<app-alert [messages]="AlertMessages"></app-alert>

@@ -1,0 +1,577 @@
+@import '../../../assets/StyleSheets/Colors.less';
+@import '../../../assets/StyleSheets/Buttons.less';
+@import '../../../assets/StyleSheets/Inputs.less';
+@import '../../../assets/StyleSheets/Tag.less';
+@import '../../../assets/StyleSheets/Modal.less';
+@import '../../../assets/StyleSheets/Alerts.less';
+
+
+.chat-page{
+
+	.chat-con{
+
+		.groups-con{
+			background: transparent;
+			margin-top: 0.9375rem;
+			border-radius: 0.5rem;
+			position: relative;
+
+			.header-con{
+				display: flex;
+				align-items: center;
+				margin-bottom: 1rem;
+
+				.icon{
+					background-color: @our-green;
+					color: @white;
+					border-radius: 50%;
+					display: inline-block;
+					width: 2.8rem;
+					height: 2.5rem;
+					font-size: 1rem;
+					line-height:2.5rem;
+					margin-right:0.625rem;
+					text-align: center;
+					position: relative;
+					cursor: pointer;
+				}
+
+				.icon:after{
+					content: '';
+					position: absolute;
+					bottom:0;
+					left: 0px;
+					width: 0;
+					height: 0;
+					border-style: solid;
+					border-width: 0.375rem 0 0.5rem 0.8125rem;
+					border-color: transparent transparent transparent @our-green;
+					transform: rotate(30deg);
+				}
+
+				.form-control{
+				    color: @light-black;
+				    font-family: @font;
+				    font-weight: 300;
+				    border-radius: 1.375rem;
+				    font-size: 0.9375rem;
+				    padding: 0.6875rem 1rem;
+				    height: auto;
+				}
+			}
+
+			.groups-in{
+
+				height: calc(100vh- 11.4rem);
+				overflow: hidden;
+				overflow-x: hidden;
+				overflow-y: auto;
+
+				.one-group{
+					display: flex;
+					align-items: center;
+					border-bottom: 1px solid @light-grey;
+					cursor: pointer;
+
+					.image-con{
+						padding: 0.75rem;
+
+						img{
+							width: 4rem;
+							height: auto;
+							border-radius: 50%;
+							text-align: center;
+						}
+					}
+
+					.details-con{
+
+						padding:10px;
+						
+						.group-name{
+							margin:0;
+							padding:0;
+							font-family: @font;
+							font-weight: 600;
+							font-size: 1.1rem;
+							color: @black2;
+						}
+
+						.chat-desc{
+							margin:0;
+							padding:0;
+							font-family: @font;
+							font-weight: 400;
+							font-size: 0.9rem;
+							color: @black2;
+							margin-top: 0.3125rem;
+						}
+					}
+				}
+
+				.one-group.selected{
+					background: @our-green;
+					border-bottom: 1px solid transparent;
+
+					.details-con{
+						.group-name, .chat-desc{
+							color: @white;
+						}
+					}
+				}
+
+				.one-group:hover{
+					border-bottom: 1px solid @our-green;
+				}
+			}
+		}
+
+		.chat-in{
+			background: white;
+			margin-top: 0.9375rem;
+			border-radius: 0.5rem;
+			position: relative;
+			padding-top: 0.625rem;
+
+
+			.chat-header{
+				position: relative;
+		  		padding: 0 2rem;
+		  		padding-top: 1rem;
+
+		  		.group-title{
+		  			margin:0;
+					padding:0;
+					font-family: @font;
+					font-weight: 600;
+					font-size: 1.2rem;
+					color: @black2;
+					padding-bottom: 0.3125rem;
+		  		}
+
+		  		.group-desc{
+		  			position: relative;
+					overflow: hidden;
+					overflow-y: hidden;
+					overflow-x: auto;
+			  		white-space: nowrap;
+			  		box-sizing: content-box;
+			  		height: 2.5rem;
+			  		-ms-overflow-style: none;
+			  		overflow: -moz-scrollbars-none;
+
+			  		&::-webkit-scrollbar{
+					    width: 0;
+					    height: 0;
+					}
+
+		  			.user-count{
+			  			padding:0;
+			  			margin:0;
+			  			display: inline;
+			  			margin-right: 0.625rem;
+
+			  			i{
+			  				color: @our-green;
+			  				margin-right: 0.1875rem;
+			  			}
+			  		}
+
+					span{
+						display: inline-block;
+						font-family: @font;
+						background: @light-grey;
+						font-weight: 300;
+						color: @black;
+						margin: 0.3125rem;
+						margin-left: 0;
+						cursor: pointer;
+						font-size: 0.75rem;
+						padding: 0.3rem 0.75rem;
+						border-radius: 0.875rem;
+					}
+		  		}
+	
+			}
+
+			.chat-messages{
+				padding: 1.25rem 4rem;
+				position: relative;
+			
+				height: calc(100vh- 18.2rem);
+				overflow: hidden;
+				overflow-x: hidden;
+				overflow-y: auto;
+
+				@media (max-width: 991.98px){
+					height: 25rem;
+				}
+
+				.chat-message{
+					display: flex;
+					align-items:flex-start;
+	  				align-content:flex-start;
+	  				margin: 1rem 0;
+
+					.profile-image{
+						text-align: center;
+						width: 3.5rem;
+						
+						img{
+							width: 3rem;
+							height: auto;
+							text-align: center;
+						}
+
+						.time{
+							font-family: @font;
+							font-weight: 300;
+							width: 100%;
+							font-size: 0.5rem;
+							color: @light-black;
+							padding-top: 0.3125rem;
+						}
+					}
+
+					.chat-text{
+						background: @our-green;
+						color: @white;
+						border-radius: 1px 0.3125rem 0.3125rem 0.3125rem;
+						padding: 0.9375rem;
+						margin: 0 1rem;
+						margin-top: 1.25rem;
+						position: relative;
+						max-width: 85%;
+						font-family: @font;
+						font-weight: 300;
+						font-size: 0.9375rem;
+						width:100%
+					}
+
+					.chat-text:after{
+						content: '';
+						position: absolute;
+						top:0;
+						left: -6px;
+						width: 0;
+						height: 0;
+						border-style: solid;
+						border-width: 0px 6px 6px 0;
+						border-color: transparent @our-green transparent transparent;
+					}
+
+				}
+
+				.chat-message.right{
+					flex-direction: row-reverse;
+					
+					.chat-text{
+						border-radius: 0.3125rem 1px 0.3125rem 0.3125rem;
+						text-align: right;
+						background: @light-grey;
+						color: @black2;
+					}
+
+					.chat-text:after{
+						content: '';
+						position: absolute;
+						top:0;
+						left: initial;
+						right: -6px;
+						width: 0;
+						height: 0;
+						border-style: solid;
+						border-width: 0px 0px 6px 6px;
+						border-color: transparent transparent transparent @light-grey;
+					}
+				}
+			}
+
+			.bottom-input-con{
+				display: flex;
+				padding: 0.625rem 2rem;
+				align-items: center;
+				border-top: 1px solid @light-grey;
+
+				.form-control{
+					border: none;
+					border-bottom: 1px solid transparent;
+					border-radius: 0;
+					padding-left: 0;
+					padding-right: 0;
+
+				}
+
+				
+				.form-control:focus {
+				    border-color: @our-green;
+				    box-shadow: none!important;
+				}
+				.right-icons-con{
+					padding: 0.5rem;
+					padding-left: 0.9375rem;
+					display: flex;
+					align-items: center;
+
+					i{
+						color: @light-grey;
+						font-size: 1.25rem;
+						padding: 0.3125rem;
+						cursor: pointer;
+
+						&:hover{
+							color: @our-green;
+						}
+					}
+
+					i.submit-icon{
+						color: @our-green;
+						font-size: 2.25rem;
+						padding-left: 0.625rem;
+					}
+				}
+
+				@media (max-width: 767.98px){
+					padding: 0px 0.625rem;
+
+					.right-icons-con{
+						i{
+							font-size: 0.8125rem;
+						}
+
+						i.submit-icon{
+							font-size: 1.25rem;
+						}
+
+					}
+				}
+			}
+
+		}
+
+		.online-con{
+			background: @light-grey;
+			padding: 1.5rem;
+			margin-top: 0.9375rem;
+			border-radius: 0.5rem;
+			position: relative;
+
+			.close{
+	            outline: none;
+	            font-size: 3.75rem;
+	            font-family: @font;
+	            font-weight: 300;
+	            padding: 0px 0.625rem;
+	            position: absolute;
+	            height: 1.875rem;
+	            top: -0.625rem;
+	            right: 0px;
+	        }
+
+			.online-title{
+				margin:0;
+				padding:0;
+				font-family: @font;
+				font-weight: 600;
+				font-size: 1.2rem;
+				color: @black2;
+				margin-bottom: 1rem;
+			}
+
+			.online-athletes-con{
+
+				height: calc(100vh- 12.6rem);
+				overflow: hidden;
+				overflow-x: hidden;
+				overflow-y: auto;
+
+				@media (max-width: 1200px){
+					height: calc(100vh- 13.8rem);
+				}
+
+				.one-athlete{
+					padding: 1rem 0.5rem;
+					display: flex;
+			  		flex-direction: row;
+			  		flex-grow: 1;
+					align-items: center;
+					cursor: pointer;
+					border-top: 1px solid @mid-grey;
+
+					i{	
+						margin-right: 0.375rem;
+						background: @mid-grey;
+						border-radius: 50%;
+						display: inline-block;
+						width: 1.25rem;
+						height: 1.25rem;
+					}
+
+					h5{
+						font-family: @font;
+						font-weight: 300;
+						color: @light-black;
+						font-size: 1rem;
+						padding:0;
+						margin:0;
+					}
+
+					@media (max-width: 767.98px) {
+						margin: 0.625rem;
+					}
+				}
+
+				.one-athlete.checked{
+					i{	
+						color: @white;
+						background: @our-green;
+					}
+				}
+			}
+
+		}
+	}
+}
+
+
+// the cool selected non-selected green circle is done in css at the element level
+// since it is on the entire athlete image i had to wire up a hitbox to do a click even to,
+// i couldve re-wrote the css but this was faster.
+.selectedHitboxHack {
+	// uncomment the border to help adjusting where the hitbox is
+	// border: 2px solid red;
+	position : absolute;
+	height   : 30px;
+	width    : 30px;
+	top      : -10px;
+	left     : -10px;
+	z-index  : 1000;
+}
+
+.check-all {
+	cursor     : pointer;
+	display    : inline-flex;
+	align-items: center;
+	margin-left: 0.5rem;
+	margin-top : 1rem;
+
+	i {
+		margin-right : 0.375rem;
+		border-radius: 50%;
+		display      : inline-block;
+		text-align   : center;
+		font-size    : 1.125rem;
+		height       : 1.875rem;
+		width        : 1.875rem;
+		line-height  : 1.875rem;
+		background   : @our-green;
+		color        : @our-green;
+	}
+
+	h5 {
+		font-family: @font;
+		font-weight: 400;
+		color      : @our-green;
+		font-size  : 1rem;
+		padding    : 0;
+		margin     : 0;
+	}
+
+	&.checked i {
+		color: @white;
+	}
+}
+
+.fa-check{ background-color:red;}
+
+
+.selectedTab,.tab{
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+float:left;
+padding:10px;
+cursor:pointer;
+}
+.selectedTab{
+	background-color:@our-green;
+	border-bottom: 3px solid @our-green;
+	color:white;
+}
+.tab{
+	color:black;
+	background-color:@our-grey;
+	border-bottom: 3px solid @our-grey;
+}
+.tabContainer{
+	border-bottom:5px solid @our-green;
+	height:52px;
+	padding-left:10px;
+	width:100%;
+}
+
+.athlete-con {
+	display : inline-block;
+	width   : 10.9375rem;
+	margin  : 1.25rem;
+	cursor  : pointer;
+	position: relative;
+
+	&:after {
+
+		font-family           : "Font Awesome 5 Free";
+		display               : inline-block;
+		font-style            : normal;
+		font-variant          : normal;
+		text-rendering        : auto;
+		-webkit-font-smoothing: antialiased;
+		font-weight           : 900;
+		font-size             : 1.125rem;
+		content               : "\f00c";
+		height                : 1.875rem;
+		width                 : 1.875rem;
+		position              : absolute;
+		top                   : -0.625rem;
+		left                  : -0.625rem;
+		background            : @our-green;
+		color                 : @our-green;
+		text-align            : center;
+		border-radius         : 50%;
+	}
+}
+.athlete-con.selected:after {
+	color: @white;
+}
+
+.editor{
+	::ng-deep{
+#insertImage-, #insertVideo-, #toggleEditorMode-
+,#indent-,#outdent-,#subscript-,#superscript-
+, #backgroundColorPicker-,#justifyLeft-,#justifyCenter-,#justifyRight-, #justifyFull- {display:none}
+	}
+}
+
+@media (max-width:1024px)
+{
+.angularEditor
+{
+	display:none;
+}
+.inputEditor
+{
+	display:inline;
+	
+	box-shadow: none!important;
+	border-bottom:2px solid @our-green!important;
+}
+}
+@media (min-width:1025px)
+{
+	.angularEditor
+	{
+		display:inline;
+	}
+	.inputEditor
+	{
+		display:none;
+	}
+	}

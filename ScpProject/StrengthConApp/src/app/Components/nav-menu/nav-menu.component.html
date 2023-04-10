@@ -1,0 +1,221 @@
+<div class="left-sidebar" id="left-sidebar" *ngIf="!HideMenu && IsCoach ">
+  <div [ngClass]="{'site-logo': thumbNailURL === undefined || thumbNailURL === '',
+  'organizationImage-logo' :thumbNailURL !== undefined || thumbNailURL !== ''}" class="site-logo" style="z-index:100;">
+      <img *ngIf="thumbNailURL === null || thumbNailURL === '' || profilePic === null || profilePic === ''" src="../../../assets/SCPlogo.png">
+      <img *ngIf="profilePic !== null && profilePic !== ''" [src]="((profilePic) | encodeUri)">
+    </div>
+  <div class="icons-con">
+    <a class="icon" routerLink="/Home" routerLinkActive="active" title="Home" >
+      <div class="icon-con">
+        <img src="../../../assets/lhs-icons/homeicon.png" />
+        <div class="title" >HOME</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/Exercise" routerLinkActive="active" title="Exercises">
+      <div class="icon-con">
+        <img src="../../../assets/lhs-icons/setsIcon.png"   />
+        <div class="title" >EXERCISES</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/Metrics" routerLinkActive="active" title="Metrics">
+      <div class="icon-con">
+        <img src="../../../assets/lhs-icons/stats.png"  />
+        <div class="title" >METRICS</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/Survey" routerLinkActive="active" title="Survey">
+      <div class="icon-con">
+        <img src="../../../assets/lhs-icons/surveyIcon.png"  />
+        <div class="title" >SURVEYS</div>
+      </div>
+    </a> <a class="icon" routerLink="/SetRep" routerLinkActive="active" title="Sets & Reps">
+      <div class="icon-con">
+        <img src="../../../assets/lhs-icons/categoryicon.png" />
+        <div class="title" >SETS & REPS</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/Multimedia" routerLinkActive="active" title="Videos">
+      <div class="icon-con">
+        <i class=" fas fa-video" ></i>
+        <div class="title titleFontAwsomeIcons">VIDEOS</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/Program" routerLinkActive="active" title="Programs">
+      <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/programsIcon.png" />
+        <div class="title" >PROGRAMS</div>
+      </div>
+      <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/programsIcon-active.png" />
+        <div class="title" >PROGRAMS</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/Roster" routerLinkActive="active" title="Roster">
+      <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/rostersIcon.png" />
+        <div class="title" >ROSTER</div>
+      </div>
+      <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/rostersIcon-active.png" />
+        <div class="title" >ROSTER</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/ProgramBuilder" routerLinkActive="active" title="Program Builder">
+      <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/programBuilderIcon.png" />
+        <div class="title" >PROGRAM BUILDER</div>
+      </div>
+      <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/programBuilderIcon-active.png" />
+        <div class="title" >PROGRAM BUILDER</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/CoachRoster" routerLinkActive="active" title="Coaches">
+      <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/coachIcon.png" />
+        <div class="title" >COACHES</div>
+      </div>
+      <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/coachIcon-active.png" />
+        <div class="title" >COACHES</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/Chat" routerLinkActive="active" title="Chat">
+      <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/chatIcon.png" />
+        <div class="title" >CHAT</div>
+      </div>
+      <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/chatIcon-active.png" />
+        <div class="title" >CHAT</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/Notifications" routerLinkActive="active" title="Notifications">
+      <div class="icon-con">
+        <i class="far fa-bell"></i>
+        <i *ngIf="HasNewNotifications" class="fas fa-exclamation" style="margin-left:5px;"></i>
+        <div class="title titleFontAwsomeIcons" >NOTIFICATIONS</div>
+      </div>
+    </a>
+    <a class="icon" (click)="ShowWeightRoomViewWarning = true" routerLinkActive="active" title="Weight Room View">
+      <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/tabmenu.png" />
+        <div class="title" >WEIGHT ROOM VIEW</div>
+      </div>
+      <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/tabmenu-active.png" />
+        <div class="title" >WEIGHT ROOM VIEW</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/Document" routerLinkActive="active" title="Documents">
+      <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/document.png" />
+        <div class="title" >DOCUMENTS</div>
+      </div>
+      <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/document-active.png" />
+        <div class="title" >DOCUMENTS</div>
+      </div>
+    </a>
+    <a class="icon" routerLink="/ProgramBuilderWeekView" routerLinkActive="active" title="Program Builder Week View">
+      <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/document.png" />
+        <div class="title" >PROGRAM BUILDER WEEK VIEW</div>
+      </div>
+      <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/document-active.png" />
+        <div class="title" >PROGRAM BUILDER WEEK VIEW</div>
+      </div>
+    </a>
+  </div>
+</div>
+<!-- <div class="left-sidebar" id="left-sidebar" [hidden]="!IsCoach ">
+  <div  [ngClass]="{'site-logo': thumbNailURL === undefined || thumbNailURL === '',
+  'organizationImage-logo' :thumbNailURL !== undefined || thumbNailURL !== ''}" class="site-logo" style="z-index:100;">
+      <img *ngIf="thumbNailURL === null || thumbNailURL === ''" src="../../../assets/SCPlogo.png">
+      <img
+        *ngIf="thumbNailURL !== null && thumbNailURL !== ''"
+        [src]="((thumbNailURL) | encodeUri)">
+    </div>
+
+  <div class="icons-con">
+      <a class="icon" routerLink="/AthleteHome/Workout" title="Home">
+          <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/homeicon.png" /><div class="title" > HOME</div></div>
+          <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/homeicon-active.png" />
+              <div class="title" > HOME</div>
+          </div>
+
+      </a>
+      <a class="icon" routerLink="/Chat" routerLinkActive="active" title="Chat">
+          <div class="icon-con"><img class="normal-icon" src="../../../assets/lhs-icons/chatIcon.png" /><div class="title" >CHAT</div></div>
+          <div class="icon-con"><img class="active-icon" src="../../../assets/lhs-icons/chatIcon-active.png" /><div class="title" >CHAT</div>
+          </div>
+
+      </a>
+  </div>
+</div> -->
+<!-- locked out registration page -->
+<!-- <div class="menuItem" routerLink="/Register">
+          <div class="icon"><img src="assets/Menu/weightroomIcon.png" width="28"></div>
+          <div class="title" *ngIf="!OnProgramBuilderPage">Weight Room </div>
+      </div> -->
+
+
+<div class="metric-modal scp-modal" *ngIf="ShowWeightRoomViewWarning"
+  [@fadeInAnimation]="ShowWeightRoomViewWarning ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <button type="button" class="close" aria-label="Close" (click)="ShowWeightRoomViewWarning = false">
+          <span aria-hidden="true">&times;</span>
+      </button>
+
+      <h3 class="scp-modal-title">Warning</h3>
+
+      <div class="row scp-modal-content no-gutters">
+
+          <!-- Create measurement starts -->
+          <div class="col-12 col-lg-12 create-measure-con">
+              <p> By Navigating to the Weight Room View, you will be <b>logged out</b> and your weight room view
+                  account will be logged in.
+                  This is done in order to protect your information and data.</p>
+          </div>
+          <!-- Create measurement ends -->
+
+
+
+          <div class="col-12 col-md-6 save-btn-con">
+              <button type="submit" class="btn btn-lg btn-block btn-green btn-normal" (click)="GoToWeightRoomView()">I
+                  Understand</button>
+          </div>
+
+          <div class="col-12 col-md-6 cancel-btn-con">
+              <button type="button" class="btn btn-lg btn-block btn-red btn-normal"
+                  (click)="ShowWeightRoomViewWarning = false">Cancel</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="metric-modal scp-modal" *ngIf="ShowYouAreInWeightRoomViewWarning"
+  [@fadeInAnimation]="ShowYouAreInWeightRoomViewWarning ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <button type="button" class="close" aria-label="Close" (click)="ShowYouAreInWeightRoomViewWarning = false">
+          <span aria-hidden="true">&times;</span>
+      </button>
+
+      <h3 class="scp-modal-title">Warning</h3>
+
+      <div class="row scp-modal-content no-gutters">
+
+          <!-- Create measurement starts -->
+          <div class="col-12 col-lg-12 create-measure-con">
+              <p> The Account you are using is your <b>Weight Room Account</b>. Your <b>Weight Room Account</b> is
+                  your account
+                  which is automatically logged in once you go to Weight Room View. This account cannot have its
+                  password reset nor be accessed
+                  by the normal log in process. This account is for your protection, it stops remote devices from
+                  accessing your account while still
+                  allows access to the Weight Room View. While Your <b>Weight Room Account</b> is logged in you can
+                  only access Weight Room View. Would you like to
+                  log out of your <b>Weight Room Account</b> and log into your coaching account? </p>
+          </div>
+          <!-- Create measurement ends -->
+
+
+
+          <div class="col-12 col-md-5 save-btn-con">
+              <button type="submit" class="btn btn-lg btn-block btn-green btn-normal" (click)="LogOut()">Log In As
+                  Coach</button>
+          </div>
+
+          <div class="col-12 col-md-7 cancel-btn-con">
+              <button type="button" class="btn btn-lg btn-block btn-red btn-normal" (click)="GoToWeightRoomView()">Go
+                  To Weight Room View</button>
+          </div>
+      </div>
+  </div>
+</div>
+

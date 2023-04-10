@@ -1,0 +1,110 @@
+<div class="col-sm-12 page-inner-content exercises-main-page">
+
+  <div class="row align-items-center top-settings">
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <input type="text" class="form-control grey-bg-input" aria-describedby="Search" placeholder="Search by Name"
+        [(ngModel)]="searchString">
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 ">
+      <app-scp-tag-input (TagRemoved)="RemoveTag($event)" (TagAdded)="AddTag($event)" [autocompleteItems]="AllTags">
+      </app-scp-tag-input>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 d-lg-none d-xl-none">&nbsp;</div>
+    <div class="col-3 col-sm-2 col-md-2 col-lg-2">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="showArchived" [checked]=" ShowArchive"
+          (change)="ToggleArchive()">
+        <label class="custom-control-label" for="showArchived">Show Archived </label>
+      </div>
+    </div>
+    <div class="col-4 col-sm-5 col-md-5 col-lg-2 text-right">
+      <span class="icon"><i class="fas fa-question"></i></span>
+    </div>
+    <div class="col-4 col-sm-5 col-md-5 col-lg-2 text-right">
+      <button type="button" class="btn btn-link create-btn" (click)="ViewCreateMovieMenu()">Create <span class="icon"><i
+            class="fas fa-plus"></i></span></button>
+    </div>
+  </div>
+  <div class="exercises-list">
+    <!-- Create/edit exercise -->
+    <app-multimedia-form
+    [CreateMovieMenu]="CreateMovieMenu"
+    [SelectedMovie]="SelectedMovie"
+    [LabelVisible]="true"
+    (CancelCallBack)="ReturnToTagSearch()"
+    (SaveCallBack)="Save($event)"
+    (UpdateCallBack)="Update($event)">
+    </app-multimedia-form>
+    <!-- End create/edit -->
+    <!-- List Exercises -->
+    <div  *ngFor="let ex of AllMovies | TagFilterPipe : TagItems | SearchTaggableFilterPipe : searchString | HideDeletedSortPipe : ShowArchive;let i = index; let c = count;first as isFirst; " [@fadeInAnimation]>
+      <app-paginator *ngIf="isFirst" [TotalItemCount]="c" (ItemDisplayChange)="UpdatePaginiationDisplay($event)">
+      </app-paginator>
+      <div class="row one-exercise no-gutters" *ngIf="i >= paginationStart && i <= paginationEnd">
+        <div class="col-sm-12 col-md-12">
+          <div class="row align-items-center">
+            <div class="col-7" (click)="ModifySelectedMovie(ex)">
+              <h5 class="title">
+                {{ex.Name}}
+              </h5>
+              <p style="margin-top:20px">
+                {{ex.URL}}
+              </p>
+            </div>
+            <div class="col-1 title" *ngIf="ex.IsDeleted"> Archived </div>
+            <div class="col-1 title" *ngIf="!ex.IsDeleted"> &nbsp; </div>
+            <div class="col-3 title-icons text-right">
+              <i  class="fas fa-play"
+                (click)="DisplayTargetVideo(ex.URL)"></i>
+              <i class="fas fa-pencil-alt" (click)="ModifySelectedMovie(ex)" title="Edit"></i>
+              <i *ngIf="!ex.IsDeleted" class="fas fa-trash-alt" (click)="ArchiveVideo(ex.Id)" title="Delete"></i>
+              <i *ngIf="ex.IsDeleted" class="fas fa-trash-restore" (click)="UnArchiveVideo(ex.Id)" title="Restore"></i>
+              <i *ngIf="ex.IsDeleted && ex.CanModify" class="fas fa-ban" (click)="ToggleHardDeleteModal(ex.Id)"
+                aria-hidden="Hard Delete"></i>
+            </div>
+          </div>
+          <div class="row" (click)="ModifySelectedMovie(ex)">
+            <div class="col-sm d-flex tags">
+              <p class="tags-title">Tags:</p>
+              <div *ngFor="let tags of ex.Tags">
+                <span class="badge badge-pill badge-light">{{tags.Name}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end list exercises -->
+  </div>
+
+    <!-- Hard Delete modal -->
+    <div class="metric-modal scp-modal" *ngIf="ShowHardDeleteWindow"
+      [@fadeInAnimation]="ShowHardDeleteWindow ? 'enter' : 'leave'">
+      <div class="scp-modal-in right">
+        <button type="button" class="close" aria-label="Close" (click)="ToggleHardDeleteModal(0)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="scp-modal-title">Delete Video</h3>
+        <div class="row scp-modal-content no-gutters">
+          <div class="col-12 col-lg-12 create-measure-con">
+            <p>Once a Video is <b>DELETED</b> there is <b>NO WAY</b> to recover any information of that Video.
+          </div>
+          <div class="col-5  save-btn-con">
+            <button type="submit" type="button" class="btn btn-lg btn-block btn-red btn-normal"
+              (click)="HardDelete(HardDeleteTargetid)">DELETE</button>
+          </div>
+          <div class="col-5 offset-md-1  cancel-btn-con">
+            <button type="button" class="btn btn-lg btn-block btn-green btn-normal"
+              (click)="ToggleHardDeleteModal(0)">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END HARD DELETE MODAL -->
+
+    <app-alert [messages]="AlertMessages"></app-alert>
+
+  <ngx-smart-modal identifier="multimediaVideoModal" customClass="exerciseVideoModal" style="position:absolute;top:0px;left:20%" dismissable="true">
+    <iframe width="760" height="515" [src]="targetVideoToDisplay | safe" frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </ngx-smart-modal>

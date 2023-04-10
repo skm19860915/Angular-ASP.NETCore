@@ -1,0 +1,306 @@
+
+<div *ngIf="!Loading && Program === undefined">
+  <h1 style="text-align:center">
+    {{CoachIsViewing ? 'No Program Has Been Assigned To This Athlete' :'Your Coach Hasnt Assigned A Program'}} </h1>
+</div>
+<div style="height: 100px; width: 50px; margin: 0 0 0 100px" *ngIf="Loading">
+  <img src=" assets/LoadingGif.gif" style="height:75px;">
+</div>
+<div class="row">
+  <div *ngIf="!Loading && Program !== undefined" class=" page-inner-content athlete-page no-gutters" style="width:100%">
+    <!-- Page inner content starts -->
+    <h2 style="text-align:center" class="col-11 col-sm-11 col-md-12 col-lg-12">
+      {{Program.Name }}
+      <i class="fas fa-envelope-open-text" (click)="PrintWorkout(Program.Id)" *ngIf="DisplayPrintButton" title="Mail Program"></i>
+      <i class="fas fa-pencil-alt"  *ngIf="Program.IsSnapShot && DisplayPrintButton && CoachIsViewing" (click)="ModifySnapShot()" title="Edit Program" routerLink="/Home"></i>
+    </h2>
+  </div>
+</div>
+<div class="row">
+  <div class="days-selector col-12 col-sm-12 col-md-4 col-lg-4 offset-lg-2 offset-md-2 col-xl-4 offset-xl-3" [ngClass]="{'WeightRoomViewFont': IsWeightRoomView, 'NonWeightRoomViewFont': !IsWeightRoomView}">
+    <span class="days-in in-con">Days<i class="fas fa-chevron-left" (click)="DecreaseDay()"></i><span class="counter">
+        {{this.CurrentDay +1}}</span><i class="fas fa-chevron-right" (click)="IncreaseDay()"></i></span>
+  </div>
+  <div class="days-selector col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4"  [ngClass]="{'WeightRoomViewFont': IsWeightRoomView, 'NonWeightRoomViewFont': !IsWeightRoomView}">
+    <span class="weeks-in in-con " >Weeks<i class="fas fa-chevron-left" (click)="DecreaseWeekView()"></i><span
+        class="counter">{{this.Program.CurrentWorkoutWeekId}}</span><i class="fas fa-chevron-right"
+        (click)="IncreaseWeekView()"></i></span>
+  </div>
+</div>
+
+<!-- Days and weeks selector ends -->
+<!-- Collapse blocks group start -->
+<div class="row">
+  <div *ngFor="let d of Program.Days" style="width:100%">
+    <div class="col-11 col-sm-11 col-md-12 col-lg-12" *ngIf='d.IsActive'>
+      <div class="blocks-con">
+        <div *ngFor="let p of d.AssignedProgramDayItem | Sort: 'Position'">
+
+          <!-- One Collapse block starts -->
+          <div *ngIf="p.ItemType != undefined && p.ItemType == 7 && !ViewSurveysOnly">
+            <div class="collapse-block">
+              <!-- Collapse head starts -->
+              <div class="collapse-head">
+                <a class="toggle" data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false"
+                  aria-controls="collapseExample">
+                  <i class="fas fa-chevron-down"></i>
+                </a>
+
+                <h5>{{p.ProgramItem.SuperSetDisplayTitle }}</h5>
+              </div>
+              <!-- Collapse head ends -->
+
+              <!-- Collapse body starts -->
+              <div class="collapse show" id="collapse1">
+                <div class="card card-body notes-body">
+                  <div class="row no-gutters">
+                    <div *ngFor="let ssn of p.ProgramItem.Notes | Sort : 'Position'" class="col-11 col-sm-11 col-md-11 col-lg-11">
+                      <div *ngIf="ShowItemByWeek(ssn.DisplayWeeks,Program.CurrentWorkoutWeekId)">
+                        <h4 >{{ssn.Note}}</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row no-gutters">
+
+                    <!-- One set starts -->
+                    <div class="col-11 col-sm-11 col-md-11 col-lg-11 set-list"
+                      *ngFor="let sse of  p.ProgramItem.Exercises | Sort : 'PositionInSuperSet'; let i = index">
+                      <h5 class="col-11 col-sm-11 col-md-11 col-lg-11" *ngIf="i != 0" style="text-align:center;">
+                        Paired With</h5>
+                      <h4 class="col-11 col-sm-11 col-md-11 col-lg-11"
+                        style="text-align:center;margin:20px 0px 20px 0px">
+                        {{sse.ExerciseName}}
+                        <i *ngIf="sse.VideoURL != undefined && sse.VideoURL != ''" class="fas fa-play"
+                          (click)="DisplayTargetVideo(sse.VideoURL)"></i>
+                      </h4>
+                      <p style="text-align:center">Rest: {{sse.Rest}}</p>
+                      <div class="set-con" style="text-align:center;">
+                        <div class="row no-gutters">
+                          <div class="flexColumn" *ngIf='sse.ShowSets'>
+                            <label>Set</label>
+                          </div>
+                          <div class="flexColumn" *ngIf="sse.ShowReps">
+                            <label>Reps</label>
+                          </div>
+                          <div class="flexColumn" *ngIf="sse.ShowWeight">
+                            <label>Load</label>
+                          </div>
+                          <div class="flexColumn" *ngIf="sse.ShowDistance">
+                            <label>Dist.</label>
+                          </div>
+                          <div class="flexColumn" *ngIf="sse.ShowTime">
+                            <label>Time</label>
+                          </div>
+                          <div class="flexColumn" *ngIf="sse.ShowRepsAchieved">
+                            <label>Reps Ach.</label>
+                          </div>
+                        </div>
+
+                        <div *ngFor="let w of sse.SetsAndReps">
+                          <div *ngIf="w.WeekPosition == Program.CurrentWorkoutWeekId " class="set-in row no-gutters ">
+                            <div class="flexColumn" *ngIf='sse.ShowSets'>
+                              <div class="form-group" *ngIf="w.AssignedWorkoutSets">
+                                <input disabled type="text" class="form-control" aria-describedby="Sets"
+                                  [(ngModel)]="w.AssignedWorkoutSets">
+                              </div>
+                            </div>
+                            <div class="flexColumn" *ngIf="sse.ShowReps">
+                              <div class="form-group">
+                                <input disabled type="text" class="form-control" aria-describedby="Reps"
+                                  *ngIf="w.AssignedWorkoutReps !== null" [(ngModel)]="w.AssignedWorkoutReps">
+                              </div>
+                            </div>
+                            <div class="flexColumn" *ngIf="sse.ShowWeight">
+                              <div class="form-group">
+                                <input disabled type="text" class="form-control" aria-describedby="Weight"
+                                  *ngIf="w.AssignedWorkoutWeight !== null && w.AssignedWorkoutWeight !== 0 "
+                                  [(ngModel)]="w.AssignedWorkoutWeight">
+                                <input disabled type="text" class="form-control" aria-describedby="Weight"
+                                  *ngIf="(w.AssignedWorkoutWeight === null || w.AssignedWorkoutWeight === 0) && (w.PercentMaxCalcSubPercent !== null  && w.PercentMaxCalcSubPercent !== 0)"
+                                  [(ngModel)]=" w.PercentMaxCalcSubPercent">
+                                <input type="text" class="form-control" aria-describedby="Weight"
+                                  *ngIf="(w.AssignedWorkoutWeight === null || w.AssignedWorkoutWeight === 0) && (w.PercentMaxCalcSubPercent === null  || w.PercentMaxCalcSubPercent === 0)"
+                                  [(ngModel)]="w.CompletedSetWeight" (change)="CompleteSuperSet(w)">
+                              </div>
+                            </div>
+                            <div class="flexColumn" *ngIf="sse.ShowDistance">
+                              <div class="form-group">
+                                <input type="text" class="form-control" aria-describedby="" disabled
+                                  *ngIf="w.AssignedWorkoutDistance !== null" [(ngModel)]="w.AssignedWorkoutDistance">
+                              </div>
+                            </div>
+                            <div class="flexColumn" *ngIf="sse.ShowTime">
+                              <div class="form-group"
+                                *ngIf="w.AssignedWorkoutMinutes !== null || w.AssignedWorkoutSeconds !== null">
+                                <input type="text" class="form-control" aria-describedby="" disabled
+                                  [value]="(w.AssignedWorkoutMinutes === null ? 0 : w.AssignedWorkoutMinutes)+'m'+(w.AssignedWorkoutSeconds === null ? 0 : w.AssignedWorkoutSeconds)+'s'">
+                              </div>
+                            </div>
+                            <div class="flexColumn" *ngIf="sse.ShowRepsAchieved">
+                              <div class="form-group" *ngIf="w.RepsAchieved">
+                                <input type="text" class="form-control" aria-describedby="w.AssignedWorkoutReps"
+                                  [(ngModel)]="w.CompletedRepsAchieved" (change)="CompleteSuperSet(w)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- One set ends -->
+                </div>
+              </div>
+            </div>
+            <!-- Collapse body ends -->
+          </div>
+
+          <!-- One Collapse block ends -->
+
+          <!-- One Collapse block starts -->
+          <div
+            *ngIf="(!ViewSurveysOnly && p.ItemType != undefined && p.ItemType == 6) &&(ShowItemByWeek(p.ProgramItem.SelectedMetric.DisplayWeekId,Program.CurrentWorkoutWeekId))">
+            <div class="collapse-block">
+              <!-- Collapse head starts -->
+              <div class="collapse-head">
+
+                <h5>Metric Test: <span>{{p.ProgramItem.SelectedMetric.MetricName}}</span></h5>
+                <input (change)="UpdateMetric(p.ProgramItem.SelectedMetric)"
+                  [(ngModel)]="p.ProgramItem.SelectedMetric.CompletedWeight" type="text" class="form-control"
+                  aria-describedby="Sets" style="width:100px ; margin-left:30px;">
+              </div>
+            </div>
+          </div>
+          <!-- One Collapse block ends -->
+
+          <!-- One Video block starts -->
+          <div
+            *ngIf="(!ViewSurveysOnly && p.ItemType != undefined && p.ItemType == 4) &&(ShowItemByWeek(p.ProgramItem.SelectedVideo.DisplayWeekId,Program.CurrentWorkoutWeekId))">
+            <div class="collapse-block">
+              <!-- Collapse head starts -->
+              <div class="collapse-head">
+                <!-- {{p.ProgramItem.SelectedVideo | json}} -->
+                <div class="iframe-parent">
+                  <div
+                    *ngIf="p.ProgramItem.SelectedVideo.MovieURL != undefined && p.ProgramItem.SelectedVideo.MovieURL != ''"
+                    class="iframe-container">
+                    <iframe [src]="p.ProgramItem.SelectedVideo.MovieURL | safe" frameborder="0" allowfullscreen
+                      class="video"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- One Video block ends -->
+          <!-- One Collapse block starts -->
+          <div
+            *ngIf="(!ViewSurveysOnly && p.ItemType != undefined && p.ItemType == 5) &&(ShowItemByWeek(p.ProgramItem.SelectedNote.DisplayWeekId,Program.CurrentWorkoutWeekId))">
+            <div class="collapse-block">
+              <!-- Collapse head starts -->
+              <div class="collapse-head">
+                <a class="toggle collapsed" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false"
+                  aria-controls="collapseExample">
+                  <i class="fas fa-chevron-down"></i>
+                </a>
+                <h5>{{p.ProgramItem.SelectedNote.Name}}</h5>
+                <button type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <!-- Collapse head ends -->
+
+              <!-- Collapse body starts -->
+              <div class="collapse show" id="collapse3">
+                <div class="card card-body notes-body">
+                  <div class="row no-gutters">
+
+                    <div class="col-11 col-sm-11 col-md-11 col-lg-11 set-list">
+                      <div class="row no-gutters">
+                        <div [innerHTML]="p.ProgramItem.SelectedNote.NoteText"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Collapse body ends -->
+            </div>
+          </div>
+          <!-- One Collapse block ends -->
+          <div *ngIf="(p.ItemType != undefined && p.ItemType == 2) &&
+        ShowItemByWeek(p.ProgramItem.SelectedSurvey.DisplayWeeks,Program.CurrentWorkoutWeekId)">
+            <div class="collapse-block">
+              <div class="collapse-head">
+                <a class="toggle" data-toggle="collapse" href="#collapse5" role="button" aria-expanded="false"
+                  aria-controls="collapseExample">
+                  <i class="fas fa-chevron-down"></i>
+                </a>
+                <h5>Survey: {{p.ProgramItem.SelectedSurvey.Name}}</h5>
+              </div>
+            </div>
+            <div class="collapse show" id="collapse5">
+              <div class="card card-body notes-body">
+                <div class="row no-gutters">
+
+                  <div class="col-11 col-sm-11 col-md-11 col-lg-11 set-list">
+                    <div class="row no-gutters"
+                      *ngFor="let q of p.ProgramItem.SelectedSurvey.Questions; let i = index; ">
+                      <div *ngIf="ShowItemByWeek(q.DisplayWeekId,Program.CurrentWorkoutWeekId)" class="col-md-12">
+                        <div *ngIf="q.QuestionTypeId == 1" style="margin:20px 10px 20px 10px">
+                          <h5>{{q.QuestionDisplayText}} </h5>
+                          <label class="radioCheckBoxContainer">Yes
+                            <!-- wtf is going on with the fuckgin crazy naming. Well. The name wasnt unique enough just being
+                                group + questionId. Thats because coachs can and do put a duplicate question in the survey
+                              multiple times. Meaning group+questionId would be repeated N times where N is the times the 
+                            same question is on the page  -->
+
+                            <input type="radio" [name]="'group' + q.QuestionId+'q'+i+'p'+p.Id"
+                              [checked]="q.Answer !== undefined && (q.Answer === '1' || q.Answer === true)"
+                              (change)="AnswerYesNoQuestion(true,q,p,Program.CurrentWorkoutWeekId)">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="radioCheckBoxContainer">No
+                            <input type="radio" [name]="'group' + q.QuestionId+'q'+i+'p'+p.Id"
+                              [checked]="q.Answer !== undefined && (q.Answer === '0' || q.Answer === false)"
+                              (change)="AnswerYesNoQuestion(false,q,p,Program.CurrentWorkoutWeekId)">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+
+                        <div *ngIf="q.QuestionTypeId == 2" style="margin:20px 10px 20px 10px">
+                          <h5>{{q.QuestionDisplayText}}</h5>
+                          <div class="rating-con" style="border:0px solid white;margin:0px 0px 0px 20px">
+                            <span *ngFor="let index of [1,2,3,4,5,6,7,8,9,10]"
+                              [ngClass]="{'checked': q.Answer != undefined && q.Answer == index}"
+                              (click)="AnswerScaleQuestion(index,q,p,Program.CurrentWorkoutWeekId)">{{index}}</span>
+                          </div>
+                        </div>
+
+                        <div *ngIf="q.QuestionTypeId == 3" style="margin:20px 10px 20px 10px">
+                          <h5>{{q.QuestionDisplayText}}</h5>
+                          <div style="margin:0px 0px 0px 20px" class="form-group">
+                            <textarea class="form-control" rows="5" [(ngModel)]="q.Answer"
+                              (change)="AnswerOpenEndedQuestion(q.Answer,q,p,Program.CurrentWorkoutWeekId)"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button type="submit" class="btn btn-lg btn-block btn-green btn-normal col-md-4"
+  *ngIf="!Loading &&  !HasDayBeenMarkedCompleted()"
+  (click)="MarkDayAsCompleted()"> Complete</button>
+
+<app-alert [messages]="AlertMessages"></app-alert>
+
+<ngx-smart-modal identifier="exerciseVideoModal" customClass="exerciseVideoModal"
+  style="position:absolute;top:0px;left:20%">
+  <iframe width="500" height="400" [src]="targetVideoToDisplay | safe" frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</ngx-smart-modal>

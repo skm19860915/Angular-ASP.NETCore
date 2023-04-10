@@ -1,0 +1,238 @@
+<div class="row no-gutters" *ngIf="!register">
+  <div class="col-sm-10 col-10 col-md-4 offset-md-2 login-con ">
+    <div class="login-in-con">
+      <div class="site-logo">
+        <img src="../../../assets/SCPlogoBG.png">
+      </div>
+      <input type="text" class="form-control" aria-describedby="Username" placeholder="Username" [(ngModel)]="userName">
+      <input type="password" class="form-control" aria-describedby="Password" placeholder="Password"
+        [(ngModel)]="password">
+      <button class="btn btn-lg btn-block btn-green" (click)="Login(userName,password)">Login</button>
+      <br>
+      <br>
+      <div (click)="UserNameRecovery()" class="forgot-password"
+        onclick="window.open('https://app.acuityscheduling.com/schedule.php?owner=17958385','_blank')">Sign Up now</div>
+      <div (click)="UserNameRecovery()" class="forgot-password">Forgot Username?</div>
+      <div (click)="PasswordRecovery()" class="forgot-password">Forgot Password?</div>
+    </div>
+  </div>
+</div>
+
+<div class="metric-modal scp-modal" style="background:inherit;" *ngIf="ForgotUserName || ForgotPassword "
+  [@fadeInAnimation]="ForgotUserName || ForgotPassword ? 'enter' : 'leave'">
+  <div class="scp-modal-in left" style=" background-color:#2f2d2d">
+
+    <h5 class="scp-modal-title" style="color:white; text-align:center">Account Recovery</h5>
+    <p style="color:white;margin:20px">If an account exists that is associated with the below email, that email address
+      will be
+      contact. There will be a
+      link to click to reset your information</p>
+    <div class="row scp-modal-content no-gutters">
+      <div class="col-12 col-lg-12">
+        <label for="orgName" class="col-form-label" style="color:white;">Email</label>
+        <p style="font-size:12px;color:red" *ngIf="!validFirstEmail">*Please Enter A Valid Email. For example
+          user@email.com</p>
+        <input type="email" class="form-control white-bg-input" id="measureName" placeholder="Email"
+          [(ngModel)]="accountEmail" (keyup)="ValidateFirstEmail(email)">
+      </div>
+      <div class="col-md-5 cancel-btn-con ">
+        <img src=" assets/LoadingGif.gif" style="height:75px;margin-left:300px" *ngIf="Processing">
+        <button *ngIf="ForgotUserName && !Processing" type="submit" class="btn btn-lg btn-block btn-green btn-normal  "
+          (click)="GetUserName(accountEmail)">Recover UserName</button>
+        <button *ngIf="ForgotPassword && !Processing" type="submit" class="btn btn-lg btn-block btn-green btn-normal  "
+          (click)="ResetPassword(accountEmail)">Recover Password</button>
+      </div>
+      <div class=" col-md-5 cancel-btn-con offset-md-2">
+        <button type="button" class="btn btn-lg btn-block btn-red btn-normal" (click)="CloseRecovery()">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="metric-modal scp-modal" style="background:inherit;" *ngIf="register"
+  [@fadeInAnimation]="register ? 'enter' : 'leave'">
+  <div class="scp-modal-in left" style=" background-color:#2f2d2d">
+
+    <h5 class="scp-modal-title" style="color:white; text-align:center">Welcome To The Strengh Coach Pro Family</h5>
+
+    <div class="row scp-modal-content no-gutters">
+
+      <div *ngIf="stepOne">
+        <p style="color:white; text-align:center;">The First Step is to create an <b>Organization</b>. This Organization
+          will contain all of your information. After creating and <b>Organization</b>, select a plan from below. The
+          default plan is <b>Head Coach</b></p>
+
+        <br>
+        <div class="col-12 col-lg-12">
+          <label for="orgName" class="col-form-label" style="color:white;">Organization Name <p style="color:red"
+              *ngIf="DoesOrgAlreadyExist"> This Organization Name Is Already In Use </p></label>
+          <input type="text" (keyup)="DoesOrgExists(organizationName)" class="form-control white-bg-input"
+            [ngClass]="{'error' : DoesOrgAlreadyExist}" id="measureName" placeholder="Organization Name"
+            [(ngModel)]="organizationName">
+        </div>
+
+
+        <div class="row  no-gutters">
+          <div class="col-12 col-md-4 cancel-btn-con offset-md-1">
+            <button type="submit" class="btn btn-lg btn-block btn-green btn-normal  " [disabled]="DoesOrgAlreadyExist"
+              (click)="CreateOrganization(organizationName)">Create</button>
+          </div>
+          <div class="col-12 col-md-4 cancel-btn-con offset-md-2">
+            <button type="button" class="btn btn-lg btn-block btn-red btn-normal"
+              (click)="ToggleRegister()">Cancel</button>
+          </div>
+
+        </div>
+      </div>
+      <div *ngIf="stepTwo">
+
+        <p style="color:white; text-align:center;"> After creating and <b>Organization</b>, select a plan from below.
+          All plans
+          have a 14 day free trail. The default plan is <b>A Yearly Subscription at the Head Coach Level</b></p>
+
+        <div class="wrapper-card" style="width:35%; margin: 50px auto">
+          <div class="card popular" [ngClass]="{'selectedPrice': subscriptionOption == 4}"
+            (click)="SetSubscriptionOption(4)">
+            <div class="card-ribbon">
+              <span>most popular</span>
+            </div>
+            <div class="card-title">
+              <h4>Head Coach</h4>
+              <p>Unlimited Athletes</p>
+              <p>14 Day Free Trial,then</p>
+            </div>
+            <div class="card-price">
+              <h4>
+                499.99
+                <small>Year</small>
+              </h4>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="wrapper-card" style="margin:auto;">
+          <div class="card" [ngClass]="{'selectedPrice': subscriptionOption == 1}" (click)="SetSubscriptionOption(1)">
+            <div class="card-title">
+              <h4>Trainer</h4>
+              <p>Up To 10 Athletes</p>
+              <p>14 Day Free Trial,then</p>
+            </div>
+            <div class="card-price">
+              <h4>
+                12.99
+                <small>Month</small>
+              </h4>
+            </div>
+
+          </div>
+          <div class="card " [ngClass]="{'selectedPrice': subscriptionOption == 2}" (click)="SetSubscriptionOption(2)">
+            <div class="card-ribbon">
+            </div>
+            <div class="card-title">
+              <h4>Head Coach</h4>
+              <p>Unlimited Athletes</p>
+              <p>14 Day Free Trial</p>
+            </div>
+            <div class="card-price">
+              <h4>
+                49.99
+                <small>Month</small>
+              </h4>
+            </div>
+
+
+          </div>
+          <div class="card" [ngClass]="{'selectedPrice': subscriptionOption == 3}" (click)="SetSubscriptionOption(3)">
+            <div class="card-title">
+              <h4> Coach</h4>
+              <p>Up To 25 Athletes</p>
+              <p>14 Day Free Trial,then</p>
+            </div>
+            <div class="card-price">
+              <h4>
+                24.99
+                <small>Month</small>
+              </h4>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="row  no-gutters">
+          <div class="col-12 col-md-4 cancel-btn-con offset-md-1">
+            <button type="submit" class="btn btn-lg btn-block btn-green btn-normal  "
+              (click)="SelectedPricePlan()">Create</button>
+          </div>
+          <div class="col-12 col-md-4 cancel-btn-con offset-md-2">
+            <button type="button" class="btn btn-lg btn-block btn-red btn-normal"
+              (click)="ToggleRegister()">Cancel</button>
+          </div>
+
+        </div>
+        <p style="color:white"> *The Selected Payment Plan is <b>{{SubscriptionPlan}}</b></p>
+      </div>
+      <div *ngIf="stepThree">
+        <p style="color:white; text-align:center;">Great! <b>{{organizationName}}</b> was created. Next step is to fill
+          in your personal information</p>
+
+        <div class="col-12 col-lg-12">
+          <label for="orgName" class="col-form-label" style="color:white;">User Name</label>
+          <p style="font-size:12px; color:red">*This will be your login name</p>
+          <p style="font-size:12px;color:red" *ngIf="UserNameAlreadyExist"> This User Name Is Already In Use </p>
+          <input type="text" [ngClass]="{'error' : UserNameAlreadyExist}" (keyup)="DoesUserNameExist(userName)"
+            class="form-control white-bg-input" placeholder="User Name" [(ngModel)]="userName">
+        </div>
+        <div class="col-12 col-lg-12">
+          <label for="orgName" class="col-form-label" style="color:white;">Password</label>
+          <p style="color:red" *ngIf="password != confirmPassword"> Your Passwords Do Not Match </p>
+          <input type="password" [ngClass]="{'error' : password != confirmPassword}" class="form-control white-bg-input"
+            placeholder="Password" [(ngModel)]="password">
+        </div>
+        <div class="col-12 col-lg-12">
+          <label for="orgName" class="col-form-label" style="color:white;">Confirm Password</label>
+          <input type="password" class="form-control white-bg-input" id="measureName" placeholder="Confirm Password"
+            [(ngModel)]="confirmPassword">
+        </div>
+        <div class="col-12 col-lg-12">
+          <label for="orgName" class="col-form-label" style="color:white;">Email</label>
+          <p style="font-size:12px;color:red" *ngIf="!validFirstEmail">*Please Enter A Valid Email. For example
+            user@email.com</p>
+          <p style="font-size:12px;color:red" *ngIf="emailInUse">*This Email is already In use. Please choose another.
+          </p>
+          <input type="email" class="form-control white-bg-input" id="measureName" placeholder="Email"
+            [(ngModel)]="email" (keyup)="ValidateFirstEmail(email)">
+        </div>
+        <div class="col-12 col-lg-12">
+          <label for="orgName" class="col-form-label" style="color:white;">First Name</label>
+          <input type="text" class="form-control white-bg-input" id="measureName" placeholder="First name"
+            [(ngModel)]="firstName">
+        </div>
+        <div class="col-12 col-lg-12">
+          <label for="orgName" class="col-form-label" style="color:white;">Last Name</label>
+          <input type="text" class="form-control white-bg-input" id="measureName" placeholder="lastName"
+            [(ngModel)]="lastName">
+        </div>
+        <div class="row  no-gutters" *ngIf="!Processing">
+          <div class="col-12 col-md-4 cancel-btn-con offset-md-1">
+            <button type="submit" class="btn btn-lg btn-block btn-green btn-normal  "
+              [disabled]="!validFirstEmail|| emailInUse|| password != confirmPassword || UserNameAlreadyExist "
+              (click)="Register(userName,password,confirmPassword,email,firstName,lastName)">Register</button>
+          </div>
+          <div class="col-12 col-md-4 cancel-btn-con offset-md-2">
+            <button type="button" class="btn btn-lg btn-block btn-red btn-normal"
+              (click)="ToggleRegister()">Cancel</button>
+          </div>
+        </div>
+        <div *ngIf="Processing" style="height: 100px; width: 50px; margin: 10% 0% 0% 40%">
+          <img src=" assets/LoadingGif.gif" style="height:75px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-alert [messages]="AlertMessages"></app-alert>

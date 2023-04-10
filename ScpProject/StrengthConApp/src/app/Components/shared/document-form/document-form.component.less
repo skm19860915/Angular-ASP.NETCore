@@ -1,0 +1,151 @@
+@import '../../../../assets/StyleSheets/Colors.less';
+@import '../../../../assets/StyleSheets/Buttons.less';
+@import '../../../../assets/StyleSheets/Inputs.less';
+@import '../../../../assets/StyleSheets/Tag.less';
+@import '../../../../assets/StyleSheets/Modal.less';
+@import '../../../../assets/StyleSheets/Alerts.less';
+
+.agreement-settings{
+  margin-top: 0.9375rem;
+
+  .add-agreement-btn{
+    text-decoration: none;
+    font-family: @font;
+    font-weight: 300;
+    color: @light-black;
+    padding: 0;
+
+    .icon{
+      background-color: @our-green;
+      color: @white;
+      border-radius: 50%;
+      display: inline-block;
+      width: 2.8125rem;
+      height: 2.8125rem;
+      line-height: 2.8125rem;
+      margin-left: 0.625rem;
+      text-align: center;
+    }
+  }
+}
+
+.one-agreement{
+  padding: 0.9375rem;
+  border: 1px solid rgba(@light-black, 0.4);
+  border-radius: 0.5rem;
+  margin-bottom: 1.25rem;
+
+  input[type="checkbox"]:checked ~ label:before {
+    background: #3fa708 no-repeat center;
+    background-size: 12px 12px;
+    background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDQ1LjcwMSA0NS43IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NS43MDEgNDUuNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0yMC42ODcsMzguMzMyYy0yLjA3MiwyLjA3Mi01LjQzNCwyLjA3Mi03LjUwNSwwTDEuNTU0LDI2LjcwNGMtMi4wNzItMi4wNzEtMi4wNzItNS40MzMsMC03LjUwNCAgICBjMi4wNzEtMi4wNzIsNS40MzMtMi4wNzIsNy41MDUsMGw2LjkyOCw2LjkyN2MwLjUyMywwLjUyMiwxLjM3MiwwLjUyMiwxLjg5NiwwTDM2LjY0Miw3LjM2OGMyLjA3MS0yLjA3Miw1LjQzMy0yLjA3Miw3LjUwNSwwICAgIGMwLjk5NSwwLjk5NSwxLjU1NCwyLjM0NSwxLjU1NCwzLjc1MmMwLDEuNDA3LTAuNTU5LDIuNzU3LTEuNTU0LDMuNzUyTDIwLjY4NywzOC4zMzJ6IiBmaWxsPSIjRkZGRkZGIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==);
+  }
+  .modal_checkbox {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden;
+  }
+
+  label:before {
+    margin-top: 13px;
+    content: "";
+    width: 18px;
+    height: 18px;
+    background: #f2f2f2;
+    border: 1px solid rgba(75, 101, 132, 0.3);
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 16px;
+  }
+
+  .title-icons{
+    font-size: 1.6rem;
+    color: @light-black;
+    .far, .fas{
+      margin-right: 0.625rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.edit-document{
+  padding: 1.875rem;
+  border: 1px solid rgba(@our-green, 0.8);
+  border-radius: 0.5rem;
+  margin-bottom: 1.25rem;
+
+  .edit-btn{
+    margin-left: 1.2rem;
+  }
+}
+
+// Medium devices (tablets, less than 992px)
+
+@media (min-width: 768px) and (max-width: 991.98px){
+
+  .top-settings{
+    .col-6{
+      margin-top: 0.5rem;
+    }
+  }
+  .agreement-settings{
+    .col-6{
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+
+  padding: 0 0.3125rem;
+
+  .agreement-settings{
+    margin-top: 0.25rem;
+    .col-sm-12{
+      padding-bottom: 0.625rem;
+    }
+
+    .add-agreement-btn{
+      .icon{
+        width: 1.875rem;
+        height: 1.875rem;
+        line-height: 1.875rem;
+        margin-left: 0.125rem;
+      }
+    }
+  }
+
+  .one-agreement{
+    .title{
+      font-size: 1.125rem;
+    }
+
+    padding: 0.5rem;
+
+    .title-icons{
+      font-size: 1.3rem;
+      .far, .fas{
+        margin-right: 0.225rem;
+      }
+    }
+
+    .icon-con{
+      display: none;
+    }
+  }
+
+  .edit-document{
+    .form-group{
+      text-align: left!important;
+
+      .col-form-label{
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}
+

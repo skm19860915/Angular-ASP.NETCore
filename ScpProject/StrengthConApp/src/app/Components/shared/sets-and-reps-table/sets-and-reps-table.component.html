@@ -1,0 +1,55 @@
+<button type="button" *ngIf="subSelectedWorkout.ShowAdvancedOptions" class="btn btn-link add-btn advanced-btn"
+  (click)="ToggleAdvancedOptions(subSelectedWorkout)"><i class="fas fa-asterisk"></i> &nbsp;&nbsp;Hide Advanced
+  Options</button>
+<button type="button" *ngIf="!subSelectedWorkout.ShowAdvancedOptions" class="btn btn-link add-btn advanced-btn"
+  (click)="ToggleAdvancedOptions(subSelectedWorkout)"><i class="fas fa-asterisk"></i> &nbsp;&nbsp;Show Advanced
+  Options</button>
+<br />
+<div style="float:left;" *ngIf="subSelectedWorkout.ShowAdvancedOptions"
+  [@fadeInAnimation]="subSelectedWorkout.ShowAdvancedOptions ? 'enter' : 'leave'">
+  <div class="custom-control custom-switch" style="float:left;margin:10px;">
+    <input type="checkbox" class="custom-control-input" [checked]="subSelectedWorkout.ShowPercentageBox"
+    [id]="eId+'percentageOption'+dId" (change)="TogglePercentageBox(subSelectedWorkout)">
+    <label class="custom-control-label" [for]="eId+'percentageOption'+dId">%</label>
+  </div>
+  <div class="custom-control custom-switch" style="float:left;margin:10px;">
+    <input type="checkbox" class="custom-control-input" [checked]="subSelectedWorkout.ShowSetsBox"
+    [id]="eId+'setsOption'+dId" (change)="ToggleSetsBox(subSelectedWorkout)">
+    <label class="custom-control-label" [for]="eId+'setsOption'+dId">Sets</label>
+  </div>
+  <div class="custom-control custom-switch" style="float:left;margin:10px;">
+    <input type="checkbox" class="custom-control-input" [checked]="subSelectedWorkout.ShowRepsBox"
+    [id]="eId+'repsOption'+dId" (change)="ToggleRepsBox(subSelectedWorkout)">
+    <label class="custom-control-label" [for]="eId+'repsOption'+dId">Reps</label>
+  </div>
+  <div class="custom-control custom-switch" style="float:left;margin:10px;">
+    <input type="checkbox" class="custom-control-input" [checked]="subSelectedWorkout.ShowWeight"
+    [id]="eId+'weightsOption'+dId"  (change)="ToggleWeightBox(subSelectedWorkout)">
+    <label class="custom-control-label" [for]="eId+'weightsOption'+dId">Rx</label>
+  </div>
+  <div class="custom-control custom-switch" style="float:left;margin:10px;">
+    <input type="checkbox" class="custom-control-input" [checked]="subSelectedWorkout.ShowTimeBox"
+    [id]="eId+'timeOption'+dId"  (change)="ToggleTimeBox(subSelectedWorkout)">
+    <label class="custom-control-label" [for]="eId+'timeOption'+dId">Time</label>
+  </div>
+  <div class="custom-control custom-switch" style="float:left;margin:10px;">
+    <input type="checkbox" class="custom-control-input" [checked]="subSelectedWorkout.ShowDistanceBox"
+    [id]="eId+'distanceOption'+dId" (change)="ToggleDistanceBox(subSelectedWorkout)">
+    <label class="custom-control-label" [for]="eId+'distanceOption'+dId">Distance</label>
+  </div>
+  <div class="custom-control custom-switch" style="float:left;margin:10px;">
+    <input type="checkbox" class="custom-control-input" [checked]="subSelectedWorkout.ShowOtherBox"
+    [id]="eId+'otherOption'+dId"  (change)="ToggleShowOtherBox(subSelectedWorkout)">
+    <label class="custom-control-label" [for]="eId+'otherOption'+dId">Other</label>
+  </div>
+  <div class="custom-control custom-switch" style="float:left;margin:10px;">
+    <input type="checkbox" class="custom-control-input" [checked]="subSelectedWorkout.ShowRestBox"
+    [id]="eId+'restOption'+dId"  (change)="ToggleRestBox(subSelectedWorkout)">
+    <label class="custom-control-label" [for]="eId+'restOption'+dId">Rest</label>
+  </div>
+  <div class="custom-control custom-switch" style="float:left;margin:10px;">
+    <input type="checkbox" class="custom-control-input" [checked]="subSelectedWorkout.ShowRepsAchievedBox"
+    [id]="eId+'repsAchivedOption'+dId" (change)="ToggleRepsAchieved(subSelectedWorkout)">
+    <label class="custom-control-label" [for]="eId+'repsAchivedOption'+dId">Reps Achieved</label>
+  </div>
+</div>

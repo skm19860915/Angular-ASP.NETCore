@@ -1,0 +1,7 @@
+<div class="alertContainer">
+    <div class="alert errorAlert" [ngClass]=" {'errorAlert':m.IsError, 'successAlert': !m.IsError}" [@fadeInAnimation]
+        *ngFor="let m of messages">
+        <h5>{{m.Title}}</h5>
+        <p>{{m.Message}}</p>
+    </div>
+</div>

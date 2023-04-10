@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" style="background-color:#fdfdfd">
+
+<head>
+  <meta charset="utf-8">
+  <title>Strength Coach Pro</title>
+  <base href="/">
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpToDAnmo_MfP8WhvrmVpay85PXfb2aGw&libraries=places"></script>
+  <!-- I tookasync off because sometimes it loaded after my usage of it was called -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width,user-scalable=0;" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>(function () { var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', w.intercomSettings); } else { var d = document; var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i; var l = function () { var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/i3uwceej'; var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); }; if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); } } })();</script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body class="mat-typography">
+  <app-root></app-root>
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600&display=swap" rel="stylesheet">
+
+<!-- Fontawsome icons -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    if ($("#left-sidebar").length > 0 )
+    {
+    $('#nav-icon1').click(function () {
+      $(this).toggleClass('open');
+      $("#left-sidebar").toggleClass('open');
+    });
+
+    $('.icons-con a').click(function () {
+      $('#nav-icon1').toggleClass('open');
+      $("#left-sidebar").toggleClass('open');
+    });
+    }
+    // document.getElementsByClassName('nav-icon1').addEventListener('touchstart', function(e){alert('hi');}, false);
+
+    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (isSafari) {
+      // alert("We Do Not Currently Support Safari. In The Future We Plan To, But For Now Please Either Use IE/CHROME/Firefox")
+    }
+  });
+
+</script>
+
+<!--- Tooltip player -->
+<script type='text/javascript'>
+  window.Tooltip || function (t, e) {
+    var o = {
+      url: "https://cdn.tooltip.io/static/player.js",
+      key: "65c3c4b4-9bb5-4fd1-ad41-cb1ee4c03750",
+      async: true
+    };
+    window.Tooltip = { cs: [], _apiKey: o.key }; for (
+      var r = ["identify", "goal", "updateUserData", "start", "stop", "refresh", "show", "hide", "on"],
+      i = {}, n = 0; n < r.length; n++) {
+      var a = r[n]; i[a] = function (t) {
+        return function () {
+          var e = Array.prototype.slice.call(arguments);
+          window.Tooltip.cs.push({ method: t, args: e })
+        }
+      }(a)
+    } window.Tooltip.API = i; var n = t.createElement(e), s = t.getElementsByTagName(e)[0];
+    n.type = "text/javascript", n.async = o.async, s.parentNode.insertBefore(n, s), n.src = o.url
+  }(document, "script");
+</script>
+<!--- Tooltip player -->
+
+<script src="https://apis.malcolm.app/mapi.js?id=CRACPhkTp0" async defer></script>
+
+

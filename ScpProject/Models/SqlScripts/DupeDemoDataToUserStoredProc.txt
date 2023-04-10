@@ -1,0 +1,144 @@
+﻿/****** Object:  StoredProcedure [dbo].[DupeDemoDataToUser]    Script Date: 2/9/2021 9:19:28 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE[dbo].[DupeDemoDataToUser]
+(
+   @UserId INT,
+   @Orgid INT
+
+)
+AS
+BEGIN
+      
+                        DECLARE @workoutsMappingTable table(oldId int, newId int, name varchar(max))
+                        DECLARE @uomMappingTable table(oldId int, newId int, unitType varchar(max))
+                        DECLARE @metricMappingTable table(oldId int, newId int, name varchar(max))
+                        DECLARE @exerciseMappingTable table(oldId int, newId int, name varchar(max))
+                        DECLARE @weeksMappingTable TABLE(oldId int, newId int, parentWorkoutId int, position int)
+                        DECLARE @exerciseTagsMappings TABLE(oldId int, newId int, Name varchar(max))
+                        DECLARE @workoutTagsMappings TABLE(oldId int, newId int, Name varchar(max))
+                        DECLARE @metricTagsMappings TABLE(oldId int, newId int, Name varchar(max))
+						
+
+                        INSERT INTO unitofMeasurements (UnitType,CreatedUserid,OrganizationId)
+                        OUTPUT inserted.id, inserted.unitType INTO @uomMappingTable(newId, unitType)
+                        SELECT unitType, @userId, @orgId FROM unitofMeasurements
+                        WHERE organizationid = 1
+
+                        INSERT INTO MetricTags ([name],OrganizationId,Notes,IsDeleted)
+                        OUTPUT inserted.id, inserted.[name] INTO @MetricTagsMappings(newId, [name])
+                        SELECT [name], @OrgId,null,0 from MetricTags
+                        where OrganizationId = 1 and isdeleted = 0
+
+                        UPDATE e
+                        SET oldId = id
+                        FROM MetricTags AS et
+                        inner join @MetricTagsMappings AS e on et.name = e.name
+                        where OrganizationId = 1 and isdeleted = 0
+
+
+                        UPDATE uomMapping
+                        SET uomMapping.oldId = uom.id
+                        FROM @uomMappingTable AS uomMapping
+                        INNER JOIN unitofMeasurements AS uom ON uom.unitType = uommapping.unitType
+                        WHERE uom.organizationId = 1
+
+                        INSERT INTO METRICS ([name],CreatedUserId,UnitOfMeasurementId,IsDeleted,CanModify,OrganizationId,NOTE)
+                        OUTPUT inserted.id, inserted.[name] into @metricMappingTable([newId], [name])
+                        SELECT m.[name], @userid, uom.newId, m.IsDeleted, m.canModify, @orgId,note
+                        FROM metrics AS m
+                        LEFT JOIN @uomMappingTable AS uom ON m.unitOfMeasurementId = uom.oldId
+                        WHERE m.organizationId = 1 AND m.IsDeleted = 0
+
+                        update mmt
+                        SET oldId = m.id
+                        FROM @metricMappingTable as mmt
+                        INNER JOIN METRICS as m ON M.[Name] = MMT.[name]
+                        WHERE M.OrganizationId = 1 AND M.IsDeleted = 0
+
+                        INSERT INTO TagsToMetrics (TagId,MetricId)
+                        SELECT mt.newId, mmt.newId
+                        FROM TagsToMetrics AS ttm
+                        INNER JOIN @metricMappingTable AS mmt on mmt.oldId = ttm.MetricId
+                        INNER JOIN @metricTagsMappings AS mt ON mt.oldId = ttm.TagId
+
+                        INSERT INTO exercises (name, notes, CreatedUserId, IsDeleted,[Percent], PercentMetricCalculationId, CanModify, OrganizationId,VideoURL)
+                        OUTPUT inserted.id, inserted.name INTO @exerciseMappingTable(newId, name)
+                        SELECT E.[name], notes, @userId, isDeleted, [percent], mmm.[NewId],1, @orgId,VideoURL
+                        FROM exercises AS E
+                        LEFT JOIN @metricMappingTable AS mmm ON percentMetricCalculationId = mmm.oldId
+                        WHERE organizationId = 1 AND e.IsDeleted = 0
+
+                        UPDATE e
+                        SET oldId = id
+                        FROM Exercises AS ex
+                        INNER JOIN @exerciseMappingTable AS e on e.name = ex.name
+                        WHERE organizationId = 1 AND ex.IsDeleted = 0
+
+                        INSERT INTO exerciseTags ([name],OrganizationId,Notes, IsDeleted)
+                        OUTPUT inserted.id, inserted.name INTO @exerciseTagsMappings(newId, name)
+                        SELECT name, @OrgId,null,0 FROM exerciseTags
+                        where OrganizationId = 1 and isdeleted = 0
+
+                        UPDATE e
+                        SET oldId = id
+                        FROM exerciseTags AS et
+                        inner join @exerciseTagsMappings AS e on et.name = e.name
+                        where OrganizationId = 1 and isdeleted = 0
+
+                        INSERT INTO TagsToExercises (TagId, ExerciseId)
+                        SELECT mt.newId, mmt.newId
+                        FROM TagsToExercises AS tte
+                        INNER JOIN @exerciseMappingTable AS mmt on mmt.oldId = tte.ExerciseId
+                        INNER JOIN @exerciseTagsMappings AS mt ON mt.oldId = tte.TagId
+
+                        INSERT INTO workouts ([Name],notes,CreatedDate,CreatedUserId,IsDeleted,CanModify,OrganizationId,Rest,showWeight)
+                        OUTPUT inserted.id, inserted.name INTO @workoutsMappingTable(newId, name)
+                        SELECT name, notes, createdDate, @userId, isDeleted, canmodify, @orgId, Rest,showWeight
+                        FROM workouts where OrganizationId = 1 and IsDeleted = 0
+
+                        UPDATE wmTable
+                        SET wmTable.oldId = w.id
+                        FROM @workoutsMappingTable AS wmTable
+                        INNER JOIN workouts AS w ON w.name = wmTable.name WHERE organizationId = 1 AND ISDELETED = 0
+
+                        INSERT INTO WorkoutTags ([name],OrganizationId,notes,IsDeleted)
+                        OUTPUT inserted.id, inserted.name INTO @WorkoutTagsMappings(newId, name)
+                        SELECT name, @OrgId,null,0 from workoutTags
+                        where OrganizationId = 1 and isdeleted = 0
+
+                        UPDATE e
+                        SET oldId = id
+                        FROM WorkoutTags AS et
+                        inner join @WorkoutTagsMappings AS e on et.name = e.name
+                        where OrganizationId = 1 and isdeleted = 0
+
+                        INSERT INTO TagsToWorkouts (WorkoutId,TagId)
+                        SELECT mmt.newId, mt.newId
+                        FROM TagsToWorkouts AS tte
+                        INNER JOIN @workoutsMappingTable AS mmt on mmt.oldId = tte.WorkoutId
+                        INNER JOIN @workoutTagsMappings AS mt ON mt.oldId = tte.TagId
+
+                        INSERT INTO weeks (Position,ParentWorkoutId)
+                        OUTPUT inserted.id, inserted.position, inserted.ParentWorkoutId INTO @weeksMappingTable(newId, position, parentWorkoutId)
+                        SELECT position , wm.newId
+                        FROM weeks AS w
+                        INNER JOIN workouts AS wo on wo.id = w.ParentWorkoutId
+                        INNER JOIN @workoutsMappingTable AS wm ON wm.oldId = w.ParentWorkoutId
+                        where wo.OrganizationId = 1 and wo.IsDeleted = 0
+
+                        UPDATE W
+                        SET oldId = we.id
+                        FROM weeks AS we
+                        inner join @workoutsMappingTable AS wmt ON WMT.oldId = WE.ParentWorkoutId
+                        INNER JOIN @weeksMappingTable AS w ON w.parentWorkoutId = wmt.newId and w.position = we.Position
+
+                        INSERT INTO [sets] (Position,[sets],reps,[percent],[weight],ParentWeekId,[Minutes],[Seconds],Distance,RepsAchieved,Other)
+                        SELECT s.[position], s.[sets], s.reps, s.[percent], s.[weight], wmt.newId,[Minutes],[Seconds],Distance,RepsAchieved,Other
+                        FROM [sets] AS S
+                        INNER JOIN @weeksmappingTable AS wmt on s.ParentWeekId = wmt.oldId
+
+END

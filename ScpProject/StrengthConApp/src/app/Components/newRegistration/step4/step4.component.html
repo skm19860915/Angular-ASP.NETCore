@@ -1,0 +1,87 @@
+<div class="formtext">
+  <h3 style="color:white;">Welcome to the Strength Coach Pro family</h3>
+  <!-- <p style="color:white;font-size: 14px;">You are moments away from starting your free 14 day trial! During that trial your credit card <strong style="color :white; font-size:17px;">will not be billed</strong></p> -->
+</div>
+
+<div class="reg-form-step">
+  <div class="form-element left-input">
+      <input type="text"  name="fname" placeholder="First Name"
+      [ngClass]="{'error': clientInfo.FirstName === undefined || clientInfo.FirstName ===''}" [(ngModel)]="clientInfo.FirstName" />
+  </div>
+  <div class="form-element right-input">
+      <input type="text"  name="lname" placeholder="Last Name" value=""
+      [ngClass]="{'error': clientInfo.LastName === undefined || clientInfo.LastName ===''}" [(ngModel)]="clientInfo.LastName"/>
+  </div>
+  <div class="form-element">
+      <input type="email" (keyup)="ValidateEmail(clientInfo.Email)" name="email" placeholder="Email (Enter a valid email, for example user@email.com)"
+      [ngClass]="{'error': clientInfo.Email === undefined || clientInfo.Email ===''}" value="" [(ngModel)]="clientInfo.Email" />
+      <p style="color:red" *ngIf="!validEmail">*Please Enter A Valid Email. For example user@email.com</p>
+      <p style="color:red" *ngIf="emailInUse">*This Email is already In use. Please choose another.</p>
+  </div>
+  <div class="form-element">
+      <input type="text" name="phone" placeholder="Phone" value="" [ngClass]="{'error': clientInfo.Phone === undefined || clientInfo.Phone ===''}"
+      [(ngModel)]="clientInfo.Phone"/>
+  </div>
+  <div class="form-element">
+    <input class="input" name="addr2" type="text" [(ngModel)]="autocompleteInput" #addresstext placeholder="Enter Your Address" />
+  </div>
+  <div class="form-element">
+      <input type="text"  name="uname" placeholder="Username" value=""
+      [ngClass]="{'error': clientInfo.UserName === undefined || clientInfo.UserName ===''}"
+      [(ngModel)]="clientInfo.UserName" (keyup)="DoesUserNameExist(clientInfo.UserName)"/>
+      <p style="color:red" *ngIf="UserNameAlreadyExist">*This UserName is already in use*</p>
+  </div>
+  <div class="form-element left-input">
+      <input type="password" id="reg-pass"  name="password" placeholder="Password" value=""
+      [ngClass]="{'error': clientInfo.Password === undefined || clientInfo.Password ==='' || clientInfo.Password !== clientInfo.ConfirmPassword}"
+      [(ngModel)]="clientInfo.Password"/>
+  </div>
+  <div class="form-element right-input">
+      <input type="password"  name="confirm-password" placeholder="Confirm Password" value=""
+      [ngClass]="{'error': clientInfo.ConfirmPassword === undefined || clientInfo.ConfirmPassword ==='' || clientInfo.Password !== clientInfo.ConfirmPassword}"
+      [(ngModel)]="clientInfo.ConfirmPassword" />
+  </div>
+
+  <!-- <div class="form-element" style="margin-left:8%">
+    <div class="form-element" style="width:44%;float:left;padding-right:2%;margin-left:13%">
+      <input type="tel" placeholder="Card Number" value="" style="width:100%;" [(ngModel)]="ccNum" id="cc-number"
+        autocomplete="cc-number" ccNumber />
+    </div>
+    <div class="form-element" style="width:21%;float:left">
+
+      <input type="number" placeholder="CVC" value="" style="width:100%;" [(ngModel)]="cvc" />
+    </div>
+  </div>
+  <div style="clear:both"></div>
+  <div class="form-element" style="margin-left:8%">
+    <h3 style="float:left; color:white; line-height:2;margin-right:5%;margin-left:10%;width:22%">Expiration</h3>
+    <div class="form-element" style="width:20%;float:left; padding-right:2%">
+      <input type="number" placeholder="MM" value="" style="width:100%;" [(ngModel)]="expMM" />
+    </div>
+    <div class="form-element" style="width:21%;float:left; padding-left:2%;">
+      <input type="number" placeholder="YYYY" value="" style="width:100%;" [(ngModel)]="expYYYY" />
+    </div>
+  </div> -->
+  <div style="clear:both"></div>
+  <div class="row" *ngIf="processing">
+    <div>
+      <img src=" assets/LoadingGif.gif" style="margin-left:300px;height:50px;">
+    </div>
+  </div>
+  <div *ngIf="!processing">
+    <input type="submit" [disabled]="clientInfo.FirstName === undefined || clientInfo.FirstName ===''
+      || clientInfo.Phone === undefined || clientInfo.Phone ===''
+      || clientInfo.UserName === undefined || clientInfo.UserName ===''
+      || clientInfo.Password === undefined || clientInfo.Password ===''
+      || clientInfo.ConfirmPassword === undefined || clientInfo.ConfirmPassword ===''
+      || clientInfo.LastName === undefined || clientInfo.LastName ===''
+      || clientInfo.ConfirmPassword !== clientInfo.Password
+      || UserNameAlreadyExist
+      || emailInUse
+      || !validEmail
+      || !isFormValidated"
+    class="greenbtn" name="register-btn" value="Next" (click)="UserInfoFilledOut()" />
+    <input type="reset" class="redbtn" name="cancel-btn" value="Cancel" (click)="Cancel()" />
+  </div>
+  <img src="../../../../assets/SSL.png">
+</div>

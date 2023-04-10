@@ -1,0 +1,67 @@
+<!-- Start List of notifications -->
+<div class="col-lg-12">
+  <div class="groups-con">
+    <div class="header-con row">
+      <div class=" col-lg-1 text-right">
+        <span class="icon" title="Reload Notifications" (click)="LoadNewNotifications()">
+          <i class="fas fa-sync-alt"></i>
+        </span>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="showArchived" [checked]="ShowViewedNotifcations"
+            (change)="ToggleViewedNotification()">
+          <label class="custom-control-label"
+            for="showArchived">{{ShowViewedNotifcations ? 'Viewed Notifications' : 'New Notifications'}}</label>
+        </div>
+      </div>
+      <div class="offset-lg-6">
+        <i class="fas fa-question"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="exercises-list">
+  <div class="row one-exercise no-gutters" *ngFor="let ex of NotificationLists " [@fadeInAnimation]>
+    <div class="col-sm-12 col-md-12">
+      <div class="row align-items-center">
+        <div class="col-9">
+          <h5 class="title">
+            {{ex.Title}}
+          </h5>
+          <p>
+            {{ex.Description}}
+          </p>
+        </div>
+        <div class="col-3 title-icons text-right">
+          <i class="col-2 fas fa-trash-alt" aria-hidden="true" title="Mark As Viewed" (click)="MarkAsViewed(ex.Id)"></i>
+        </div>
+      </div>
+
+    </div>
+    <!-- Details start -->
+    <!-- <div class="col-12 offset-md-1 details-con" *ngIf="ex.ShowDetails"
+    [@fadeInAnimation]="ex.ShowDetails? 'enter' : 'leave'">
+    <div>
+      <p class="details-title">Calc Weight By:</p>{{ex.CalcMetricName}}
+    </div>
+    <div>
+      <p class="details-title">Percent:</p> {{ex.Percent}}
+    </div>
+    <div>
+      <p class="details-title">Video URL:</p>{{ex.VideoURL}}
+    </div>
+    <div>
+      <p class="details-title">Can Be Modified:</p>{{ex.CanModify ? 'Yes': 'No'}}
+    </div>
+    <button type="button" class="btn btn-lg btn-green btn-normal edit-btn"
+      (click)="ModifySelectedExercise(ex)">Edit</button>
+  </div> -->
+    <!-- Details end -->
+  </div>
+</div>
+<!-- end list notifications -->
+
+<app-alert [messages]="AlertMessages"></app-alert>

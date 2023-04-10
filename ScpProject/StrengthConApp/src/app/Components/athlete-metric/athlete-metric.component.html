@@ -1,0 +1,89 @@
+<div>
+  <div>
+    <i class="fas fa-chevron-left" style="float:left; line-height:5; font-size:36px" (click)="moveLeft()"></i>
+    <drag-scroll drag-scroll-x-disabled="true" #nav
+      style="margin:10px; background-color:white;padding:10px; border-radius:10px;float:left; width:80%">
+      <div drag-scroll-item *ngFor="let d of CompletedMetricStrip;let i= index" class="slideCarouselItem "
+        [ngClass]="{ slideCarouselItemSelected: d.IsSelected }" (click)="SetSelectedToTrue(CompletedMetricStrip, d)">
+        <h4 class="title">{{ d.Name }}</h4>
+        <p>{{ d.Value }}</p>
+        <p>{{ d.CompletedDate | date :  "MM/dd/y" }} (MM/DD/YYYY)</p>
+      </div>
+
+    </drag-scroll>
+    <i class="fas fa-chevron-right" style="float:left; line-height:5; font-size:36px" (click)="moveRight()"></i>
+  </div>
+</div>
+
+
+<div style="clear:both"></div>
+<div *ngIf="AllMeasuredMetrics.length > 0">
+  <h3 style="text-align:center; width:100%">
+    Dates Are In Month/Day/Year Format
+  </h3>
+  <div *ngFor="let c of AllMeasuredMetrics">
+    <ngx-charts-line-chart [view]="view" [scheme]="c.colorScheme" [results]="c.Series" [gradient]="c.gradient"
+      [xAxis]="c.showXAxis" [yAxis]="c.showYAxis" [legend]="c.showLegend" [showXAxisLabel]="c.showXAxisLabel"
+      [showYAxisLabel]="c.showYAxisLabel" [xAxisLabel]="c.xAxisLabel" [yAxisLabel]="c.yAxisLabel"
+      [autoScale]="c.autoScale" (select)="onSelect($event)" [showGridLines]="true">
+    </ngx-charts-line-chart>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-lg-7 col-xl-8">
+    </div>
+    <div class="col-md-6 col-lg-5 col-xl-4">
+      <div class="metrics-con">
+        <table class="table" (click)="ToggleMetricUpdateWindow()">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th><i class="fas fa-pencil-alt"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let e of metricHistory">
+              <td>{{e.CompletedDate | date :  "MM/dd/y"}} (MM/DD/YYYY)</td>
+              <td>{{e.Value}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Hard Delete modal -->
+<div class="metric-modal scp-modal" *ngIf="ShowMetricUpdateWindow"
+  [@fadeInAnimation]="ShowMetricUpdateWindow ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+    <button type="button" class="close" aria-label="Close" (click)="ToggleMetricUpdateWindow()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="scp-modal-title">Update Metrics</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of metricHistory">
+          <td>
+            <input type="text" matInput class="form-control white-bg-input col-md-12 text-center" ngxDaterangepickerMd
+            [locale]="{applyLabel: 'ok', format: 'MM-DD-YYYY'}"  [(ngModel)]="e.DisplayDate"  [autoApply]="true" drops="bottom"
+            [singleDatePicker]="true" />
+          <div style="clear:both;"></div>
+          </td>
+          <td><input type="text" class="form-control white-bg-input" [(ngModel)]="e.Value"> </td>
+          <td> <button type="submit" type="button" class="btn btn-lg btn-block btn-green btn-normal"
+              (click)="UpdateMetric(e)">Update</button> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- END HARD DELETE MODAL -->
+<app-alert [messages]="AlertMessages"></app-alert>

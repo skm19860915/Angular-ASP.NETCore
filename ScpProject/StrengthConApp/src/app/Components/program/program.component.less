@@ -1,0 +1,651 @@
+@import '../../../assets/StyleSheets/Colors.less';
+@import '../../../assets/StyleSheets/Buttons.less';
+@import '../../../assets/StyleSheets/Inputs.less';
+@import '../../../assets/StyleSheets/Tag.less';
+@import '../../../assets/StyleSheets/Modal.less';
+@import '../../../assets/StyleSheets/Alerts.less';
+
+
+.thumbnail-image {
+	width        : 1rem;
+	height       : 1rem;
+	overflow     : hidden;
+	border-radius: 0.625rem;
+
+	img {
+		width : 1rem;
+		height: auto;
+	}
+}
+
+
+.top-settings {
+
+	margin-top: 0.9375rem;
+
+	.custom-control-label {
+		font-family: @font;
+		font-weight: 300;
+		cursor     : pointer;
+	}
+
+	.custom-control-input:checked~.custom-control-label::before {
+		border-color    : @our-green;
+		background-color: @our-green;
+	}
+
+	.custom-control-input:focus~.custom-control-label::before {
+		box-shadow: 0 0 0 0.2rem rgba(@our-green, .25);
+	}
+	.create-btn{
+		text-decoration: none;
+		font-family: @font;
+		font-weight: 300;
+		color: @light-black;
+		padding: 0;
+
+		.icon{
+			background-color: @our-green;
+			color: @white;
+			border-radius: 50%;
+			display: inline-block;
+			width: 2.8125rem;
+			height: 2.8125rem;
+			line-height: 2.8125rem;
+			margin-left: 0.625rem;
+			text-align: center;
+		}
+	}
+}
+
+.program-list {
+	margin-top      : 0.9375rem;
+	
+
+	.one-program {
+		padding      : 0.9375rem;
+		border       : 1px solid rgba(@light-black, 0.4);
+		border-radius: 0.5rem;
+		margin-bottom: 1.25rem;
+
+		.title {
+			font-family  : @font;
+			font-weight  : 600;
+			color        : @our-green;
+			cursor       : pointer;
+			margin-bottom: 0;
+		}
+
+		.title-icons {
+			font-size: 1rem;
+			color    : @light-black;
+
+			.far,
+			.fas {
+				margin-right: 0.625rem;
+				cursor      : pointer;
+			}
+
+			.weeks {
+				display      : inline-block;
+				color        : @light-black;
+				font-size    : 1.25rem;
+				padding-right: 1.25rem;
+				margin       : 0;
+				font-family  : @font;
+				font-weight  : 300;
+
+				span {
+					color: @our-green;
+				}
+			}
+
+			.right-icon-con {
+				font-size: 1.6rem
+			}
+		}
+
+		.tags {
+
+			margin-top: 0.3125rem;
+
+			.tags-title {
+				padding-right: 0.3125rem;
+				font-family  : @font;
+				font-weight  : 400;
+				color        : @light-black;
+				font-size    : 0.875rem;
+			}
+
+			.badge-light {
+				background   : @our-grey;
+				color        : @light-black;
+				font-family  : @font;
+				font-weight  : 300;
+				padding      : 0.4rem .7rem;
+				margin-bottom: 0.25rem;
+			}
+		}
+
+		.edit-block {
+			margin-top : 0.625rem;
+			padding-top: 1.25rem;
+			border-top : 1px solid rgba(@our-grey, 0.8);
+
+			.btn-con {
+
+				.btn {
+					margin-right: 0.5rem;
+				}
+
+				.btn-red {
+					margin-right: 2rem;
+				}
+
+				.btn-link {
+					text-decoration: none;
+					display        : inline-flex;
+					align-items    : center;
+					font-family    : @font;
+					font-weight    : 300;
+					color          : @light-black;
+					box-shadow     : none;
+
+					img {
+						padding-right: 0.5rem;
+					}
+
+					&.tv img {
+						padding-right: 0.1875rem;
+					}
+				}
+
+				@media (max-width: 767.98px) {
+					.btn-normal {
+						width        : 100%;
+						margin-bottom: 0.5rem;
+						margin-right : 0;
+					}
+				}
+
+
+			}
+
+		}
+
+	}
+
+	.check-all {
+		cursor     : pointer;
+		display    : inline-flex;
+		align-items: center;
+		margin-left: 0.5rem;
+		margin-top : 1rem;
+
+		i {
+			margin-right : 0.375rem;
+			border-radius: 50%;
+			display      : inline-block;
+			text-align   : center;
+			font-size    : 1.125rem;
+			height       : 1.875rem;
+			width        : 1.875rem;
+			line-height  : 1.875rem;
+			background   : @our-green;
+			color        : @our-green;
+		}
+
+		h5 {
+			font-family: @font;
+			font-weight: 400;
+			color      : @our-green;
+			font-size  : 1rem;
+			padding    : 0;
+			margin     : 0;
+		}
+
+		&.checked i {
+			color: @white;
+		}
+	}
+
+	.roster-con {
+		margin     : 1.5625rem 0px;
+		display    : flex;
+		align-items: flex-start;
+		flex-wrap  : wrap;
+
+		.athlete-con {
+			display : inline-block;
+			width   : 10.9375rem;
+			margin  : 1.25rem;
+			cursor  : pointer;
+			position: relative;
+
+			&:after {
+
+				font-family           : "Font Awesome 5 Free";
+				display               : inline-block;
+				font-style            : normal;
+				font-variant          : normal;
+				text-rendering        : auto;
+				-webkit-font-smoothing: antialiased;
+				font-weight           : 900;
+				font-size             : 1.125rem;
+				content               : "\f00c";
+				height                : 1.875rem;
+				width                 : 1.875rem;
+				position              : absolute;
+				top                   : -0.625rem;
+				left                  : -0.625rem;
+				background            : @our-green;
+				color                 : @our-green;
+				text-align            : center;
+				border-radius         : 50%;
+			}
+
+			.profile-image {
+				width        : 10.9375rem;
+				height       : 10.9375rem;
+				overflow     : hidden;
+				border-radius: 0.625rem;
+
+				img {
+					width : 10.9375rem;
+					height: auto;
+				}
+			}
+
+			h5 {
+				margin     : 0;
+				margin-top : 0.5rem;
+				padding    : 0;
+				text-align : center;
+				font-family: @font;
+				font-weight: 300;
+				font-size  : 1rem;
+				color      : @light-black;
+			}
+		}
+
+		.athlete-con.selected:after {
+			color: @white;
+		}
+
+		@media (max-width: 991.98px) {
+
+			justify-content: center;
+
+			.athlete-con {
+				width: 9.375rem;
+
+				.profile-image {
+					width : 9.375rem;
+					height: 9.375rem;
+
+					img {
+						width: 9.375rem;
+					}
+				}
+
+				h5 {
+					font-size: 0.875rem;
+				}
+			}
+		}
+
+		@media (max-width: 767.98px) {
+
+			.athlete-con {
+				width : 7.5rem;
+				margin: 0.5rem;
+
+				.profile-image {
+					width : 7.5rem;
+					height: 7.5rem;
+
+					img {
+						width: 7.5rem;
+					}
+				}
+
+				h5 {
+					font-size: 0.8125rem;
+				}
+			}
+		}
+	}
+}
+
+
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+	.top-settings {
+
+		.col-6 {
+			margin-top: 0.5rem;
+		}
+
+		.create-btn{
+			text-decoration: none;
+			font-family: @font;
+			font-weight: 300;
+			color: @light-black;
+			padding: 0;
+
+			.icon{
+				background-color: @our-green;
+				color: @white;
+				border-radius: 50%;
+				display: inline-block;
+				width: 2.8125rem;
+				height: 2.8125rem;
+				line-height: 2.8125rem;
+				margin-left: 0.625rem;
+				text-align: center;
+			}
+		}
+	}
+
+}
+
+@media (max-width: 767.98px) {
+
+	padding: 0 0.3125rem;
+
+	.top-settings {
+		margin-top: 0.25rem;
+
+		.col-sm-12 {
+			padding-bottom: 0.625rem;
+		}
+
+		.custom-control-label {
+			font-size: 0.85rem;
+		}
+	}
+
+	.program-list {
+
+		.one-program {
+
+			position: relative;
+			padding : 0.5rem;
+
+			.title {
+				padding-right: 3.4375rem;
+				font-size    : 1.125rem;
+			}
+
+			.title-icons {
+				font-size : 1rem;
+				text-align: left !important;
+				position  : static;
+
+				.weeks {
+					font-size: 0.9375rem;
+				}
+
+				.far,
+				.fas {
+					margin-right: 0.225rem;
+				}
+
+				.right-icon-con {
+					position : absolute;
+					display  : inline-block;
+					top      : -0.1875rem;
+					right    : 0px;
+					font-size: 1.3rem
+				}
+			}
+
+			.tags {
+				.tags-title {
+					display: none;
+
+				}
+			}
+		}
+	}
+
+}
+
+
+.wb-picker {
+	background     : rgba(@black, 0.7);
+	display        : flex;
+	align-items    : center;
+	justify-content: center;
+
+	.scp-modal-in {
+		height    : auto !important;
+		background: none;
+
+
+		.scp-modal-title {
+			text-align: center;
+			color     : @white;
+		}
+
+		.scp-modal-content {
+			background     : white url(../../../assets/appBgImg.png) no-repeat center center;
+			background-size: cover;
+			padding        : 0;
+			display        : flex;
+			border-radius  : 10px;
+			overflow       : hidden;
+
+			.btn-link {
+				text-decoration: none;
+				display        : inline-flex;
+				align-items    : center;
+				font-family    : @font;
+				font-weight    : 300;
+				color          : @our-green;
+				box-shadow     : none;
+				margin-left    : 10px;
+				margin-bottom  : 10px;
+
+				i {
+					font-size   : 30px;
+					padding-left: 10px;
+				}
+
+				@media (max-width: 767.98px) {
+
+					margin-left: 5px;
+
+					i {
+						padding-left: 2px;
+						font-size   : 20px;
+					}
+				}
+			}
+
+			.days-selector {
+				font-family   : @font;
+				font-size     : 1rem;
+				font-weight   : 300;
+				color         : @light-black;
+				display       : flex;
+				align-items   : center;
+				padding-top   : 30px;
+				padding-bottom: 140px;
+
+				i {
+					font-size: 1.875rem;
+					padding  : 0px 0.3125rem;
+					opacity  : 0.9;
+					cursor   : pointer;
+					color    : @our-green;
+				}
+
+				.in-con {
+					display    : flex;
+					align-items: center;
+				}
+
+
+				.counter {
+					color      : @light-black;
+					font-family: @font;
+					font-weight: 600;
+					font-size  : 1.125rem;
+					width      : 2.5rem;
+					text-align : center;
+				}
+
+				.days-in {
+					padding-left: 20px;
+
+					.fa-chevron-left {
+						margin-left: 0.5rem;
+					}
+				}
+
+				.weeks-in {
+					color          : @white;
+					text-align     : right;
+					width          : 100%;
+					display        : flex;
+					flex-direction : row;
+					justify-content: flex-end;
+					padding-right  : 20px;
+
+					.counter {
+						color: @white;
+					}
+
+					.fa-chevron-right {
+						margin-right: 0.5rem;
+					}
+				}
+
+				@media (max-width: 767.98px) {
+
+					padding-bottom: 80px;
+
+					.counter {
+						width    : 1.25rem;
+						font-size: 1rem;
+					}
+				}
+			}
+
+			.left-side,
+			.right-side {
+				width  : 50%;
+				display: inline-block;
+			}
+
+			.left-side {
+				background: rgba(@black, 0.6);
+			}
+		}
+	}
+}
+
+// the cool selected non-selected green circle is done in css at the element level
+// since it is on the entire athlete image i had to wire up a hitbox to do a click even to,
+// i couldve re-wrote the css but this was faster.
+.selectedHitboxHack {
+	// uncomment the border to help adjusting where the hitbox is
+	// border: 2px solid red;
+	position : absolute;
+	height   : 30px;
+	width    : 30px;
+	top      : -10px;
+	left     : -10px;
+	z-index  : 1000;
+}
+
+.ourGreenColor {
+	color: @our-green;
+}
+
+
+.days-selector {
+	font-family   : @font;
+	font-size     : 1rem;
+	font-weight   : 300;
+	color         : @light-black;
+	display       : flex;
+	align-items   : center;
+	padding-top   : 30px;
+	padding-bottom: 30px;
+
+	i {
+		font-size: 1.875rem;
+		padding  : 0px 0.3125rem;
+		opacity  : 0.9;
+		cursor   : pointer;
+		color    : @our-green;
+	}
+
+	.in-con {
+		display    : flex;
+		align-items: center;
+	}
+
+
+	.counter {
+		color      : @light-black;
+		font-family: @font;
+		font-weight: 600;
+		font-size  : 1.125rem;
+		width      : 2.5rem;
+		text-align : center;
+	}
+
+	.days-in {
+		padding-left: 20px;
+
+		.fa-chevron-left {
+			margin-left: 0.5rem;
+		}
+	}
+
+	.weeks-in {
+		text-align     : right;
+margin-left:30px;
+		display        : flex;
+		flex-direction : row;
+		justify-content: flex-end;
+		padding-right  : 20px;
+
+
+		.fa-chevron-right {
+			margin-right: 0.5rem;
+		}
+	}
+}
+
+
+
+@media (max-width: 767.98px) {
+
+	padding: 0 0.3125rem;
+
+	.top-settings{
+		margin-top: 0.25rem;
+		.col-sm-12{
+			padding-bottom: 0.625rem;
+		}
+
+		.custom-control-label{
+			font-size: 0.85rem;
+		}
+
+		.create-btn{
+			.icon{
+				width: 1.875rem;
+				height: 1.875rem;
+				line-height: 1.875rem;
+				margin-left: 0.125rem;
+			}
+		}
+	}
+}
+

@@ -1,0 +1,11 @@
+<div [ngStyle]="{'display':TagVisible == true ? 'block' : 'none'}">
+  <ng-select [multiple]="true"  [closeOnSelect]="false" [items]="_AllTags" bindLabel="display" bindValue="value"  placeholder="Select Tag"
+  (remove)="RemoveTag($event)" (add)="AddTag($event)" [(ngModel)]="SelectedTags">
+  </ng-select>
+</div>
+<div class="item-select-div">
+  <ng-select [(items)]="AllTaggedItemsClone" bindLabel="Name" bindValue="Id"
+  placeholder="Select Item" (change)="SelectedItemUpdate($event)" [(ngModel)]="_SelectedItem">
+  </ng-select>
+</div>
+

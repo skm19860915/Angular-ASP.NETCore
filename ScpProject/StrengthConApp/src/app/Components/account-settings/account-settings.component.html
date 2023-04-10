@@ -1,0 +1,337 @@
+<div class="row " *ngIf="IsCoach">
+  <div class="col-md-6 col-sm-12">
+      <div class="row" *ngIf="subPlan.CurrentSubPlan ==='Trainer' || subPlan.CurrentSubPlan ==='Coach'">
+          Your Current Plan is&nbsp;<b>{{subPlan.CurrentSubPlan}}</b>&nbsp;. Your
+          can have a maximum of&nbsp;<b>{{subPlan.CurrentSubAthleteNumber}}</b>&nbsp;athletes
+      </div>
+      <div class="row" *ngIf="subPlan.CurrentSubPlan === 'FOUNDER' ">
+          Your Current Plan is&nbsp;<b>{{subPlan.CurrentSubPlan}}</b>&nbsp;and is a LifeTime Membership. Your
+          can have&nbsp;<b>UNLIMITED</b>&nbsp;athletes
+      </div>
+      <div class="row" *ngIf="subPlan.CurrentSubPlan === 'Head Coach' ">
+          Your Current Plan is&nbsp;<b>{{subPlan.CurrentSubPlan}}</b>&nbsp;. You
+          can have&nbsp;<b>UNLIMITED</b>&nbsp;athletes
+      </div>
+      <div class="row" *ngIf="subPlan.CurrentSubPlan === 'Unlimited Head Coach' ">
+          Your Current Plan is&nbsp;<b>{{subPlan.CurrentSubPlan}}</b>&nbsp; You
+          can have&nbsp;<b>UNLIMITED</b>&nbsp;athletes
+      </div>
+      <div class="row">
+          <div class="col-md-3"><label class="col-form-label" style="font-weight: bold;">First Name </label></div>
+          <div class="col-md-8">
+              <input type="text" class="form-control white-bg-input" placeholder="First Name" [(ngModel)]="FirstName">
+          </div>
+      </div>
+      <div class="row ">
+          <div class="col-md-3"><label class="col-form-label" style="font-weight: bold;">Last Name</label></div>
+          <div class="col-md-8">
+              <input type="text" class="form-control white-bg-input" placeholder="Last Name" [(ngModel)]="LastName">
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-3"><label class="col-form-label" style="font-weight: bold;">Email </label></div>
+          <div class="col-md-8">
+              <input type="text" class="form-control white-bg-input" placeholder="Email" [(ngModel)]="Email">
+          </div>
+      </div>
+      <div class="row" *ngIf="!IsCoach">
+          <div class="col-md-3"><label class="col-form-label" style="font-weight: bold;">BirthDay</label></div>
+          <div class="col-md-8">
+              <input type="text" class="form-control white-bg-input" placeholder="4/29/2014" [(ngModel)]="Birthday">
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-3"><label class="col-form-label" style="font-weight: bold;">Organization
+                  Name</label>
+          </div>
+          <div class="col-md-8">
+              <input type="text" class="form-control white-bg-input" [disabled]="!IsHeadCoach"
+                  [(ngModel)]="OrganizationName">
+          </div>
+      </div>
+      <div class="row" *ngIf="IsHeadCoach">
+
+          <div class="col-md-6">
+
+              <div class="row">
+                  <div class="col-md-6"><label class="col-form-label" style="font-weight: bold;">Primary Color</label>
+                  </div>
+                  <div class="col-md-4">
+                      <input class="form-control white-bg-input" [(colorPicker)]="primaryColor"
+                          [style.background]="primaryColor" />
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6"><label class="col-form-label" style="font-weight: bold;">Secondary
+                          Color</label>
+                  </div>
+                  <div class="col-md-4">
+                      <input class="form-control white-bg-input" [(colorPicker)]="secondaryColor"
+                          [style.background]="secondaryColor" />
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6"><label class="col-form-label" style="font-weight: bold;">Primary Font
+                          Color</label>
+                  </div>
+                  <div class="col-md-4">
+                      <input class="form-control white-bg-input" [(colorPicker)]="primaryFontColor"
+                          [style.background]="primaryFontColor" />
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6"><label class="col-form-label" style="font-weight: bold;">Secondary Font
+                          Color</label>
+                  </div>
+                  <div class="col-md-4">
+                      <input class="form-control white-bg-input" [(colorPicker)]="secondaryFontColor"
+                          [style.background]="secondaryFontColor" />
+                  </div>
+              </div>
+              <div class="col-md-6"></div>
+          </div>
+          <div class="col-md-6">
+              <label class="col-form-label" style="font-weight: bold;">Organization Logo</label>
+              <div *ngIf="uploader.queue.length == 0">
+                  <div class="profile-image">
+                      <img *ngIf="OrgProfileURL === undefined || OrgProfileURL === ''"
+                          src="../../../assets/Avatar.png">
+                      <img *ngIf="OrgProfileURL !== undefined || OrgProfileURL !== ''"
+                          [src]="((OrgProfileURL) | encodeUri)">
+                  </div>
+              </div>
+
+              <div *ngFor="let item of uploader.queue">
+                  <img src="" imgPreview [image]="item?._file" class="media-object" width="300" />
+                  <div style="clear:both"></div>
+                  <button type="button" class="btn  btn-red btn-normal edit-btn"
+                      style="position: absolute;top: -10px;left: -10px;padding: 0px;margin: 0px;width: 20px;"
+                      (click)="ClearUploaderQueue(uploader)">
+                      X</button>
+              </div>
+
+              <input type="button" type="file" ng2FileSelect [uploader]="uploader"
+                  (onFileSelected)="ForceUploaderQueueToBeJustOne(uploader)" text="Browse" />
+
+          </div>
+      </div>
+      <div class="row">
+          <button type="submit" class="btn btn-lg btn-block btn-green  btn-normal col-md-4"
+              (click)="Save()">Save</button>
+
+          <button class="btn btn-lg btn-block btn-red  btn-normal col-md-4 offset-md-2" type="submit"
+              (click)="Cancel()">Cancel</button>
+      </div>
+  </div>
+  <div class="col-md-5 col-sm-12" *ngIf="IsCoach">
+      <div class="row">
+          <div class="col-md-4 offset-1">
+              <div class="image-upload">
+                  <label for="file-input">
+                      <img src="assets/Avatar.png" />
+                  </label>
+                  <input id="file-input" type="file" />
+              </div>
+          </div>
+      </div>
+      <div *ngIf="UpdateCreditCardProcessing">
+          <div style="height: 100px; width: 50px; margin: 0 0 0 50px">
+              <img src=" assets/LoadingGif.gif" style="height:75px;">
+          </div>
+      </div>
+      <div class="row">
+          <button class="btn btn-lg btn-block btn-green btn-normal feedback-button col-md-6"
+              (click)="Feedback()">Feature Requests</button>
+      </div>
+      <div class="row">
+          <button class="btn btn-lg btn-block btn-red  btn-normal  col-md-6" (click)="ToggleChangePassword()">Change
+              Password</button>
+      </div>
+  </div>
+</div>
+
+<div class="metric-modal scp-modal"
+  *ngIf="UserIsACustomer && (HasBadCreditCard || IsSubscriptionEnded || HasCreditCardExpiring)"
+  [@fadeInAnimation]="HasBadCreditCard || IsSubscriptionEnded || HasCreditCardExpiring ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <h3 class="scp-modal-title">Update subscription</h3>
+
+      <div class="row scp-modal-content no-gutters">
+          <div class="col-12 col-lg-12 create-measure-con">
+              Your billing information has incorrect data. We Will need you to put in
+              the correct billing information and select a plan that will suit your needs.
+              Please proceed to the <b>User Portal</b> To manage your account.If you are having any troubles
+              please contact our customer support at 1-(919)-525-9328
+          </div>
+
+          <div class="col-6 offset-3 save-btn-con" style="margin-top:30px;">
+              <button type="submit" type="button" class="btn btn-lg btn-block btn-green btn-normal"
+                  (click)="RedirectToPortal()">User Portal</button>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="metric-modal scp-modal" [hidden]="UserIsACustomer"
+  [@fadeInAnimation]="!UserIsACustomer ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <h3 class="scp-modal-title">Update subscription</h3>
+
+      <div class="row scp-modal-content no-gutters">
+          <div class="col-12 col-lg-12 create-measure-con">
+              Your billing information has incorrect data. We Will need you to put in
+              the correct billing information and select a plan that will suit your needs. If you are having any troubles
+              please contact our customer support at 1-(919)-525-9328
+          </div>
+          <!-- Create measurement starts -->
+          <div class="wrapper-card" style="width:35%; margin: 50px auto">
+              <div class="card popular" [ngClass]="{'selectedPrice': subscriptionOption == 4}"
+                  (click)="SetSubscriptionOption(4)">
+                  <div class="card-ribbon">
+                      <span>most popular</span>
+                  </div>
+                  <div class="card-title">
+                      <h4>Head Coach</h4>
+                      <p>Unlimited Athletes</p>
+                  </div>
+                  <div class="card-price">
+                      <h4>
+                          499.99
+                          <small>Year</small>
+                      </h4>
+                  </div>
+              </div>
+          </div>
+          <br />
+          <div class="wrapper-card" style="width:35%; margin: 50px auto">
+
+              <div class="card " [ngClass]="{'selectedPrice': subscriptionOption == 2}"
+                  (click)="SetSubscriptionOption(2)">
+                  <div class="card-ribbon">
+                  </div>
+                  <div class="card-title">
+                      <h4>Head Coach</h4>
+                      <p>Unlimited Athletes</p>
+                  </div>
+                  <div class="card-price">
+                      <h4>
+                          49.99
+                          <small>Month</small>
+                      </h4>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row" style="width:100%">
+              <div class="col-md-4"><label class="col-form-label" style="font-weight: bold;">Phone </label></div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control white-bg-input" placeholder="Phone Number"
+                      [(ngModel)]="clientRegInfo.Phone">
+                  <div class="newCustomerError" *ngIf="clientRegInfo.Phone === ''">Invalid Phone Number</div>
+              </div>
+          </div>
+
+
+
+          <div class="row" style="width:100%">
+              <div class="col-md-4"><label class="col-form-label" style="font-weight: bold;">Address </label></div>
+              <div class="col-md-8">
+                  <input class="form-control white-bg-input" name="addr2" type="text" [(ngModel)]="autocompleteInput"
+                      #addresstext placeholder="Enter Your Address" />
+                  <div class="newCustomerError" *ngIf="clientRegInfo.State === ''">Invalid Address</div>
+              </div>
+          </div>
+
+
+          <div class="row" style="width:100%">
+              <div class="col-md-4"><label class="col-form-label" style="font-weight: bold;">Credit Card </label>
+              </div>
+              <div class="col-md-8">
+                  <input type="tel" class="form-control white-bg-input" placeholder="Card Number" value=""
+                      style="width:100%;" [(ngModel)]="clientRegInfo.CCNum" id="cc-number" autocomplete="cc-number"
+                      ccNumber />
+                  <div class="newCustomerError" *ngIf="clientRegInfo.CCNum === undefined">Credit Card not Valid</div>
+              </div>
+          </div>
+          <div class="row" style="width:100%">
+
+              <div class="col-md-4"><label class="col-form-label" style="font-weight: bold;">CVC</label></div>
+              <div class="col-md-8">
+                  <input type="number" class="form-control white-bg-input" placeholder="CVC" value=""
+                      style="width:100%;" [(ngModel)]="clientRegInfo.CVC" />
+                  <div class="newCustomerError" *ngIf="clientRegInfo.CVC === undefined">Invalid CVC</div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-3"><label class="col-form-label" style="font-weight: bold;">Expiration</label>
+              </div>
+              <div class="col-md-2"><label class="col-form-label" style="font-weight: bold;">Month</label>
+              </div>
+
+              <div class="col-md-3">
+                  <input type="number" class="form-control white-bg-input" placeholder="MM" value=""
+                      [(ngModel)]="clientRegInfo.expirationMonth" />
+              </div>
+              <div class="col-md-1"><label class="col-form-label" style="font-weight: bold;">Year</label>
+              </div>
+              <div class="col-md-3">
+                  <input type="number" class="form-control white-bg-input" placeholder="YYYY" value=""
+                      [(ngModel)]="clientRegInfo.expirationYear" />
+              </div>
+              <div class="newCustomerError"
+                  *ngIf="clientRegInfo.expirationMonth === undefined || clientRegInfo.expirationYear === undefined">
+                  Invalid Expiration dates. Valid Expiration dates are in MM / YYYY format</div>
+          </div>
+
+          <div class="col-6 offset-3 save-btn-con" style="margin-top:30px;">
+              <p style="color:black;text-align:center;"> *The Selected Payment Plan is <b>{{SubscriptionPlan}}</b>
+              </p>
+              <div *ngIf="ProcessingUpdate">
+                  <div style="height: 100px; width: 50px; margin: 0 0 0 50px">
+                      <img src=" assets/LoadingGif.gif" style="height:75px;">
+                  </div>
+              </div>
+              <button *ngIf="!ProcessingUpdate" type="submit" type="button" class="btn btn-lg btn-block btn-green btn-normal"
+                  (click)="FinishRegistration()"
+                  [disabled]='clientRegInfo.Phone === "" || clientRegInfo.State === "" || clientRegInfo.CVC === undefined || clientRegInfo.expirationMonth === undefined || clientRegInfo.expirationYear === undefined || clientRegInfo.CCNum === undefined'>Update</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- Hard Delete modal -->
+<div class="metric-modal scp-modal" *ngIf="ShowChangePassword"
+  [@fadeInAnimation]="ShowChangePassword ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <button type="button" class="close" aria-label="Close" (click)="ToggleChangePassword()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      <h3 class="scp-modal-title">Change Password</h3>
+      <div class="row">
+          <div class="col-md-3"><label class="col-form-label" style="font-weight: bold;">Password </label></div>
+          <div class="col-md-8">
+              <input type="password" class="form-control white-bg-input" placeholder="Password"
+                  [(ngModel)]="Password">
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-3"><label class="col-form-label" style="font-weight: bold;">Confirm Password </label>
+          </div>
+          <div class="col-md-8">
+              <input type="password" class="form-control white-bg-input" placeholder="Confirm Password"
+                  [(ngModel)]="ConfirmPassword">
+          </div>
+      </div>
+      <div class="row">
+          <button style="margin:8px" class="btn btn-lg btn-block btn-green btn-normal col-4  offset-md-2"
+              (click)="Feedback()">Update</button>
+
+          <button style="margin:8px" class="btn btn-lg btn-block btn-red  btn-normal col-4 offset-md-2"
+              (click)="ToggleChangePassword()">Cancel</button>
+      </div>
+  </div>
+</div>
+<!-- END HARD DELETE MODAL -->
+
+<app-alert [messages]="AlertMessages"></app-alert>

@@ -1,0 +1,47 @@
+<div class="col-sm-12 page-inner-content rosters-page">
+  <!-- Page top settings start -->
+  <div class="row align-items-center top-settings">
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <input type="text" class="form-control grey-bg-input" aria-describedby="Search" placeholder="Search" [(ngModel)]="searchString">
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 grey-tags">
+      <app-scp-tag-input (TagRemoved)="RemoveTag($event)" (TagAdded)="AddTag($event)" [autocompleteItems]="AllTags">
+      </app-scp-tag-input>
+    </div>
+    <div class="col-5 col-sm-5 col-md-5 col-lg-1 offset-lg-2 text-right">
+      <span class="icon" ><i class="fas fa-question"></i></span>
+    </div>
+    <div class="col-6 col-sm-6 col-md-6 col-lg-2 text-right">
+      <button type="button" class="btn btn-link create-btn"  [routerLink]="['/CreateAthlete']">Create <span
+          class="icon"><i class="fas fa-plus"></i></span></button>
+    </div>
+  </div>
+  <!-- Page top settings end -->
+
+  <!-- Roster container starts -->
+  <div class="row">
+    <div class="col-12">
+      <div class="roster-con">
+        <!-- One athlete starts-->
+        <div class="athlete-con"
+          *ngFor="let a of AllAthletes | TagFilterPipe : TagItems | SearchTaggableFilterPipe : searchString "
+           [routerLink]="['/AthleteProfile',a.Id]">
+          <div class="profile-image">
+            <img *ngIf="a.ProfilePicture == undefined " src="../../../assets/Avatar.png">
+            <img
+              *ngIf="a.ProfilePicture != undefined && a.ProfilePicture.Profile != undefined && a.ProfilePicture.Profile != '' "
+              [src]="((a.ProfilePicture.URL + a.ProfilePicture.Profile) | encodeUri)">
+          </div>
+          <h5>  {{a.FirstName}} {{a.LastName}} </h5>
+        </div>
+        <!-- One athlete ends -->
+      </div>
+    </div>
+    <!-- Roster container starts -->
+
+
+
+  </div>
+</div>
+
+<app-alert [messages]="AlertMessages"></app-alert>

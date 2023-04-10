@@ -1,0 +1,20 @@
+<div class="metric-modal scp-modal" *ngIf="ShowMetricFormMeasurementModal" [@fadeInAnimation]="ShowMetricFormMeasurementModal ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+    <button type="button" class="close" aria-label="Close" (click)="Cancel()"><span aria-hidden="true">&times;</span></button>
+    <h3 class="scp-modal-title">Create Measurement</h3>
+    <div class="row scp-modal-content no-gutters">
+      <div class="col-12 col-lg-12"><p>A Unit Of Measurement should be things like; SECONDS, FEET, YARDS, POUNDS</p></div>
+      <div class="col-12 col-lg-12">
+        <label for="measureName" class="col-form-label">Name</label>
+        <input type="text" class="form-control white-bg-input" id="measureName" placeholder="Enter Measurement Name" [(ngModel)]="SelectedMeasurement.UnitType">
+      </div>
+      <div class="col-12 col-md-6 save-btn-con">
+        <button type="submit" class="btn btn-lg btn-block btn-green btn-normal" (click)="Save(SelectedMeasurement.UnitType)">Save</button>
+      </div>
+      <div class="col-12 col-md-6 cancel-btn-con">
+        <button type="button" class="btn btn-lg btn-block btn-red btn-normal" (click)="Cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+

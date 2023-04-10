@@ -1,0 +1,214 @@
+@import '../../../assets/StyleSheets/Colors.less';
+@import '../../../assets/StyleSheets/Buttons.less';
+@import '../../../assets/StyleSheets/Inputs.less';
+@import '../../../assets/StyleSheets/Tag.less';
+@import '../../../assets/StyleSheets/Modal.less';
+@import '../../../assets/StyleSheets/Alerts.less';
+
+.metrics-page {
+
+    .top-settings {
+
+        margin-top: 0.9375rem;
+
+        .custom-control-label {
+            font-family: @font;
+            font-weight: 300;
+            cursor     : pointer;
+        }
+
+        .custom-control-input:checked~.custom-control-label::before {
+            border-color    : @our-green;
+            background-color: @our-green;
+        }
+
+        .custom-control-input:focus~.custom-control-label::before {
+            box-shadow: 0 0 0 0.2rem rgba(@our-green, .25);
+        }
+
+        .create-btn {
+            text-decoration: none;
+            font-family    : @font;
+            font-weight    : 300;
+            color          : @light-black;
+            padding        : 0;
+
+            .icon {
+                background-color: @our-green;
+                color           : @white;
+                border-radius   : 50%;
+                display         : inline-block;
+                width           : 2.8125rem;
+                height          : 2.8125rem;
+                line-height     : 2.8125rem;
+                margin-left     : 0.625rem;
+                text-align      : center;
+            }
+        }
+    }
+
+    .metrics-list {
+        margin-top      : 0.9375rem;
+
+
+        .one-metric {
+            padding      : 0.9375rem;
+            border       : 1px solid rgba(@light-black, 0.4);
+            border-radius: 0.5rem;
+            margin-bottom: 1.25rem;
+
+            .title {
+                font-family  : @font;
+                font-weight  : 600;
+                color        : @our-green;
+                cursor       : pointer;
+                margin-bottom: 0;
+            }
+
+            .title-icons {
+                font-size: 1.6rem;
+                color    : @light-black;
+
+                .far,
+                .fas {
+                    margin-right: 0.625rem;
+                    cursor      : pointer;
+                }
+            }
+
+            .icon-con {
+                font-size : 2.2rem;
+                text-align: center;
+                color     : @our-green;
+                align-self: center;
+            }
+
+            .tags {
+
+                margin-top: 0.3125rem;
+
+                .tags-title {
+                    padding-right: 0.3125rem;
+                    font-family  : @font;
+                    font-weight  : 400;
+                    color        : @light-black;
+                    font-size    : 0.875rem;
+                }
+
+                .badge-light {
+                    background   : @our-grey;
+                    color        : @light-black;
+                    font-family  : @font;
+                    font-weight  : 300;
+                    padding      : 0.4rem .7rem;
+                    margin-bottom: 0.25rem;
+                }
+            }
+
+        }
+    }
+
+    .question-mark {
+        .icon {
+            background-color: @our-green;
+            color           : @white;
+            border-radius   : 50%;
+            display         : inline-block;
+            width           : 2.8125rem;
+            height          : 2.8125rem;
+            line-height     : 2.8125rem;
+            margin-left     : 0.625rem;
+            cursor          : pointer;
+            text-align      : center;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+
+        .top-settings {
+
+            .col-6 {
+                margin-top: 0.5rem;
+            }
+        }
+
+    }
+
+
+    @media (max-width: 767.98px) {
+
+        padding: 0 0.3125rem;
+
+        .top-settings {
+            margin-top: 0.25rem;
+
+            .col-sm-12 {
+                padding-bottom: 0.625rem;
+            }
+
+            .custom-control-label {
+                font-size: 0.85rem;
+            }
+
+            .create-btn {
+                .icon {
+                    width      : 1.875rem;
+                    height     : 1.875rem;
+                    line-height: 1.875rem;
+                    margin-left: 0.125rem;
+                }
+            }
+        }
+
+        .metrics-list {
+
+            .one-metric {
+
+                .title {
+                    font-size: 1.125rem;
+                }
+
+                padding: 0.5rem;
+
+                .title-icons {
+                    font-size: 1.3rem;
+
+                    .far,
+                    .fas {
+                        margin-right: 0.225rem;
+                    }
+                }
+
+                .icon-con {
+                    display: none;
+                }
+
+                .tags {
+                    .tags-title {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+
+// .ng-select:after {
+//     font-family           : Font Awesome\ 5 Free;
+//     display               : none;
+//     font-style            : normal;
+//     font-variant          : normal;
+//     text-rendering        : auto;
+//     -webkit-font-smoothing: antialiased;
+//     font-weight           : 900;
+//     font-size             : 1.125rem;
+//     content               : "\f078";
+//     height                : 1.875rem;
+//     width                 : 1.875rem;
+//     position              : absolute;
+//     top                   : .5625rem;
+//     right                 : .125rem
+//   }
+

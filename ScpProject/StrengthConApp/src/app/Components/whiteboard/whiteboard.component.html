@@ -1,0 +1,116 @@
+<div class="content-con" [ngClass]="{'dark-con': Theme == 1, 'light-con': Theme == 0}">
+    <div class="col-12" style="position:absolute;height:100px;top:0">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div>
+                    <button type="button" class="btn btn-link webkit-shadow"
+                        [ngClass]="{'darkBtns': Theme == 1, 'lightBtns': Theme == 0}" (click)="DecreaseItem()"><i
+                            class="fas fa-chevron-left"></i>
+                        BACK</button>
+                    <button type="button" class="btn btn-link webkit-shadow"
+                        [ngClass]="{'darkBtns': Theme == 1, 'lightBtns': Theme == 0}"
+                        (click)="AdvanceItem()">NEXT&nbsp;<i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div>
+                    <button type="button" class="btn btn-link webkit-shadow"
+                        [ngClass]="{'darkBtns': Theme == 1, 'lightBtns': Theme == 0}" (click)="DecreaseFontSize()"><i
+                            class="fas fa-chevron-down"></i>
+                        FONT</button>
+                    <button type="button" class="btn btn-link webkit-shadow"
+                        [ngClass]="{'darkBtns': Theme == 1, 'lightBtns': Theme == 0}"
+                        (click)="IncreaseFont()">FONT&nbsp;<i class="fas fa-chevron-up"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear-both">&nbsp;</div>
+    <div class="col-12 overflow-control" style="margin-top:75px">
+        <div class="in-con largeFont" style="margin: 0% 0% 0% 7%">
+            <div
+                *ngIf="p.ItemType != undefined && p.ItemType == 6  && ShowWeek(p.ProgramItem.SelectedMetric.WeekIds,this.TargetWeek) ">
+                <div class="exerciseTitle margin-right-10" [ngStyle]="{'font-size': FontSize+'em'}">
+                    &nbsp;&nbsp;&nbsp;TEST: {{p.ProgramItem.SelectedMetric.Name}} </div>
+                <div class="clear-both"></div>
+            </div>
+
+            <div
+                *ngIf="p.ItemType != undefined && p.ItemType == 4 && ShowWeek(p.ProgramItem.SelectedVideo.WeekIds,this.TargetWeek)">
+                <div class="collapse-block">
+                    <!-- Collapse head starts -->
+                    <div class="collapse-head">
+
+                        <div [ngStyle]="{'font-size': FontSize+'em'}" class="exerciseTitle">Video:
+                            <span>{{p.ProgramItem.SelectedVideo.Name}}</span>
+                        </div>
+
+                        <div class="iframe-parent">
+                            <div *ngIf="p.ProgramItem.SelectedVideo.URL != undefined && p.ProgramItem.SelectedVideo.URL != ''"
+                                class="iframe-container">
+                                <iframe [src]="p.ProgramItem.SelectedVideo.URL | safe" frameborder="0" allowfullscreen
+                                    class="video"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="exerciseTitle" [ngStyle]="{'font-size': FontSize+'em'}"> {{p.SuperSetDisplayTitle }}</h5>
+            <div class="exerciseTitle" [ngStyle]="{'font-size': FontSize+'em'}"
+                *ngIf="p.ItemType != undefined && p.ItemType == 5 && ShowWeek(p.ProgramItem.SelectedNote.WeekIds,this.TargetWeek) ">
+                <div style="text-align:center" [innerHTML]="p.ProgramItem.SelectedNote.Note"></div>
+            </div>
+            <div *ngIf="p.ItemType != undefined && p.ItemType ==7">
+                <div *ngFor="let n of p.ProgramItem.Notes">
+                    <div class="exerciseTitle text-left"
+                        *ngIf=ShowWeek(n.WeekIds,this.TargetWeek)
+                        [ngStyle]="{'font-size': FontSize+'em'}"
+                        [ngClass]="{'darkBtns': Theme == 1, 'lightBtns': Theme == 0}" class="text-align:center">
+                        Note: {{n.Note}}</div>
+                </div>
+
+                <div class="content " *ngFor="let e of p.ProgramItem.Exercises | Sort: 'Position'">
+                    <div *ngIf="e.Position > 1" class="exercise-display setsRepsHeader"
+                        style="margin-top:0px; line-height:4">Paired With</div>
+                    <div class="exerciseTitle" [ngStyle]="{'font-size': (FontSize+.3)+'em'}"> {{e.Name}}
+
+                    </div>
+                    <div *ngIf="e.SelectedWorkout.Rest !=='' && e.SelectedWorkout.Rest !== null && e.SelectedWorkout.Rest !== undefined"
+                        class="exerciseTitle" [ngStyle]="{'font-size': (FontSize > 0.6 ? FontSize -.6: .6)+'em'}">
+                        Rest:{{e.SelectedWorkout.Rest}}
+
+                    </div>
+
+                    <div class="header row" style="padding:0px;">
+
+                        <span class="col-2 setsRepsHeader" *ngIf="e.SelectedWorkout.ShowPercentageBox">%</span>
+                        <span class="col-2 setsRepsHeader" *ngIf="e.SelectedWorkout.ShowSetsBox">Set</span>
+                        <span class="col-2 setsRepsHeader" *ngIf="e.SelectedWorkout.ShowRepsBox">Rep</span>
+                        <span class="col-2 setsRepsHeader" *ngIf="e.SelectedWorkout.ShowWeight">Weight</span>
+                        <span class="col-2 setsRepsHeader" *ngIf="e.SelectedWorkout.ShowDistanceBox">Distance</span>
+                        <span class="col-2 setsRepsHeader" *ngIf="e.SelectedWorkout.ShowTimeBox">Time</span>
+                    </div>
+
+                    <div class="one-set exerciseContainer" style="padding:0px">
+                        <div *ngFor="let w of e.Weeks">
+                            <div *ngIf="w.Position === TargetWeek">
+                                <div *ngFor="let s of w.SetsAndReps" [ngStyle]="{'font-size': FontSize+'em'}"
+                                    class="row">
+                                    <span class="col-2" *ngIf="e.SelectedWorkout.ShowPercentageBox">{{s.Percent}}</span>
+                                    <span class="col-2" *ngIf="e.SelectedWorkout.ShowSetsBox">{{s.Sets}}</span>
+                                    <span class="col-2" *ngIf="e.SelectedWorkout.ShowRepsBox">{{s.Reps}}</span>
+                                    <span class="col-2" *ngIf="e.SelectedWorkout.ShowWeight"> {{s.Weight}}</span>
+                                    <span class="col-2" *ngIf="e.SelectedWorkout.ShowDistanceBox"> {{s.Distance}}</span>
+                                    <span class="col-2" *ngIf="e.SelectedWorkout.ShowTimeBox"> {{(s.Minutes === null ? 0
+                                        : s.Minutes)+'m'+(s.Seconds === null ? 0 : s.Seconds)+'s'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

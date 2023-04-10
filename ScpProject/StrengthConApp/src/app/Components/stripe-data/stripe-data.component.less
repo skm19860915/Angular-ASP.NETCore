@@ -1,0 +1,126 @@
+@import '../../../assets/StyleSheets/Colors.less';
+
+@font-face {
+    font-family: 'Open Sans';
+    font-weight: 400;
+    src: local("Open Sans"), local("OpenSans"), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2) format("woff2");
+    unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+  }
+  
+  * {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 15px;
+    font-variant: normal;
+    padding: 0;
+    margin: 0;
+  }
+  
+  html {
+    height: 100%;
+  }
+  
+  body {
+    background: #F6F9FC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+  }
+  
+  form {
+    width: 480px;
+    margin: 20px 0;
+  }
+  
+  label {
+    position: relative;
+    color: #6A7C94;
+    font-weight: 400;
+    height: 48px;
+    line-height: 48px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  label > span {
+    width: 115px;
+  }
+  
+  .field {
+    background: white;
+    font-weight: 400;
+    border: 1px solid #CFD7DF;
+    border-radius: 24px;
+    color: #32315E;
+    outline: none;
+    flex: 1;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 20px;
+    cursor: text;
+  }
+  
+  .field::-webkit-input-placeholder { color: #CFD7DF; }
+  .field::-moz-placeholder { color: #CFD7DF; }
+  
+  .field:focus,
+  .field.StripeElement--focus {
+    border-color: @our-green;
+  }
+  
+  button {
+    float: left;
+    display: block;
+    background-image: linear-gradient(-180deg, @our-green 0%, @our-green 100%);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.10), inset 0 -1px 0 0 #E57C45;
+    color: white;
+    border-radius: 24px;
+    border: 0;
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: 500;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    outline: none;
+  }
+  
+  button:focus {
+    background: #EF8C41;
+  }
+  
+  button:active {
+    background: #E17422;
+  }
+  
+  .outcome {
+    float: left;
+    width: 100%;
+    padding-top: 8px;
+    min-height: 20px;
+    text-align: center;
+  }
+  
+  .success, .error {
+    display: none;
+    font-size: 13px;
+  }
+  
+  .success.visible, .error.visible {
+    display: inline;
+  }
+  
+  .error {
+    color: #E4584C;
+  }
+  
+  .success {
+    color: #F8B563;
+  }
+  
+  .success .token {
+    font-weight: 500;
+    font-size: 13px;
+  }
+  

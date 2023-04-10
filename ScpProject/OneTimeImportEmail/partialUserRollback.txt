@@ -1,0 +1,16 @@
+﻿DELETE FROM UserTokens
+DELETE FROM UserToOrganizationRoles WHERE USERID = (select id from users where username = @userName)
+DELETE FROM TagsToWorkouts WHERE tagid in (select id FROM workoutTags  where CreatedUserId = (SELECT ID  FROM users where username = @userName))
+DELETE FROM workoutTags where CreatedUserId = (SELECT ID  FROM users where username = @userName)
+DELETE FROM TagsToExercises WHERE tagid in (select id FROM ExerciseTags  where CreatedUserId = (SELECT ID  FROM users where username = @userName))
+DELETE FROM ExerciseTags where CreatedUserId = (SELECT ID  FROM users where username = @userName)
+DELETE FROM TagsToMetrics WHERE tagid in (select tagid FROM MetricTags where CreatedUserId = (SELECT ID  FROM users where username = @userName))
+DELETE FROM MetricTags where CreatedUserId = (SELECT ID  FROM users where username = @userName)
+DELETE FROM SETS where ParentWeekId in  (select id from WEEKS where ParentWorkoutId IN (SELECT id FROM WORKOUTS  where organizationid =  (SELECT id FROM Organizations where [name] = @orgName)))
+DELETE FROM WEEKS where ParentWorkoutId IN (SELECT id FROM WORKOUTS  where organizationid =  (SELECT id FROM Organizations where [name] = @orgName))
+DELETE FROM WORKOUTS  where organizationid =  (SELECT id FROM Organizations where [name] = @orgName)
+DELETE FROM Exercises where organizationid =  (SELECT id FROM Organizations where [name] = @orgName)
+DELETE FROM metrics where organizationid =  (SELECT id FROM Organizations where [name] = @orgName)
+DELETE FROM UnitOfMeasurements WHERE  CREATEDUSERID =(SELECT ID  FROM users where username = @userName)
+DELETE FROM users where username = @userName or username is null
+DELETE FROM Organizations where [name] = @orgName

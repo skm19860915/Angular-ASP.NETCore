@@ -1,0 +1,852 @@
+<div *ngIf="LoadingProgram" style="margin-left:40%">
+  <h2>Loading</h2>
+  <img src=" assets/LoadingGif.gif" style="height:75px;margin-left:30px;">
+</div>
+
+<div class="col-sm-12 page-inner-content program-builder-page" *ngIf='Program !== undefined'>
+  <div class="col-lg-12 noModify" *ngIf='Program !== undefined && !Program.CanModify'>This
+      Program is in use
+      and
+      only the Tags may be modified. You may modify the program but nothing will be saved.
+
+  </div>
+  <!-- Page top settings start -->
+  <div class="row align-items-center top-settings">
+      <div class="col-sm-12 col-md-6 col-lg-3">
+          <input type="text" class="form-control grey-bg-input" aria-describedby="Name" placeholder="Name"
+              [(ngModel)]="Program.Name" (ngModelChange)="SaveDraftProgram()">
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-4 ">
+          <app-scp-tag-input (TagRemoved)="RemoveTag($event)" (TagAdded)="AddTag($event)"  [ResetTags]="AlertTagComponentReset">
+          </app-scp-tag-input>
+      </div>
+
+      <!-- Days and weeks selector starts -->
+      <div class="col-8 col-md-6 col-lg-4" *ngIf="Program.CanModify">
+          <div class="days-selector">
+              <span class="days-in in-con">Days<i class="fas fa-chevron-left"
+                      (click)="RemoveLastDay(Program.Days)"></i><span class="counter">{{Program.Days.length}}</span><i
+                      class="fas fa-chevron-right" (click)="AddDay(Program.Days)"></i></span>
+              <span class="weeks-in in-con">Weeks<i class="fas fa-chevron-left"
+                      (click)="RemoveWeek(Program.Days)"></i><span class="counter">{{Program.WeekCount}}</span><i
+                      class="fas fa-chevron-right" (click)="AddWeek(Program.Days)"></i></span>
+          </div>
+      </div>
+      <div class="col-4 col-sm-4 col-md-4 col-lg-1 text-right">
+          <span class="icon"><i class="fas fa-question"></i></span>
+      </div>
+      <!-- Days and weeks selector ends -->
+
+      <!-- Days container starts -->
+      <div class="col-sm-8 col-8">
+          <div class="days-con">
+              <div *ngFor="let m of Program.Days | Sort: 'Position'; let i = index">
+                  <div style="float:left; margin:0px 10px 0px 10px;cursor: pointer;" (click)="TabSwitch(m)">
+                      <span [ngClass]="{'selected': m.IsActive}">
+                          <div style="float:left"> Day {{i + 1}} </div>
+                      </span>
+                      <div style="cursor: pointer;float: left;color: red;font-weight: bold; margin-left: -5px;font-size: 11px;"
+                          (click)="ToggleDeleteDayConfirmation()">
+                          <!-- <i class="fa fa-trash"></i> -->
+                          X
+                      </div>
+                  </div>
+              </div>
+              <div style="float:right;font-size: 1.5rem;color:#4E4E4E;margin-top:8px"><i class="fas fa-chevron-left"
+                      (click)="MoveSelectedDayLeft()"></i> <i title="Copy" class="far fa-copy ng-tns-c188-4"
+                      (click)="CopyDay()"></i><i class="fas fa-chevron-right" (click)="MoveSelectedDayRight()"></i>
+              </div>
+          </div>
+      </div>
+      <!-- Days container ends -->
+  </div>
+  <!-- Page top settings ends -->
+
+  <!-- Program builder starts -->
+  <div class="row program-builder" *ngIf="!LoadingProgram">
+      <div class="offset-md-8 col-md-4 ">
+          <div class="modules-con " [ngClass]="{'marginTop' : !Program.CanModify  }"
+              *ngIf='Program !== undefined && Program.CanModify'>
+              <h5 class="title">Select a Module</h5>
+              <div cdkDropList [cdkDropListData]="MenuItems" [cdkDropListConnectedTo]="List_Ids">
+                  <div class="modules-in selected" [ngClass]="{ selected: v.isSelected}" *ngFor="let v of MenuItems"
+                      (click)="UpdateSelected(v)" cdkDrag>
+                      <div class="l-con">
+                          <p>{{v.Text}}</p>
+                      </div>
+                  </div>
+              </div>
+              <div style="text-align:center">
+                  <div *ngIf="Errors.length > 0">When all <b class="errorText">ERRORS</b> are fixed try saving
+                      again
+                      <div *ngFor="let m of Errors">
+                          <b class="errorText">*{{m}}</b>
+                      </div>
+                  </div>
+              </div>
+              <div class="row" *ngIf="SavingProgram">
+                  <div style="height: 100px; width: 50px; margin: 0 auto">
+                      <img src=" assets/LoadingGif.gif" style="height:75px;">
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12 btns-con" *ngIf="!SavingProgram && Program.CanModify">
+                      <button type="button" class="btn btn-lg btn-green btn-above-normal"
+                          (click)="SaveProgram(Program,newProgramTagItems)">Save</button>
+                      <button type="button" class="btn btn-lg btn-red btn-above-normal edit-btn"
+                          (click)="ToggleResetProgramConfirm()">Cancel</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div *ngFor="let d of done | Sort: 'Position' " class="col-md-8" >
+
+          <div [hidden]="!d.IsActive" [id]="'DragAndDrop-'+d.Id" style="min-height:400px;width:100%;" class="dropZone"
+              [cdkDropListData]="d.Items" cdkDropList #doneList="cdkDropList" [cdkDropListConnectedTo]="[listOne]"
+              (cdkDropListDropped)="drop($event)">
+              <div class="blocks-con" *ngFor="let p of d.Items" cdkDrag>
+                  <!-- Notes Collapse block starts -->
+                  <div class="collapse-block" *ngIf="p.ItemType != undefined && p.ItemType == 5">
+                      <!-- Collapse head starts -->
+                      <div class="collapse-head">
+                          <a class="toggle collapsed" data-toggle="collapse" [href]="'#collapseNotes'+p.Id"
+                              role="button" aria-expanded="false" aria-controls="collapseExample">
+                              <i class="fas fa-chevron-down"></i>
+                          </a>
+                          <div>
+                              <h5>Note<span> {{p.ProgramItem.SelectedNote.Name }}</span></h5>
+                          </div>
+                          <div>
+
+                          </div>
+                          <button type="button" class="close" aria-label="Close" (click)="RemoveItem(done,p)">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <!-- Collapse head ends -->
+
+                      <!-- Collapse body starts -->
+                      <div class="collapse show" [id]="'collapseNotes'+p.Id">
+                          <div class="card card-body notes-body">
+                              <div class="row no-gutters">
+                                  <div class="col-md-12 col-lg-9 col-xl-7">
+                                      <input type="text" class="form-control grey-bg-input" id="name"
+                                          placeholder="Name" [(ngModel)]="p.ProgramItem.SelectedNote.Name"
+                                          (ngModelChange)="SaveDraftProgram()">
+                                  </div>
+                                  <div class="col-12">
+                                      <small class="form-text text-muted"><sup>*</sup>Notes printed to pdf will
+                                          display on all weeks, instead of dynamically hiding</small>
+                                  </div>
+                                  <div class="col-12">
+                                      <div class="weeks-con">
+                                          <p>Weeks to show:</p>
+                                          <div class="weeks-in">
+                                              <span class="selected"
+                                                  [ngClass]="{'selected': IsDisplayWeekInArray(p.ProgramItem.SelectedNote.WeekIds,id)}"
+                                                  (click)="ToggleWeekIds(id,p.ProgramItem.SelectedNote.WeekIds)"
+                                                  *ngFor="let id of WeekIds">{{id}}<i class="fas fa-check"></i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="col-12 editor">
+                                      <angular-editor [config]="WYSIWYGConfig" (ngModelChange)="SaveDraftProgram()"
+                                          [placeholder]="'Enter Note here...'"
+                                          [(ngModel)]="p.ProgramItem.SelectedNote.Note"></angular-editor>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Collapse body ends -->
+                  </div>
+                  <!-- Notes Collapse block ends -->
+                  <!-- Training Collapse block starts -->
+                  <div class="collapse-block" *ngIf="p.ItemType != undefined && p.ItemType == 7">
+                      <!-- Collapse head starts -->
+                      <div class="collapse-head">
+                          <a class="toggle" data-toggle="collapse" [href]="'#collapseTraining'+p.Id" role="button"
+                              aria-expanded="false" aria-controls="collapseExample">
+                              <i class="fas fa-chevron-down"></i>
+                          </a>
+                          <h5>
+                              <input class="form-control white-bg-input" type="text"
+                                  [(ngModel)]="p.SuperSetDisplayTitle">
+                          </h5>
+                          <button type="button" class="close" aria-label="Close" (click)="RemoveItem(done,p)">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <!-- Collapse head ends -->
+
+                      <!-- Collapse body starts -->
+                      <div class="collapse show" [id]="'collapseTraining'+p.Id">
+                          <div class="card card-body training-body">
+                              <div class=" no-gutters">
+                                  <div class="col-12">
+                                      <small class="form-text text-muted"><sup>*</sup>Notes printed to pdf will
+                                          display on all weeks, instead of dynamically hiding</small>
+                                  </div>
+                                  <div class="col-lg-9 btn-textarea"
+                                      *ngFor="let n of p.ProgramItem.Notes | Sort: 'Position'">
+                                      <textarea class="form-control white-bg-input" rows="1" placeholder="Note"
+                                          [(ngModel)]="n.Note" (ngModelChange)="SaveDraftProgram()"></textarea>
+                                      <div class="weeks-con">
+                                          <div class="weeks-in">
+                                              <span [ngClass]="{'selected': IsDisplayWeekInArray(n.WeekIds,id)}"
+                                                  (click)="ToggleWeekIds(id,n.WeekIds)"
+                                                  *ngFor="let id of WeekIds">{{id}}<i class="fas fa-check"></i></span>
+                                          </div>
+                                          <div style="color:red; cursor:pointer"
+                                              (click)="RemoveNote(n.Id,p.ProgramItem)">Delete Note</div>
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-3 add-note-btn">
+                                      <button type="button" class="btn btn-link add-btn"
+                                          (click)="AddNewNoteToSuperSet(p)"><i class="fas fa-plus"></i>
+                                          Add
+                                          Note</button>
+                                  </div>
+                                  <!-- Start of super set exercise listing -->
+                                  <div *ngFor="let e of p.ProgramItem.Exercises | Sort: 'Position'">
+                                      <div class="col-12">
+                                          <h4 class="heading">Exercise
+                                              <i class="fas fa-trash-alt" style="color:red; font-size:14px;"
+                                                  title="Delete Exercise"
+                                                  (click)="ToggleDeleteExerciseConfirmation(e,p.ProgramItem)"></i>
+                                          </h4>
+                                      </div>
+                                      <div class="row">
+                                          <div class="col-lg-5 " style="text-align:left">
+                                              <two-drop-down-search [AllTags]="ExerciseTags"
+                                                  [AllTaggedItems]="AllExercises" [SelectedItem]="e.ExerciseId"
+                                                  [CurrentProgramBuilderModule]="e"
+                                                  (SelectedItemChange)="UpdateSuperSetExercise($event)"
+                                                  [UpdateTagEvent]="exerciseSubject.asObservable()">
+                                              </two-drop-down-search>
+                                          </div>
+                                          <div class="col-lg-1 ">
+
+                                              <button type="button" style="color:white"
+                                                  class="btn btn-lg btn-green create-btn inline-btn create-exer"
+                                                  (click)="ToggleShowCreateExerciseWindow()"><img
+                                                      src="../../../assets/lhs-icons/setsIcon.png" />
+                                              </button>
+                                          </div>
+
+                                          <div class="col-lg-5" style="text-align:left;">
+                                              <two-drop-down-search [AllTags]="WorkoutTags"
+                                                  [AllTaggedItems]="AllWorkouts" [CurrentProgramBuilderModule]="e"
+                                                  (SelectedItemChange)="UpdateSuperSet_SetsReps($event)"
+                                                  [UpdateTagEvent]="workoutSubject.asObservable()">
+                                              </two-drop-down-search>
+                                          </div>
+                                          <div class="col-lg-1">
+                                              <!-- this is to prevent the btn:hover turningit black -->
+                                              <button type="button" style="color:white"
+                                                  class="btn btn-lg btn-green create-btn inline-btn"
+                                                  (click)="ToggleShowSetsRepsWindow()"> <img
+                                                      src="../../../assets/lhs-icons/categoryicon.png" />
+                                              </button>
+                                          </div>
+                                      </div>
+                                      <div class="col-12">
+                                          <div class="row top-btns">
+                                            <button type="button" *ngIf="e.SelectedWorkout.ShowAdvancedOptions"
+                                            class="btn btn-link add-btn advanced-btn"
+                                            (click)="ToggleSelectedWorkoutAdvancedOptions(e.SelectedWorkout)"
+                                            style="color:#0275d8"><i class="fas fa-asterisk"></i>
+                                            &nbsp;&nbsp;Hide Advanced Options</button>
+                                        <button type="button" *ngIf="!e.SelectedWorkout.ShowAdvancedOptions"
+                                            class="btn btn-link add-btn advanced-btn"
+                                            (click)="ToggleSelectedWorkoutAdvancedOptions(e.SelectedWorkout)"
+                                            style="color:#0275d8"><i class="fas fa-asterisk"></i>
+                                            &nbsp;&nbsp;Show Advanced Options</button>
+                                        <!-- doing the e.id + '....' + d.id. Because the ids were not unique when we introduced copy days.
+                                            so they would randomly click on one label only to have another label on a different day click -->
+                                        <div style="float:left;" *ngIf="e.SelectedWorkout.ShowAdvancedOptions"
+                                            [@fadeInAnimation]="e.SelectedWorkout.ShowAdvancedOptions ? 'enter' : 'leave'">
+                                            <div class="custom-control custom-switch"
+                                                style="float:left;margin:10px;">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="e.SelectedWorkout.ShowPercentageBox"
+                                                    [id]="e.Id+'percentageOption'+d.Id"
+                                                    (change)="ToggleSuperSetSelectedWorkoutPercentageBox(e)">
+                                                <label class="custom-control-label"
+                                                    [for]="e.Id+'percentageOption'+d.Id">%</label>
+                                            </div>
+                                            <div class="custom-control custom-switch"
+                                                style="float:left;margin:10px;">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="e.SelectedWorkout.ShowSetsBox"
+                                                    [id]="e.Id+'setsOption'+d.Id"
+                                                    (change)="ToggleSuperSetSelectedWorkoutSetsBox(e)">
+                                                <label class="custom-control-label"
+                                                    [for]="e.Id+'setsOption'+d.Id">Sets</label>
+                                            </div>
+                                            <div class="custom-control custom-switch"
+                                                style="float:left;margin:10px;">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="e.SelectedWorkout.ShowRepsBox"
+                                                    [id]="e.Id+'repsOption'+d.Id"
+                                                    (change)="ToggleSuperSetSelectedWorkoutRepsBox(e)">
+                                                <label class="custom-control-label"
+                                                    [for]="e.Id+'repsOption'+d.Id">Reps</label>
+                                            </div>
+                                            <div class="custom-control custom-switch"
+                                                style="float:left;margin:10px;">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="e.SelectedWorkout.ShowWeight"
+                                                    [id]="e.Id+'weightsOption'+d.Id"
+                                                    (change)="ToggleSuperSetSelectedWorkoutWeightBox(e)">
+                                                <label class="custom-control-label"
+                                                    [for]="e.Id+'weightsOption'+d.Id">Rx</label>
+                                            </div>
+                                            <div class="custom-control custom-switch"
+                                                style="float:left;margin:10px;">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="e.SelectedWorkout.ShowTimeBox"
+                                                    [id]="e.Id+'timeOption'+d.Id"
+                                                    (change)="ToggleSuperSetSelectedWorkoutTimeBox(e)">
+                                                <label class="custom-control-label"
+                                                    [for]="e.Id+'timeOption'+d.Id">Time</label>
+                                            </div>
+                                            <div class="custom-control custom-switch"
+                                                style="float:left;margin:10px;">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="e.SelectedWorkout.ShowDistanceBox"
+                                                    [id]="e.Id+'distanceOption'+d.Id"
+                                                    (change)="ToggleSuperSetSelectedWorkoutDistanceBox(e)">
+                                                <label class="custom-control-label"
+                                                    [for]="e.Id+'distanceOption'+d.Id">Distance</label>
+                                            </div>
+                                            <!-- <div class="custom-control custom-switch"
+                                                style="float:left;margin:10px;">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="e.SelectedWorkout.ShowOtherBox"
+                                                    [id]="e.Id+'otherOption'"
+                                                    (change)="ToggleSuperSetSelectedWorkoutShowOtherBox(e)">
+                                                <label class="custom-control-label"
+                                                    [for]="e.Id+'otherOption'">Other</label>
+                                            </div> -->
+                                            <div class="custom-control custom-switch"
+                                                style="float:left;margin:10px;">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="e.SelectedWorkout.ShowRestBox"
+                                                    [id]="e.Id+'restOption'+d.Id"
+                                                    (change)="ToggleSuperSetSelectedWorkoutRestBox(e)">
+                                                <label class="custom-control-label"
+                                                    [for]="e.Id+'restOption'+d.Id">Rest</label>
+                                            </div>
+                                            <div class="custom-control custom-switch"
+                                                style="float:left;margin:10px;">
+
+                                                <input type="checkbox" class="custom-control-input"
+                                                    [checked]="e.SelectedWorkout.ShowRepsAchievedBox"
+                                                    [id]="e.Id+'repsAchivedOption'+d.Id"
+                                                    (change)="ToggleSuperSetSelectedWorkoutRepsAchieved(e)">
+                                                <label class="custom-control-label"
+                                                    [for]="e.Id+'repsAchivedOption'+d.Id">Reps
+                                                    Achieved</label>
+                                            </div>
+                                        </div>
+                                          </div>
+                                          <div class="col-12 ">
+                                              <div class="row" *ngIf="e.SelectedWorkout.ShowRestBox">
+                                                  <label for="restBox" class="col-lg-1 col-form-label">Rest:</label>
+                                                  <div class="col-lg-7">
+                                                      <input type="text" class="form-control white-bg-input"
+                                                          id="restBox" placeholder="Enter Rest"
+                                                          [(ngModel)]="e.SelectedWorkout.Rest">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="weeks-list">
+                                              <div class="row no-gutters">
+                                                  <!-- One week starts -->
+                                                  <div class="col-md-6 col-lg-3 col-xl-4" *ngFor="let w of e.Weeks">
+                                                      <div class="week-con">
+                                                          <p class="week-title checked"><i class="fas fa-check"></i>
+                                                              Week
+                                                          </p>
+                                                          <div class="row no-gutters week-in"
+                                                              *ngFor="let s of w.SetsAndReps; let i = index">
+                                                              <hr *ngIf="i > 0 " style=" width:100%">
+                                                              <div class="col-3"
+                                                                  *ngIf="e.SelectedWorkout.ShowPercentageBox">
+                                                                  <div class="form-group">
+                                                                      <label>%</label>
+                                                                      <input type="text" class="form-control"
+                                                                          (change)="CheckAddAnotherSet(w,e.SelectedWorkout)"
+                                                                          aria-describedby="Percent"
+                                                                          [(ngModel)]="s.Percent"
+                                                                          (ngModelChange)="SaveDraftProgram()">
+                                                                  </div>
+                                                              </div>
+                                                              <div class="col-3"
+                                                                  *ngIf="e.SelectedWorkout.ShowSetsBox">
+                                                                  <div class="form-group">
+                                                                      <label>Set</label>
+                                                                      <input type="text" class="form-control"
+                                                                          (change)="CheckAddAnotherSet(w,e.SelectedWorkout)"
+                                                                          aria-describedby="Sets" [(ngModel)]="s.Sets"
+                                                                          (ngModelChange)="SaveDraftProgram()">
+                                                                  </div>
+                                                              </div>
+                                                              <div class="col-3"
+                                                                  *ngIf="e.SelectedWorkout.ShowRepsBox">
+                                                                  <div class="form-group">
+                                                                      <label>Rep</label>
+                                                                      <input type="text" class="form-control"
+                                                                          (change)="CheckAddAnotherSet(w,e.SelectedWorkout)"
+                                                                          aria-describedby="Reps" [(ngModel)]="s.Reps"
+                                                                          (ngModelChange)="SaveDraftProgram()">
+                                                                  </div>
+                                                              </div>
+                                                              <div class="col-3" *ngIf="e.SelectedWorkout.ShowWeight">
+                                                                  <div class="form-group">
+                                                                      <label>Lbs</label>
+                                                                      <input type="text" class="form-control"
+                                                                          (change)="CheckAddAnotherSet(w,e.SelectedWorkout)"
+                                                                          aria-describedby="Weight"
+                                                                          [(ngModel)]="s.Weight"
+                                                                          (ngModelChange)="SaveDraftProgram()">
+                                                                  </div>
+                                                              </div>
+                                                              <div class="col-3"
+                                                                  *ngIf="e.SelectedWorkout.ShowTimeBox">
+                                                                  <div class="form-group">
+                                                                      <label>Minutes</label>
+                                                                      <input type="text" class="form-control"
+                                                                          aria-describedby="Weight"
+                                                                          [(ngModel)]="s.Minutes"
+                                                                          (ngModelChange)="SaveDraftProgram()"
+                                                                          (change)="CheckAddAnotherSet(w,e.SelectedWorkout)">
+                                                                  </div>
+                                                              </div>
+                                                              <div class="col-3"
+                                                                  *ngIf="e.SelectedWorkout.ShowTimeBox">
+                                                                  <div class="form-group">
+                                                                      <label>Seconds</label>
+                                                                      <input type="text" class="form-control"
+                                                                          aria-describedby="Weight"
+                                                                          [(ngModel)]="s.Seconds"
+                                                                          (ngModelChange)="SaveDraftProgram()"
+                                                                          (change)="CheckAddAnotherSet(w,e.SelectedWorkout)">
+                                                                  </div>
+                                                              </div>
+                                                              <div class="col-3"
+                                                                  *ngIf="e.SelectedWorkout.ShowDistanceBox">
+                                                                  <div class="form-group">
+                                                                      <label>Distance</label>
+                                                                      <input type="text" class="form-control"
+                                                                          aria-describedby="Weight"
+                                                                          [(ngModel)]="s.Distance"
+                                                                          (ngModelChange)="SaveDraftProgram()"
+                                                                          (change)="CheckAddAnotherSet(w,e.SelectedWorkout)">
+                                                                  </div>
+                                                              </div>
+                                                              <div class="col-3"
+                                                                  *ngIf="e.SelectedWorkout.ShowOtherBox">
+                                                                  <div class="form-group">
+                                                                      <label>Other</label>
+                                                                      <input type="text" class="form-control"
+                                                                          aria-describedby="Weight"
+                                                                          [(ngModel)]="s.Other"
+                                                                          (ngModelChange)="SaveDraftProgram()"
+                                                                          (change)="CheckAddAnotherSet(w,e.SelectedWorkout)">
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <!-- One week ends -->
+                                              </div>
+                                          </div>
+                                          <!-- end superset exercise listing -->
+                                      </div>
+                                  </div>
+                                  <div class="col-12 bottom-btns">
+                                      <button type="button" class="btn btn-link add-btn"
+                                          (click)="AddNewExerciseToSuperSet(p)"><i class="fas fa-plus"></i>
+                                          Add
+                                          Exercise</button>
+                                      <!-- <button type="button" class="btn btn-link remove-btn"><i
+                                              class="fas fa-trash-alt"></i>
+                                          Delete Exercise</button> -->
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Collapse body ends -->
+                  </div>
+                  <!-- Training Collapse block ends -->
+
+                  <!-- Survey Collapse block starts -->
+                  <div class="collapse-block" *ngIf="p.ItemType != undefined && p.ItemType == 2">
+                      <!-- Collapse head starts -->
+                      <div class="collapse-head">
+                          <a class="toggle" data-toggle="collapse" [href]="'#collapseSurvey'+p.Id" role="button"
+                              aria-expanded="false" aria-controls="collapseExample">
+                              <i class="fas fa-chevron-down"></i>
+                          </a>
+                          <div *ngIf="p.ProgramItem.SelectedSurvey === null">
+                              <h5>Survey<span>No survey Selected</span></h5>
+                          </div>
+                          <div>{{p.ProgramItem.SelectedSurvey.Name}}</div>
+                          <button type="button" class="close" aria-label="Close" (click)="RemoveItem(done,p)">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <!-- Collapse head ends -->
+
+                      <!-- Collapse body starts -->
+                      <div class="collapse show" [id]="'collapseSurvey'+p.Id">
+                          <div class="card card-body survey-body">
+                              <div class="row no-gutters">
+                                  <div class="col-lg-7">
+                                      <two-drop-down-search [AllTags]="SurveyTags" [AllTaggedItems]="AllSurveys"
+                                          [SelectedItem]='p.ProgramItem.SelectedSurvey.Id'
+                                          [CurrentProgramBuilderModule]="p"
+                                          (SelectedItemChange)="UpdateSurvey($event)"
+                                          [UpdateTagEvent]="surveySubject.asObservable()"></two-drop-down-search>
+                                  </div>
+
+                                  <div class="col-lg-1">
+                                      <button type="button" class="btn btn-lg btn-green create-btn inline-btn"
+                                          (click)="ToggleShowCreateSurveyWindow()"> <img
+                                              src="../../../assets/lhs-icons/surveyIcon.png" /></button>
+                                  </div>
+                                  <div class="col-12">
+                                      <div class="weeks-con">
+                                          <p>Weeks to show:</p>
+                                          <div class="weeks-in">
+                                              <span
+                                                  [ngClass]="{'selected': IsDisplayWeekInArray(p.ProgramItem.SelectedSurvey.WeekIds,id)}"
+                                                  (click)="ToggleWeekIds(id,p.ProgramItem.SelectedSurvey.WeekIds)"
+                                                  *ngFor="let id of WeekIds">{{id}}<i class="fas fa-check"></i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Collapse body ends -->
+                  </div>
+                  <!-- Survey Collapse block ends -->
+                  <!-- Metric Collapse block starts -->
+                  <div class="collapse-block" *ngIf="p.ItemType != undefined && p.ItemType == 6">
+                      <!-- Collapse head starts -->
+                      <div class="collapse-head">
+                          <a class="toggle collapsed" data-toggle="collapse" [href]="'#collapseMetric'+p.Id"
+                              role="button" aria-expanded="false" aria-controls="collapseExample">
+                              <i class="fas fa-chevron-down"></i>
+                          </a>
+                          <div>
+                              <h5>Metric<span>{{p.ProgramItem.SelectedMetric.Name}}</span></h5>
+                          </div>
+
+
+                          <button type="button" class="close" aria-label="Close" (click)="RemoveItem(done,p)">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <!-- Collapse head ends -->
+
+
+                      <!-- Collapse body starts -->
+                      <div class="collapse show" [id]="'collapseMetric'+p.Id">
+                          <div class="card card-body metric-body">
+                              <div class="row no-gutters">
+                                  <div class="col-lg-7">
+
+                                      <two-drop-down-search [AllTags]="AllMetricTags" [AllTaggedItems]="AllMetrics"
+                                          [SelectedItem]="p.ProgramItem.SelectedMetric.Id"
+                                          [CurrentProgramBuilderModule]="p"
+                                          (SelectedItemChange)="UpdateMetric($event)"
+                                          [UpdateTagEvent]="metricSubject.asObservable()">></two-drop-down-search>
+
+                                  </div>
+
+                                  <div class="col-lg-1">
+                                      <button type="button" (click)="ToggleMetricCreationWindow()"
+                                          class="btn btn-lg btn-green create-btn inline-btn"><img
+                                              src="../../../assets/lhs-icons/stats.png" /></button>
+                                  </div>
+                                  <div class="col-12">
+                                      <div class="weeks-con">
+                                          <p>Weeks to show:</p>
+                                          <div class="weeks-in">
+                                              <span *ngFor="let id of WeekIds"
+                                                  [ngClass]="{'selected': IsDisplayWeekInArray(p.ProgramItem.SelectedMetric.WeekIds,id)}"
+                                                  (click)="ToggleWeekIds(id,p.ProgramItem.SelectedMetric.WeekIds)">{{id}}<i
+                                                      class="fas fa-check"></i></span>
+
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Collapse body ends -->
+                  </div>
+                  <!-- Metric Collapse block ends -->
+                  <!--  video select-->
+                  <div class="collapse-block" *ngIf="p.ItemType != undefined && p.ItemType == 4">
+                      <div class="collapse-head">
+                          <a class="toggle collapsed" data-toggle="collapse" [href]="'#collapseVideo'+p.Id"
+                              role="button" aria-expanded="false" aria-controls="collapseExample">
+                              <i class="fas fa-chevron-down"></i>
+                          </a>
+                          <div>
+                              <h5>Video<span>{{p.ProgramItem.SelectedVideo.Name}}</span></h5>
+                          </div>
+
+
+                          <button type="button" class="close" aria-label="Close" (click)="RemoveItem(done,p)">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="collapse show" [id]="'collapseVideo'+p.Id">
+                          <div class="card card-body metric-body">
+                              <div class="row no-gutters">
+                                  <div class="col-lg-5">
+                                      <two-drop-down-search [AllTags]="AllVideoTags" [AllTaggedItems]="AllMovies"
+                                          [SelectedItem]="p.ProgramItem.SelectedVideo.Id"
+                                          [CurrentProgramBuilderModule]="p" (SelectedItemChange)="UpdateVideo($event)"
+                                          [UpdateTagEvent]="videoSubject.asObservable()"></two-drop-down-search>
+                                  </div>
+                                  <!-- this is used to stop the btn:hover css from turning the icon black on hover -->
+                                  <div class="col-lg-7" style="color:white">
+                                      <button type="button" (click)="ToggleVideoCreationWindow()"
+                                          class="btn btn-lg btn-green create-btn inline-btn"> <i
+                                              class=" fas fa-video"></i></button>
+                                  </div>
+                                  <div class="col-12">
+                                      <div class="weeks-con">
+                                          <p>Weeks to show:</p>
+                                          <div class="weeks-in">
+                                              <span *ngFor="let id of WeekIds"
+                                                  [ngClass]="{'selected': IsDisplayWeekInArray(p.ProgramItem.SelectedVideo.WeekIds,id)}"
+                                                  (click)="ToggleWeekIds(id,p.ProgramItem.SelectedVideo.WeekIds)">{{id}}<i
+                                                      class="fas fa-check"></i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- end video select-->
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Program builder ends -->
+
+  <!-- Create metric modal starts -->
+  <div class="metric-modal scp-modal " *ngIf="ShowMetricCreationWindow" [@fadeInAnimation]="ShowMetricCreationWindow ? 'enter' : 'leave'">
+      <div class="scp-modal-in right">
+          <div class="col-12 col-md-6" style="border:none">
+            <button type="button" style="margin-left: 200%;background-color: white;border:none;font-weight: bold;font-size: 130%;"
+             (click)="ToggleMetricCreationWindow()">X</button>
+          </div>
+          <app-metric-form
+          [View]="ShowMetricCreationWindow ? 'CreateMetric' : ''"
+          [LabelVisible]="false"
+          [SelectedMetric]="SelectedMetric"
+          [newMetricTagItems]="newMetricTagItems"
+          (SaveCallBack)="SaveForMetricBlock($event)"
+          (CancelCallBack)="ToggleMetricCreationWindow()">
+          </app-metric-form>
+      </div>
+  </div>
+  <!-- Create metric modal ends -->
+  <div>
+      <div class="metric-modal scp-modal " *ngIf="ShowCreateExerciseWindow"
+          [@fadeInAnimation]="ShowCreateExerciseWindow ? 'enter' : 'leave'">
+          <div class="scp-modal-in right">
+              <div style="position:absolute" class="row scp-modal-content" *ngIf="ShowCreateExerciseWindow"
+                  [@fadeInAnimation]="ShowCreateExerciseWindow ? 'enter' : 'leave'">
+                  <h3 class="scp-modal-title col-12 col-md-12" style="text-align:center">Create Exercise</h3>
+                  <label for="name" class="col-12 col-md-4  col-form-label">Name:</label>
+                  <div class="col-12 col-md-8 ">
+                      <input type="text" class="form-control white-bg-input" id="name" placeholder="Exercise Name"
+                          [(ngModel)]="SelectedExercise.Name">
+                  </div>
+                  <label class="col-14 col-md-4 col-form-label">Calc By Weight:</label>
+
+                  <div class="col-12 col-md-8 " style="text-align:left">
+                      <ng-select id="exerciseCalculation" [(items)]="AllMetrics" bindLabel="Name" bindValue="Id"
+                          [placeholder]="SelectedExercise.PercentMetricCalculationId == undefined ? 'Select A Metric' :''"
+                          [searchFn]="SelectSearch" [(ngModel)]="SelectedExercise.PercentMetricCalculationId">
+                          <ng-template ng-option-tmp let-item="item">
+                              {{item.Name}} <br />
+                              <div *ngIf="item.Tags.length > 0  ">
+                                  <div *ngFor="let tags of item.Tags">
+                                      <div class="badge badge-pill badge-light floatLeft">{{tags.Name}}</div>
+                                  </div>
+                              </div>
+                          </ng-template>
+                      </ng-select>
+                  </div>
+                  <br />
+                  <label for="tags" class="col-12 col-md-4  col-form-label">Tags:</label>
+                  <div class="col-12 col-md-8 text-left">
+                      <app-scp-tag-input [ExistingTags]="newExerciseTagItems"
+                          (TagRemoved)="RemoveNewEditExerciseTags($event)" (TagAdded)="AddNewEditExerciseTags($event)"
+                          [autocompleteItems]="AllTags">
+                      </app-scp-tag-input>
+                  </div>
+                  <label for="name" class="col-12 col-md-4 col-form-label">Percent:</label>
+                  <div class="col-12 col-md-8 ">
+                      <input type="text" class="form-control white-bg-input" id="name" placeholder="Percent"
+                          [(ngModel)]="SelectedExercise.Percent">
+                  </div>
+
+                  <label for="video-url" class="col-12 col-md-4 col-form-label" style="float:left">Video
+                      URL:</label>
+                  <div class="col-12 col-md-8 ">
+                      <input type="text" class="form-control white-bg-input" id="video-url"
+                          [(ngModel)]="SelectedExercise.VideoURL" placeholder="Enter Video URL">
+                      <p style="text-align:left; font-size:.85em; margin-top:10px;">SCP Supports both Vimeo and
+                          Youtube. When using youtube, copy the link from the "share" button, as opposed to the
+                          link from the URL bar. Example: https://youtu.be/R1JBQMXbN2k</p>
+                  </div>
+                  <button type="submit" class="btn btn-lg btn-green btn-normal col-12 col-md-4  offset-md-1"
+                      (click)="SaveExercise(SelectedExercise,newExerciseTagItems)">Save</button>
+                  <button type="button" class="btn btn-lg btn-red btn-normal edit-btn  col-12 col-md-4 offset-md-1"
+                      (click)="ToggleShowCreateExerciseWindow()">Cancel</button>
+                  <!-- Create exercise ends -->
+              </div>
+          </div>
+      </div>
+
+      <!-- Create Sets and reps modal starts -->
+      <div class="metric-modal scp-modal " *ngIf="ShowSetsRepsWindow"
+          [@fadeInAnimation]="ShowSetsRepsWindow ? 'enter' : 'leave'">
+          <div class="scp-modal-wide-in right">
+            <app-sets-and-reps-form
+            [View]="ShowSetsRepsWindow ? 'CreateWorkout' : ''"
+            [WeekViewMode]="'col-sm-12 col-md-8 col-lg-6 col-xl-5'"
+            [FormViewMode]="'row sets-and-reps-modal-content no-gutters'"
+            [SelectedWorkout]="SelectedWorkout"
+            [newWorkoutTagItems]="newWorkoutTagItems"
+            (SaveCallBack)="SaveForTrainingBlock($event)"
+            (CancelCallBack)="ToggleShowSetsRepsWindow()">
+            </app-sets-and-reps-form>
+          </div>
+      </div>
+      <!-- end create sets reps modal-->
+
+      <!-- Create Surveys modal starts -->
+      <div class="metric-modal scp-modal " style="z-index: 1000" *ngIf="ShowSurveyWindow"
+          [@fadeInAnimation]="ShowSurveyWindow ? 'enter' : 'leave'">
+          <div class="scp-modal-wide-in right">
+              <app-survey-form *ngIf="ShowSurveyWindow"
+              [ShowSurveyWindow]="ShowSurveyWindow"
+              [NewlyCreatedSurvey]="NewlyCreatedSurvey"
+              [AllQuestions]="AllQuestions"
+              (CancelCallBack)="ToggleShowCreateSurveyWindow()"
+              (SaveCallBack)="SaveForSurveyBlock($event)">
+              </app-survey-form>
+          </div>
+      </div>
+      <!-- end create survey-->
+  </div>
+</div>
+
+<!-- Create video modal starts -->
+<div class="metric-modal scp-modal " *ngIf="ShowVideoCreationWindow"
+  [@fadeInAnimation]="ShowVideoCreationWindow ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <div class="col-12 col-md-6" style="border:none">
+          <button type="button"
+              style="margin-left: 200%;background-color: white;border:none;font-weight: bold;font-size: 130%;"
+              (click)="ToggleVideoCreationWindow()">X</button>
+      </div>
+      <app-multimedia-form
+      [CreateMovieMenu]="ShowVideoCreationWindow"
+      [SelectedMovie]="SelectedVideo"
+      [LabelVisible]="false"
+      (CancelCallBack)="ToggleVideoCreationWindow()"
+      (SaveCallBack)="SaveForMultimediaBlock($event)">
+      </app-multimedia-form>
+  </div>
+  <!-- Create video modal ends -->
+</div>
+
+
+
+
+<!-- View Delete Day -->
+<div class="metric-modal scp-modal " *ngIf="DeleteDayConfirmation"
+  [@fadeInAnimation]="DeleteDayConfirmation ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <div class="col-12 col-md-6" style="border:none">
+          <button type="button"
+              style="margin-left: 200%;background-color: white;border:none;font-weight: bold;font-size: 130%;"
+              (click)="ToggleDeleteDayConfirmation()">X</button>
+      </div>
+      <h3 class="scp-modal-title">Delete Day</h3>
+      <p style="margin:20px;">By clicking the <strong>Delete Button</strong> you will <strong>Permenantly</strong>
+          delete this day from the program.</p>
+      <div class="row">
+          <button type="button" class="btn btn-lg btn-green btn-normal edit-btn col-3 offset-1"
+              (click)="DeleteDay()">Delete</button>
+
+          <button type="button" class="btn btn-lg btn-red btn-normal edit-btn col-3 offset-4"
+              (click)="ToggleDeleteDayConfirmation()">Cancel</button>
+      </div>
+
+  </div>
+</div>
+<!-- DeleteExercise Confirmation-->
+
+<div class="metric-modal scp-modal " *ngIf="DeleteExerciseConfirmation"
+  [@fadeInAnimation]="DeleteExerciseConfirmation ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <div class="col-12 col-md-6" style="border:none">
+          <button type="button"
+              style="margin-left: 200%;background-color: white;border:none;font-weight: bold;font-size: 130%;"
+              (click)="ToggleDeleteExerciseConfirmation(null,null)">X</button>
+      </div>
+      <h3 class="scp-modal-title">Delete Exercise</h3>
+      <p style="margin:20px;">By clicking the <strong>Delete Button</strong> you will <strong>Permenantly</strong>
+          delete this Exercise from the program.</p>
+      <div class="row">
+          <button type="button" class="btn btn-lg btn-green btn-normal edit-btn col-3 offset-1"
+              (click)="DeleteExercise()">Delete</button>
+
+          <button type="button" class="btn btn-lg btn-red btn-normal edit-btn col-3 offset-4"
+          (click)="ToggleDeleteExerciseConfirmation(null,null)">Cancel</button>
+      </div>
+
+  </div>
+</div>
+<!-- ClearProgram Confirmation-->
+<div class="metric-modal scp-modal " *ngIf="ClearProgramConfirmation"
+  [@fadeInAnimation]="ClearProgramConfirmation ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <div class="col-12 col-md-6" style="border:none">
+          <button type="button"
+              style="margin-left: 200%;background-color: white;border:none;font-weight: bold;font-size: 130%;"
+              (click)="ToggleResetProgramConfirm()">X</button>
+      </div>
+      <h3 class="scp-modal-title">Clear Program</h3>
+      <p style="margin:20px;">By clicking the <strong>Clear Button</strong> you will <strong>Permenantly</strong>
+          clear this entire program.</p>
+      <div class="row">
+          <button type="button" class="btn btn-lg btn-green btn-normal edit-btn col-3 offset-1"
+              (click)="ResetProgram()">Clear</button>
+
+          <button type="button" class="btn btn-lg btn-red btn-normal edit-btn col-3 offset-4"
+          (click)="ToggleResetProgramConfirm()">Cancel</button>
+      </div>
+
+  </div>
+</div>
+<app-alert [messages]="AlertMessages"></app-alert>

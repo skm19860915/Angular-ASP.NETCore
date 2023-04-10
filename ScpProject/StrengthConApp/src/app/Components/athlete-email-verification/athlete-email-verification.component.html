@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="LoginBox" style="height:520px;">
+    <div class="Logo"><img src="assets/Menu/SCP_tiny.png" width="180" style="margin-left:10px; margin-top:10px;"></div>
+    <br />
+
+    <div style="color:rgb(253, 255, 251);text-align:center; margin-bottom:30px"> In order to finish your registration,
+      please enter a login
+      name and update your password</div>
+
+    <div class="whiteInputContainer" class="row">
+      <input placeholder="User Name" class="offset-lg-3 col-lg-5 offset-md-2 col-md-6 col-sm-11 col-10 form-control white-bg-input"
+        id="userName" [(ngModel)]="userName" (keyup)="UserLoginValidator(userName)"/>
+    </div>
+    <br />
+    <div class="whiteInputContainer" class="row">
+      <input placeholder="Password" id="Password"
+      class="offset-lg-3 col-lg-5 offset-md-2 col-md-6 col-sm-11 col-10 form-control white-bg-input" [(ngModel)]="password"
+        type="password" />
+    </div>
+    <br />
+    <div class="whiteInputContainer" class="row">
+      <input placeholder="Confirm Password" class="offset-lg-3 col-lg-5 offset-md-2 col-md-6 col-sm-11 col-10 form-control white-bg-input"
+        id="confirmPassword" [(ngModel)]="confirmPassword" type="password" />
+    </div>
+    <br />
+    <div class="row">
+      <div class=" offset-lg-3 col-lg-5  offset-md-2 col-md-6 col-sm-11 col-10 btn btn-lg btn-block btn-green btn-normal"
+        style="background-color: #8cc63d;font-weight: bold;font-size: 120%;text-align: center;"
+        (click)="FinishRegistration(userName,password, confirmPassword)" *ngIf="isFormValidated" >Finish Registration</div>
+      <br />
+    </div>
+   
+    <br />
+  </div>
+</div>
+<app-alert [messages]="AlertMessages"></app-alert>

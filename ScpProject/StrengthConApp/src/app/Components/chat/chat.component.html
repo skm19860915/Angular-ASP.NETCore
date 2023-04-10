@@ -1,0 +1,385 @@
+<div class="content-con" style="padding:0px;">
+  <div class="container-fluid">
+    <div class="offset-md-10 col-md-1 text-right">
+      <span class="icon"><i class="fas fa-question"></i></span>
+    </div>
+    <div class="row">
+
+      <!-- Page inner content starts -->
+      <div class="col-sm-12 page-inner-content chat-page">
+
+
+        <!-- chat main container starts -->
+        <div class="chat-con row ">
+
+          <!-- groups container starts -->
+          <div class="col-md-4 col-sm-3 ">
+            <div class="groups-con">
+              <div class="header-con">
+                <span class="icon" (click)="ToggleCreateMessageModel()"><i class="fas fa-plus"
+                    title="Create Message"></i></span>
+                <span class="icon" title="Reload Messages" (click)="GetMessagePreview()">
+                  <i class="fas fa-sync-alt"></i>
+                </span>
+
+              </div>
+
+              <div class="groups-in">
+
+                <div class="one-group selected" *ngFor="let c of OrderedMessagePreviews"
+                  [ngClass]="{'selected': c.Selected}" (click)="DisplayChatMessage(c)">
+                  <div class="image-con">
+
+                  </div>
+                  <div class="details-con">
+                    <div class="group-name">
+                      <h4 style="float:left;margin-right:20px" *ngIf="c.MessageGroupTitle !== undefined">
+                        {{c.MessageGroupTitle}}</h4>
+                      <h4 style="float:left;margin-right:20px"
+                        *ngIf="c.MessageGroupTitle === undefined && c.ViewerId == c.UserId">
+                        {{c.DestinationFirstName}}&nbsp;{{c.DestinationLastName}}</h4>
+                      <h4 style="float:left;margin-right:20px"
+                        *ngIf="c.MessageGroupTitle === undefined && c.ViewerId == c.DestinationUserId">
+                        {{c.LastSentFirstName}}&nbsp;{{c.LastSentLastName}}</h4>
+                      <i style="float:left;margin:0px 10px 0px 10px" class="fas fa-pause-circle" *ngIf="c.Pause"
+                        title="Paused Message"></i>
+                      <i style="float:left;margin:0px 10px 0px 10px" class="fas fa-ban" title="Read Only Mode"
+                        *ngIf="c.ReadOnly"></i>
+                      <i style="float:right;margin:0px 10px 0px 10px" class="fas fa-trash-alt" title="Delete"
+                        *ngIf="IsCoach" (click)="ShowDeleteConfirmation(c)"></i>
+                      <i style="float:right;margin:0px 10px 0px 10px" class="fas fa-pause" *ngIf="IsCoach"
+                        (click)="TogglePause(c)" title="Pause Message"></i>
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="chat-desc" *ngIf="c.MessageGroupTitle !== undefined">
+                      {{c.LastSentFirstName}}&nbsp;{{c.LastSentLastName}}:&nbsp;<div [innerHtml]="c.MessageContent">
+                      </div>
+                    </div>
+                    <div class="chat-desc" *ngIf="c.MessageGroupTitle === undefined">
+                      <div [innerHtml]="c.MessageContent"></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- groups container ends -->
+
+          <!-- Chat container starts -->
+          <div class="col-md-6 col-sm-6 " *ngIf="OrderedUserMessageThread.length > 0">
+            <div class="chat-in">
+              <div class="chat-header"
+                *ngIf="SelectedMessage !== undefined && SelectedMessage.MessageGroupTitle !== undefined">
+                <h4 class="group-title">{{SelectedMessage.MessageGroupTitle}}</h4>
+                <div class="group-desc">
+                  <p class="user-count"><i class="far fa-user"></i></p>
+                </div>
+              </div>
+              <div class="chat-messages">
+                <div class="chat-message" *ngFor="let m of OrderedUserMessageThread"
+                  [ngClass]="{'right' : m.CreatedUserId === m.ViewerId}">
+                  <div class="profile-image" style="width:10%">
+                    <div style="float:left">{{m.UserFirstName}}</div>
+                    <div style="float:left">{{m.UserLastName}}</div>
+                    <p class="time" style="clear:both">{{m.SentTime  | date :  "MM/dd/y"}} (MM/DD/YYYY)</p>
+                  </div>
+                  <div class="chat-text">
+                    <div [innerHtml]="m.MessageContent"></div>
+                  </div>
+                  <br />
+
+                </div>
+                <div class="bottom-input-con editor" *ngIf="!(SelectedMessage.ReadOnly || SelectedMessage.Pause)">
+                  <angular-editor class="angularEditor" [config]="WYSIWYGConfig" [placeholder]="'Enter Message here...'"
+                    [(ngModel)]="NewResponse"></angular-editor>
+                  <input class="inputEditor form-control"  type="text" 
+                    aria-describedby="Type your message here" [(ngModel)]="NewResponse">
+                  <div class="right-icons-con"
+                    (click)="RespondGroupMessage(NewResponse,SelectedMessage.MessageGroupId,SelectedMessage.MessageId, SelectedMessage.MessageGroupTitle)"
+                    *ngIf="SelectedMessage !== undefined && SelectedMessage.MessageGroupTitle !== undefined">
+                    <i class="fas fa-paper-plane submit-icon"></i>
+                  </div>
+                  <div class="right-icons-con"
+                    (click)="RespondUserMessage(NewResponse, SelectedMessage.DestinationUserId, SelectedMessage.MessageId)"
+                    *ngIf="SelectedMessage !== undefined && SelectedMessage.MessageGroupTitle === undefined">
+                    <i class="fas fa-paper-plane submit-icon"></i>
+                  </div>
+                </div>
+                <div class="bottom-input-con" *ngIf="SelectedMessage.ReadOnly || SelectedMessage.Pause">
+                  <div>This Message Is {{SelectedMessage.ReadOnly ? ' in READ ONLY Mode':''}}
+                    {{SelectedMessage.ReadOnly && SelectedMessage.Pause ? 'and' : ''}}
+                    {{SelectedMessage.Pause ? 'PAUSED ':''}}, And Doesnt Allow Responses
+                  </div>
+                </div>
+
+              </div>
+              <!-- Chat container ends -->
+
+              <!-- Online athlete container starts -->
+              <!-- <div class="col-lg-3">
+              <div class="online-con">
+
+                <button type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+
+                <h5 class="online-title">5 Group Members</h5>
+
+                <div class="online-athletes-con">
+
+                  <div class="one-athlete checked">
+                    <i></i>
+                    <h5>Athlete Name</h5>
+                  </div>
+                  <div class="one-athlete">
+                    <i></i>
+                    <h5>Athlete Name</h5>
+                  </div>
+                  <div class="one-athlete checked">
+                    <i></i>
+                    <h5>Athlete Name</h5>
+                  </div>
+                  <div class="one-athlete">
+                    <i></i>
+                    <h5>Athlete Name</h5>
+                  </div>
+                  <div class="one-athlete checked">
+                    <i></i>
+                    <h5>Athlete Name</h5>
+                  </div>
+                  <div class="one-athlete">
+                    <i></i>
+                    <h5>Athlete Name</h5>
+                  </div>
+                  <div class="one-athlete checked">
+                    <i></i>
+                    <h5>Athlete Name</h5>
+                  </div>
+                  <div class="one-athlete">
+                    <i></i>
+                    <h5>Athlete Name</h5>
+                  </div>
+                  <div class="one-athlete checked">
+                    <i></i>
+                    <h5>Athlete Name</h5>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+              <!-- Online athlete container ends -->
+
+            </div>
+            <!-- chat main container ends -->
+
+          </div>
+          <!-- Page inner content ends -->
+        </div>
+      </div>
+    </div>
+    <!-- Page content ends -->
+
+
+    <!-- CREATE MESSAGE -->
+    <div class="metric-modal scp-modal" *ngIf="ShowCreateMessageModel"
+      [@fadeInAnimation]="ShowCreateMessageModel ? 'enter' : 'leave'">
+      <div class="scp-modal-in right">
+        <button type="button" class="close" aria-label="Close" (click)="ToggleCreateMessageModel(0)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="scp-modal-title">Create Messages</h3>
+        <div class="tabContainer">
+          <div (click)="ShowMessageWindow = false"
+            [ngClass]="{'selectedTab': !ShowMessageWindw, 'tab':ShowMessageWindow} ">
+            Edit Recipients</div>
+          <div (click)="ShowMessageWindow = true"
+            [ngClass]="{'selectedTab': ShowMessageWindow, 'tab':!ShowMessageWindow} " class="selectedTab">Edit Message
+          </div>
+        </div>
+        <div *ngIf="!ShowMessageWindow" style="clear:both">
+          <div class="col-12" style="margin-top:20px;margin-bottom:20px;" *ngIf="IsCoach">
+            <div class="custom-control custom-switch" style="margin:0px 0px 0px 20px"
+              (click)="ToggleViewAthletesWindow()">
+              <input type="checkbox" class="custom-control-input" style="border:1px solid red" [checked]="ViewAthletes">
+              <label class="custom-control-label">{{ViewAthletes ? 'Athlete' : 'Coaches'          }}</label>
+            </div>
+          </div>
+
+          <div *ngIf="ViewAthletes && IsCoach">
+            <div class="form-group row">
+              <div class="col-md-11 offset-md-1">
+                <input type="text" class="form-control white-bg-input" id="name" [(ngModel)]='athleteSearchString'
+                  placeholder="Search By Athlete Name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="tags" class="col-11 offset-md-1 col-form-label">Include Athletes with Tags:</label>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-11 offset-md-1">
+                <app-scp-tag-input (TagRemoved)="AthleteIncludeRemoveTag($event)"
+                  (TagAdded)="AthleteInculdeAddTag($event)">
+                </app-scp-tag-input>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="tagsExclude" class="col-11 offset-md-1 col-form-label">Exclude Athletes with Tags:</label>
+            </div>
+            <div class="form-group row">
+              <div class="col-11 offset-md-1">
+                <app-scp-tag-input (TagRemoved)="AthleteExcludeRemoveTag($event)"
+                  (TagAdded)="AthleteExcludeAddTag($event)">
+                </app-scp-tag-input>
+              </div>
+            </div>
+            <div class="row">
+              <div class="check-all checked " style="margin:25px;">
+                <i class="fas " [ngClass]="{'fa-check': AllChecked}" (click)="CheckAllAthletes()"></i>
+                <h5>Check All </h5>
+              </div>
+              <div class="col-10 offset-md-1 program-list">
+                <div class="roster-con" style="margin-left:10px;">
+                  <div class="form-group row">
+                    <div class="athlete-con " [ngClass]="{selected: a.Checked}"
+                      *ngFor="let a of AllAthletes | TagFilterPipe : AthleteTagItems | SearchTaggableFilterPipe : athleteSearchString | ExcludeTagFilterPipe:AthleteExcludedTagItems | HideDeletedSortPipe">
+                      <div class="selectedHitboxHack" (click)="ToggleAthleteIdInList(a.UserId, a)"> <i class="fas "></i>
+                      </div>
+                      <div class="profile-image">
+                        <img *ngIf="a.ProfilePicture == undefined " src="../../../assets/Avatar.png">
+                        <img
+                          *ngIf="a.ProfilePicture != undefined && a.ProfilePicture.Profile != undefined && a.ProfilePicture.Profile != '' "
+                          [src]="((a.ProfilePicture.URL + a.ProfilePicture.Profile) | encodeUri)"  style="height:150px;width:150px; margin: 10px;">
+                      </div>
+                      <h5>{{a.FirstName}} {{a.LastName}}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!ViewAthletes">
+
+            <div class="row">
+              <div class="check-all checked col-md-11 offset-md-1" style="margin:25px 0 25px 10px;">
+                <i class="fas " [ngClass]="{'fa-check': AllCheckedCoaches}" (click)="CheckAllCoaches()"></i>
+                <h5>Check All </h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="  athlete-con " style="margin-left:70px;" [ngClass]="{selected: coach.Selected}"
+                *ngFor="let coach of Coaches | HideDeletedSortPipe | SearchTaggableFilterPipe : CoachSearchString ">
+                <div class="selectedHitboxHack" (click)="ToggleCheckCoach(coach)"> <i class="fas "></i></div>
+                <div class="profile-image">
+                  <img src="../../../assets/Avatar.png">
+                </div>
+                <h5>{{coach.FirstName}} {{coach.LastName}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="ShowMessageWindow" style="padding-bottom:20px">
+          <div class="col-md-12" style="padding-top:30px;">
+            <div class="row" *ngIf="(CheckedAthletes.length + CheckedCoaches.length) > 1">
+              <p class="offset-md-1" *ngIf="GroupAlreadyExists" style="color:red; font-size:14px">* Group Already Exists
+              </p>
+            </div>
+            <div *ngIf="(CheckedAthletes.length + CheckedCoaches.length) > 1" class="row">
+
+              <label class="col-md-3 offset-md-1" style="line-height:2.5;">Group Title</label>
+              <input placeholder="Group Title" type="text" class="form-control col-md-7"
+                aria-describedby="Add Group Title" [(ngModel)]="NewMessageGroupTitle"
+                (keyup)="DoesGroupExist(NewMessageGroupTitle)">
+            </div>
+            <div class="row" style="margin:20px;">
+              <angular-editor [config]="WYSIWYGConfig" [placeholder]="'Enter Message here...'" class="editor"
+                [(ngModel)]="NewMessageContent"></angular-editor>
+
+            </div>
+            <div class="col-11 offset-md-1" *ngIf="IsCoach">
+              <p style="color:red; font-size:14px">*Make The Message Read Only. Stop all non coach users respond to
+                messages
+              </p>
+              <div class="custom-control custom-switch" style="margin:0px 0px 0px 20px"
+                (click)="ToggleNewMessageReadOnly()">
+                <input type="checkbox" class="custom-control-input" style="border:1px solid red"
+                  [checked]="NewMessageReadOnly">
+                <label
+                  class="custom-control-label">{{NewMessageReadOnly ? 'Read Only Mode' : 'Non Read Only Mode'          }}</label>
+              </div>
+            </div>
+            <div class="col-11 offset-md-1" style="margin-top:25px" *ngIf="IsCoach">
+              <p style="color:red; font-size:14px">*Pause The Message. This stops people from responding, unlike
+                ReadOnly
+                the
+                message can be unpaused so people can respond. </p>
+              <div class="custom-control custom-switch" style="margin:0px 0px 0px 20px"
+                (click)="ToggleNewMessagePause()">
+                <input type="checkbox" class="custom-control-input" style="border:1px solid red"
+                  [checked]="NewMessagePause">
+                <label class="custom-control-label">{{NewMessagePause ? 'Pause Responses' : 'Allow Responses'}}</label>
+              </div>
+            </div>
+            <div class="col-7 offset-md-5  save-btn-con" style="margin-top:25px;">
+              <p *ngIf="CheckedAthletes.length === 0 && CheckedCoaches.length === 0" style="color:red; font-size:14px">
+                *Cannot Send A Message To 0
+                Recipients
+              </p>
+              <p *ngIf="NewMessageContent.length === 0" style="color:red; font-size:14px">*Cannot Send A Message Without
+                Text
+              </p>
+              <p *ngIf="GroupAlreadyExists" style="color:red; font-size:14px">* Group Already Exists</p>
+              <button type="submit" type="button" class="btn btn-lg btn-block btn-green btn-normal"
+                (click)="SendGroupMessage(CheckedAthletes,CheckedCoaches,NewMessageContent,NewMessageReadOnly,NewMessagePause,NewMessageGroupTitle)"
+                [disabled]="(CheckedCoaches.length === 0 && CheckedAthletes.length === 0) && NewMessageContent.length === 0 && !GroupAlreadyExists"
+                *ngIf="CheckedCoaches.length + CheckedAthletes.length > 1">SEND</button>
+              <button type="submit" type="button" class="btn btn-lg btn-block btn-green btn-normal"
+                (click)="SendUserMessage(CheckedAthletes,CheckedCoaches,NewMessageContent,NewMessageReadOnly,NewMessagePause)"
+                [disabled]="(CheckedCoaches.length === 0 && CheckedAthletes.length === 0) && NewMessageContent.length === 0 && !GroupAlreadyExists"
+                *ngIf="CheckedCoaches.length + CheckedAthletes.length === 1">SEND</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-modal scp-modal" *ngIf="ShowDeleteConfirmationMenu"
+      [@fadeInAnimation]="ShowDeleteConfirmationMenu ? 'enter' : 'leave'">
+      <div class="scp-modal-in right">
+        <button type="button" class="close" aria-label="Close" (click)="this.ShowDeleteConfirmationMenu = false">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="scp-modal-title">Delete Messages</h3>
+        <div class="col-12 col-lg-12 create-measure-con">
+          <p>Once a Message Thread is <b>DELETED</b> there is <b>NO WAY</b> to recover any information of that Message
+            Thread.
+            If you are sure you want to do this type 'yes' in the box below</p>
+        </div>
+        <!-- Create measurement ends -->
+
+        <div class="col-12 col-lg-12">
+          <label for="measureName" class="col-form-label">Confirmation</label>
+          <input type="text" class="form-control white-bg-input" id="measureName" placeholder="type 'yes' to delete "
+            [(ngModel)]="messageDeleteConfirmation">
+        </div>
+        <br />
+        <div class="col-12">
+          <div class="row">
+            <button class="btn btn-lg btn-block btn-red btn-normal col-5"
+              (click)="DeleteUserMessages(DeleteSelectedMessage)"
+              *ngIf="DeleteSelectedMessage.MessageGroupTitle === undefined && messageDeleteConfirmation === 'yes'">DELETE</button>
+
+            <button type="submit" type="button" class="btn btn-lg btn-block btn-red btn-normal col-5 "
+              (click)="DeleteGroupMessages(DeleteSelectedMessage)"
+              *ngIf="DeleteSelectedMessage.MessageGroupTitle !== undefined && messageDeleteConfirmation === 'yes'">DELETE</button>
+
+            <button type="submit" type="button" class="btn btn-lg btn-block btn-green btn-normal col-5 offset-md-1"
+              (click)="this.ShowDeleteConfirmationMenu = false">CANCEL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END CREATE MESSAGE -->
+    <app-alert [messages]="AlertMessages"></app-alert>
+    </div>

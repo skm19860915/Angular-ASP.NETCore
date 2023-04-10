@@ -1,0 +1,121 @@
+﻿SET IDENTITY_INSERT SubscriptionTypes ON
+GO
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (1
+		   ,'Trainer'
+           ,10
+           ,1
+           ,'plan_FzH7cB224swsqf'
+		   ,12.99)
+GO
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (2
+		   ,'Head Coach'
+           ,99999999
+           ,1
+           ,'plan_FzH6Ih5uj6z0Jc'
+		   ,49.99)
+GO
+
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (3
+		   ,'coach'
+           ,25
+           ,1
+           ,'plan_FzH5Lp78zsYqEO'
+		   ,24.99)
+GO
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (4
+		   ,'Unlimited Head Coach'
+           ,999999999
+           ,1
+           ,'plan_GJj8SB37lRpyak'
+		   ,499.99)
+GO
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (5
+		   ,'FOUNDER'
+           ,99999999
+           ,0
+           ,''
+		   ,499.99)
+GO
+
+INSERT INTO SubscriptionTypes([ID]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+           ,[Cost]
+           ,[Tiered])
+SELECT 6,' Tiered Plan' , 0, 1, 'plan_GNr0tqRhszejW0', 12.99 , 1
+
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([ID]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+           ,[Cost]
+           ,[Tiered])
+     VALUES
+           (-1,'CANCELLED',0,0,'',0,0)
+
+           INSERT INTO [dbo].[SubscriptionTypes]
+           ([ID]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+           ,[Cost]
+           ,[Tiered])
+     VALUES
+           (7,'LifeTiem1000',999999,0,'',0,999.99)
+
+
+SET IDENTITY_INSERT SubscriptionTypes OFF
+
+
+select * from subscriptionTypes

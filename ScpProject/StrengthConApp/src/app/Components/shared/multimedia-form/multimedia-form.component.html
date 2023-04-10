@@ -1,0 +1,52 @@
+<div
+[ngClass]="LabelVisible == true ? 'row one-exercise no-gutters edit-exercise' : 'row multimedia-modal-content no-gutters'"
+*ngIf="CreateMovieMenu"
+[@fadeInAnimation]="CreateMovieMenu ? 'enter' : 'leave'">
+  <div [ngClass]="LabelVisible == true ? 'form-group col-lg-12 text-right' : ''">
+    <h3 class="multimedia-modal-title" *ngIf="!LabelVisible">Create Video</h3>
+    <div class="row" *ngIf="LabelVisible">
+      <div class="col-lg-12 noModify" *ngIf='!SelectedMovie.CanModify'>
+        This Video is in use and only the Tags and Video URL may be modified
+      </div>
+    </div>
+    <div [ngClass]="LabelVisible == true ? 'row' : ''">
+      <label for="name" class="col-lg-1 col-form-label" *ngIf="LabelVisible">Name:</label>
+      <div [ngClass]="LabelVisible == true ? 'col-lg-4' : 'col-12 col-lg-12'">
+        <input type="text" class="form-control white-bg-input" id="name" placeholder="Enter Video Name"
+          [(ngModel)]="SelectedMovie.Name" [disabled]="!SelectedMovie.CanModify">
+      </div>
+      <div [ngClass]="LabelVisible == true ? 'col-lg-6' : 'col-12 col-lg-12'">
+        <div [ngClass]="LabelVisible == true ? 'form-group row text-right' : ''">
+          <label for="tags" class="col-lg-2 col-form-label" *ngIf="LabelVisible">Tags:</label>
+          <div [ngClass]="LabelVisible == true ? 'col-lg-10 text-left' : ''">
+            <app-scp-tag-input [ExistingTags]="newMovieTagItems" (TagRemoved)="RemoveNewEditMovieTags($event)"
+              (TagAdded)="AddNewEditMovieTags($event)" [autocompleteItems]="AllTags">
+            </app-scp-tag-input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div [ngClass]="LabelVisible == true ? 'form-group row text-right' : ''">
+      <label for="video-url" class="col-lg-1 col-form-label" *ngIf="LabelVisible">Video URL:</label>
+      <div [ngClass]="LabelVisible == true ? 'col-lg-4' : 'col-12 text-left'">
+        <input type="text" class="form-control white-bg-input" id="video-url" [(ngModel)]="SelectedMovie.URL"
+          placeholder="Enter Video URL">
+        <p style="text-align:left; font-size:.85em; margin-top:10px;">SCP Supports both Vimeo and
+          Youtube. When using youtube, copy the link from the "share" button, as opposed to the
+          link from the URL bar. Example: https://youtu.be/R1JBQMXbN2k  </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-11 offset-lg-1">
+        <button type="submit" class="btn btn-lg btn-green btn-normal" *ngIf="SelectedMovie.Id === 0"
+          [disabled]="SelectedMovie.URL === '' || SelectedMovie.Title === ''"
+          (click)="Save(SelectedMovie, newMovieTagItems)">Save</button>
+        <button type="submit" class="btn btn-lg btn-green btn-normal" *ngIf="SelectedMovie.Id !== 0"
+          [disabled]="SelectedMovie.URL === '' || SelectedMovie.Title === ''"
+          (click)="Update(SelectedMovie, newMovieTagItems)">Update</button>
+        <button type="button" class="btn btn-lg btn-red btn-normal edit-btn"
+          (click)="Cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

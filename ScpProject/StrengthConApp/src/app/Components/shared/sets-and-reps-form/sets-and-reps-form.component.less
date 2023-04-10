@@ -1,0 +1,164 @@
+@import '../../../../assets/StyleSheets/Buttons.less';
+@import '../../../../assets/StyleSheets/Colors.less';
+@import '../../../../assets/StyleSheets/Inputs.less';
+@import '../../../../assets/StyleSheets/Tag.less';
+@import '../../../../assets/StyleSheets/Modal.less';
+@import '../../../../assets/StyleSheets/Alerts.less';
+
+.sets-and-reps-form{
+  padding: 1.875rem;
+  border: 1px solid rgba(@our-green, 0.8);
+  border-radius: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.sets-and-reps-modal-content{
+  padding: 1.875rem;
+}
+
+.sets-and-reps-modal-title{
+  font-weight: 400;
+  color: #4e4e4e;
+  padding: 1.25rem;
+  margin-bottom: 0.9375rem;
+}
+
+.top-section{
+  border-bottom: 1px solid @our-grey;
+}
+
+.bottom-section{
+
+  .top-btns{
+
+    padding-top: 0.625rem;
+
+    .btn{
+      font-family: @font;
+      font-weight: 400;
+      font-size: 0.875rem;
+      text-decoration: none;
+    }
+
+    .add-btn{
+      color: @our-green;
+    }
+
+    .remove-btn{
+      color: @our-red;
+    }
+
+    i{
+      font-size: 1rem;
+    }
+  }
+
+  .weeks-list{
+    padding: 0.3125rem;
+
+    .week-con{
+      border: 1px solid rgba(@our-green, 1);
+      border-radius: 0.3125rem;
+      background: @white;
+      margin: 0.625rem;
+      padding: 0.625rem;
+
+      .week-title{
+        margin-top: 0.3125rem;
+        margin-bottom: 0;
+        font-family: @font;
+        font-weight:400;
+        color: @light-black;
+        font-size: 0.875rem;
+
+        i{
+          font-size: 0.75rem;
+          margin-right: 0.3125rem;
+          color: @our-grey;
+          background: @our-grey;
+          border-radius: 50%;
+          display: inline-block;
+          width: 1rem;
+          height: 1rem;
+          line-height: 1rem;
+          text-align: center;
+        }
+      }
+
+      .week-title.checked{
+        i{
+          color: @white;
+          background: @our-green;
+        }
+      }
+
+      .week-in{
+        text-align: center;
+
+        .form-group{
+          padding-left: 0.1875rem;
+          padding-right: 0.1875rem;
+
+          label{
+            margin: 0;
+            font-family: @font;
+            font-size: 0.8125rem;
+            color: @light-black;
+            font-weight: 300;
+          }
+
+          input{
+            text-align: center;
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+  }
+
+  .btns-con{
+    margin-top: 1rem;
+
+    .btn-green{
+      margin-right: 0.625rem;
+      padding-left: 3.5rem;
+      padding-right: 3.5rem;
+    }
+
+    .delete-btn{
+      float: right;
+      display: inline-block;
+      color: @light-black;
+      font-size: 1.5rem;
+      padding-top: 0.625rem;
+
+      i{
+        cursor: pointer;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .btn{
+        width: 100%;
+        margin-bottom: 0.5rem;
+        margin-right: 0;
+      }
+
+      .delete-btn{
+        float: initial;
+        text-align: center;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 991.98px) {
+  .form-group{
+    .col-form-label{
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+

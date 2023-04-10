@@ -1,0 +1,378 @@
+/*
+ * bootstrap-tagsinput v0.8.0
+ *
+ */
+ @import './Colors.less';
+
+ .greenInput {
+   color    : @our-green;
+   font-size: 2em;
+ }
+ 
+ .darkInput {
+   color    : @lightBlack ;
+   font-size: 2em;
+ }
+ 
+ .lightInput {
+   color    : @gray-input-background-color;
+   font-size: 2em;
+ }
+ 
+ .selectWrapper .white-bg-select {
+   background        : url(data:image/svg+xml; base64, PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0ye2ZpbGw6IzQ0NH08L3N0eWxlPjwvZGVmcz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDQuOTV2MTBIMHoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xLjQxIDQuNjdsMS4wNy0xLjQ5IDEuMDYgMS40OUgxLjQxek0zLjU0IDUuMzNMMi40OCA2LjgyIDEuNDEgNS4zM2gyLjEzeiIvPjwvc3ZnPg==) no-repeat 95% 50%;
+   -moz-appearance   : none;
+   -webkit-appearance: none;
+   appearance        : none;
+   color             : #4e4e4e;
+   font-family       : Montserrat, sans-serif;
+   font-weight       : 300;
+   border            : none;
+   font-size         : .9375rem;
+   padding           : .6875rem .75rem;
+   height            : 2.75rem
+ }
+ 
+ .selectWrapper .white-bg-select:focus {
+   border-color      : transparent;
+   -webkit-box-shadow: 0 0 0 .2rem rgba(139, 197, 63, 0);
+   box-shadow        : 0 0 0 .2rem rgba(139, 197, 63, 0)
+ }
+ 
+ .bootstrap-tagsinput,
+ .bootstrap-tagsinput>input,
+ .white-bg-input
+ {
+   background   : #fff;
+   color        : #4e4e4e;
+   font-family  : Montserrat, sans-serif;
+   font-weight  : 300;
+   border-radius: 1.875rem !important
+ }
+ 
+ .white-bg-input
+ {
+   font-size: .9375rem;
+   padding  : .6875rem .75rem;
+   height   : auto
+ }
+ 
+ .form-control:focus
+ {
+   border-color      : @darkGreen;
+   -webkit-box-shadow: 0 0 0 .2rem rgba(139, 197, 63, .45);
+   box-shadow        : 0 0 0 .2rem rgba(139, 197, 63, .45);
+   background-color  : #fff;
+ }
+ 
+ .bootstrap-tagsinput {
+   background-color: #fff;
+   border          : 1px solid #ccc;
+   box-shadow      : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+   display         : inline-block;
+   padding         : 4px 6px;
+   color           : #555;
+   vertical-align  : middle;
+   border-radius   : 4px;
+   width           : 100%;
+   line-height     : 22px;
+   cursor          : text;
+ }
+ 
+ .bootstrap-tagsinput input {
+   border          : none;
+   box-shadow      : none;
+   outline         : none;
+   background-color: transparent;
+   padding         : 0 6px;
+   margin          : 0;
+   width           : auto;
+   max-width       : inherit;
+ }
+ 
+ .bootstrap-tagsinput.form-control input::-moz-placeholder {
+   color  : #777;
+   opacity: 1;
+ }
+ 
+ .bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+   color: #777;
+ }
+ 
+ .bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+   color: #777;
+ }
+ 
+ .bootstrap-tagsinput input:focus {
+   border    : none;
+   box-shadow: none;
+ }
+ 
+ .bootstrap-tagsinput .badge {
+   margin : 2px 3px;
+   padding: 5px 8px;
+ }
+ 
+ .bootstrap-tagsinput .badge [data-role="remove"] {
+   margin-left: 8px;
+   cursor     : pointer;
+ }
+ 
+ .bootstrap-tagsinput .badge [data-role="remove"]:after {
+   content         : "×";
+   padding         : 0px 4px;
+   background-color: rgba(0, 0, 0, 0.1);
+   border-radius   : 50%;
+   font-size       : 13px
+ }
+ 
+ .bootstrap-tagsinput .badge [data-role="remove"]:hover:after {
+ 
+   background-color: rgba(0, 0, 0, 0.62);
+ }
+ 
+ .bootstrap-tagsinput .badge [data-role="remove"]:hover:active {
+   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+ }
+ 
+ .tt-menu {
+   position          : absolute;
+   top               : 100%;
+   left              : 0;
+   z-index           : 1000;
+   display           : none;
+   float             : left;
+   min-width         : 160px;
+   padding           : 5px 0;
+   margin            : 2px 0 0;
+   list-style        : none;
+   font-size         : 14px;
+   background-color  : #ffffff;
+   border            : 1px solid #cccccc;
+   border            : 1px solid rgba(0, 0, 0, 0.15);
+   border-radius     : 4px;
+   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+   box-shadow        : 0 6px 12px rgba(0, 0, 0, 0.175);
+   background-clip   : padding-box;
+   cursor            : pointer;
+ }
+ 
+ .tt-suggestion {
+   display    : block;
+   padding    : 3px 20px;
+   clear      : both;
+   font-weight: normal;
+   line-height: 1.428571429;
+   color      : #333333;
+   white-space: nowrap;
+ }
+ 
+ .tt-suggestion:hover,
+ .tt-suggestion:focus {
+   color           : #ffffff;
+   text-decoration : none;
+   outline         : 0;
+   background-color: #428bca;
+ }
+ 
+//  .ng-option:hover,
+//  .ng-option:focus {
+//    background-color: @our-green ;
+//    color           : white;
+//  }
+ 
+//  .ng-dropdown-panel {
+//    border-color    : #8bc53f;
+//    box-shadow      : 0 0 0 0.2rem rgba(139, 197, 63, 0.45);
+//    background-color: white;
+//  }
+ 
+//  .ng-select:focus {
+//    border-color    : #8bc53f;
+//    box-shadow      : 0 0 0 0.2rem rgba(139, 197, 63, 0.45);
+//    background-color: #fff;
+//  }
+ 
+ 
+//  .ng-select .ng-arrow-wrapper .ng-arrow {
+//    display: none;
+//  }
+ 
+//  .ng-select span.ng-arrow-wrapper:before {
+//    font-family           : Font Awesome\ 5 Free;
+//    display               : inline-block;
+//    font-style            : normal;
+//    font-variant          : normal;
+//    text-rendering        : auto;
+//    -webkit-font-smoothing: antialiased;
+//    font-weight           : 900;
+//    font-size             : 1.125rem;
+//    content               : "\f078";
+//    height                : 1.875rem;
+//    width                 : 1.875rem;
+//    position              : absolute;
+//    top                   : .0225rem;
+//    right                 : .125rem;
+ 
+//  }
+ 
+//  .ng-select {
+//    border          : 1px solid #CED4DA;
+//    background-color: #dfdede;
+ 
+//  }
+ 
+//  .selectWrapper {
+//    border-radius: 1.375rem !important;
+//    display      : inline-block;
+//    overflow     : hidden;
+//    border       : 1px solid #ccc;
+//    width        : 100%;
+//    background   : #fff;
+//    padding      : 0 1.375rem 0 .625rem
+//  }
+ 
+//  .selectWrapper.grey {
+//    background: #dfdede;
+//    position  : relative
+//  }
+ 
+//  .selectWrapper.grey:after {
+//    font-family           : Font Awesome\ 5 Free;
+//    display               : inline-block;
+//    font-style            : normal;
+//    font-variant          : normal;
+//    text-rendering        : auto;
+//    -webkit-font-smoothing: antialiased;
+//    font-weight           : 900;
+//    font-size             : 1.125rem;
+//    content               : "\f078";
+//    height                : 1.875rem;
+//    width                 : 1.875rem;
+//    position              : absolute;
+//    top                   : .5625rem;
+//    right                 : .125rem
+//  }
+ 
+//  .selectWrapper .white-bg-select {
+//    background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0ye2ZpbGw6IzQ0NH08L3N0eWxlPjwvZGVmcz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMCAwaDQuOTV2MTBIMHoiLz48cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0xLjQxIDQuNjdsMS4wNy0xLjQ5IDEuMDYgMS40OUgxLjQxek0zLjU0IDUuMzNMMi40OCA2LjgyIDEuNDEgNS4zM2gyLjEzeiIvPjwvc3ZnPg==) no-repeat 95% 50%
+//  }
+ 
+//  .selectWrapper .grey-bg-select,
+//  .selectWrapper .white-bg-select {
+//    -moz-appearance   : none;
+//    -webkit-appearance: none;
+//    appearance        : none;
+//    color             : #4e4e4e;
+//    font-family       : Montserrat, sans-serif;
+//    font-weight       : 300;
+//    border            : none;
+//    font-size         : .9375rem;
+//    padding           : .6875rem .75rem;
+//    height            : 2.75rem
+//  }
+ 
+//  .selectWrapper .grey-bg-select {
+//    background: #dfdede
+//  }
+ 
+//  .selectWrapper .grey-bg-select:focus,
+//  .selectWrapper .white-bg-select:focus {
+//    border-color      : transparent;
+//    -webkit-box-shadow: 0 0 0 .2rem rgba(139, 197, 63, 0);
+//    box-shadow        : 0 0 0 .2rem rgba(139, 197, 63, 0)
+//  }
+ 
+//  .option-input {
+//    top         : 9px;
+//    right       : 0;
+//    bottom      : 0;
+//    left        : 0;
+//    height      : 30px;
+//    width       : 30px;
+//    background  : #cbd1d8;
+//    border      : none;
+//    color       : #fff;
+//    cursor      : pointer;
+//    display     : inline-block;
+//    margin-right: .5rem;
+//    outline     : 0;
+//    position    : relative;
+//    z-index     : 1000;
+//  }
+ 
+//  .option-input:checked {
+//    background: #78da54;
+//  }
+
+
+
+
+/* The container */
+.radioCheckBoxContainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radioCheckBoxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radioCheckBoxContainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* radioCheckBoxContainer the radio button is checked, add a blue background */
+.radioCheckBoxContainer input:checked ~ .checkmark {
+  background-color:@our-green;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioCheckBoxContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radioCheckBoxContainer .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
+.btn-green-in:hover{
+  background-color:@our-green;
+  color:white;
+}

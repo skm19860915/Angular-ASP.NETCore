@@ -1,0 +1,87 @@
+.displayRow {
+    width : 99%;
+    cursor: pointer;
+    border-top: 3px solid #c1c5bf;
+}
+
+
+
+.displayRowTitle,
+.displayRowTags,
+.displayRowMenu {
+    margin: 1% 0 1% 0;
+}
+
+.displayRowTitle {
+    text-transform: uppercase;
+    width         : 40%;
+    word-wrap     : break-word;
+}
+
+.displayRowTags {
+    margin-right: 7px;
+    width       : 40%;
+}
+
+.displayRowMenu {
+    width: 20%;
+}
+
+.displayRow:hover {
+    background-color: #d5efcb;
+
+}
+
+.displayRow:last-child {
+    border-bottom: 3px solid rgb(193, 197, 191);
+}
+
+
+@media screen and (max-width: 1300px) {
+    .displayRow>* {
+        min-height: 50px;
+    }
+
+    .displayRowTitle {
+        width: 90%;
+    }
+
+    .displayRowTags {
+        width: 90%;
+    }
+
+    .displayRowMenu {
+        width: 90%;
+        clear: both
+    }
+
+    .itemMenu {
+        float: left;
+    }
+}
+
+@media screen and (min-width: 1301px) {
+    .displayRow > * {
+        height: 98%;
+    }
+
+    .displayRowTitle {
+        float       : left;
+        width       : 33%;
+        margin-right: 2%;
+    }
+
+    .displayRowTags {
+        float: left;
+        width: 33%;
+    }
+
+    .displayRowMenu {
+        float: right;
+        width: 30%;
+    }
+
+    .itemMenu {
+        float: left;
+    }
+}

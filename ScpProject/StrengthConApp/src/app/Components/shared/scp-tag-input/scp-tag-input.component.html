@@ -1,0 +1,20 @@
+<div class="bootstrap-tagsinput">
+  <input [attr.list]="randomNumberForName + 'tagInput'"  placeholder="+ Tags" class="form-control grey-bg-input" [(ngModel)]="tagInput"  
+  (change)="submit($event.target.value)"/>
+ <datalist [id]="randomNumberForName + 'tagInput'">
+   
+   <div *ngFor="let a of autocompleteItems; let i=index" >
+     <div *ngIf="i <= 10">
+       <option [value]="a.display">
+     </div>
+   </div>
+ </datalist>
+
+  <div *ngFor="let t of enteredTags " style="float:left">
+    <div  class="badge badge-pill badge-light">
+      <span style="float:left;padding-right:30px;">{{t}}</span>
+      <div (click)='removeTag(t)' class="deleteBtn">X</div>
+    </div>
+  </div>
+</div>
+

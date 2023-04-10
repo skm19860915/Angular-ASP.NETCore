@@ -1,0 +1,96 @@
+<div class="col-sm-12 page-inner-content documents-main-page">
+  <div class="row align-items-center top-settings">
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <!-- <input type="text" class="form-control grey-bg-input" aria-describedby="Search" placeholder="Search"
+        [(ngModel)]="searchString"> -->
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 ">
+      <app-scp-tag-input (TagRemoved)="RemoveTag($event)" (TagAdded)="AddTag($event)" [autocompleteItems]="AllTags">
+      </app-scp-tag-input>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 d-lg-none d-xl-none">&nbsp;</div>
+    <div class="col-3 col-sm-2 col-md-2 col-lg-2">
+      <div class="custom-control custom-switch">
+        <!-- <input type="checkbox" class="custom-control-input" id="showArchived" [checked]="ShowArchive"
+          (change)="ToggleArchive()"> -->
+        <label class="custom-control-label" for="showArchived">Show Archived</label>
+      </div>
+    </div>
+    <div class="col-9 col-sm-10 col-md-10 col-lg-4 text-right">
+      <button type="button" class="btn btn-link create-btn" (click)="ViewCreateDocument()">Create
+        <span class="icon"><i class="fas fa-plus"></i></span></button>
+    </div>
+  </div>
+
+  <div class="documents-list">
+    <!-- start create/edit document -->
+    <app-document-form
+    [View]="View"
+    [SelectedDocument]="SelectedDocument"
+    [NewDocumentTagItems]="NewDocumentTagItems"
+    [LatestAgreemantId]="LatestAgreemantId"
+    (SaveCallBack)="Save($event)"
+    (CancelCallBack)="Cancel()">
+    </app-document-form>
+    <!-- end create/edit document -->
+    <!-- start document list -->
+    <div *ngIf="View == 'Document'">
+      <div *ngFor="let doc of AllDocuments | TagFilterPipe : TagItems | SearchTaggableFilterPipe : searchString">
+        <app-paginator *ngIf="isFirst" [TotalItemCount]="c" (ItemDisplayChange)="UpdatePaginiationDisplay($event)">
+        </app-paginator>
+
+      <div class="row one-document no-gutters" >
+        <div class="col-1">
+          <i class="fa fa-file doc-icon" title="Document"></i>
+        </div>
+        <div class="col-11">
+          <div class="row align-items-center">
+            <div class="col-7" (click)="ModifySelectedDocument(doc)">
+              <h5 class="title">
+                {{doc.Name == null || doc.Name.length == 0 ? 'This Document Doesnt Have A Name': doc.Name}}
+              </h5>
+            </div>
+            <div class="col-1 title" *ngIf="doc.IsDeleted"> Archived </div>
+            <div class="col-1 title" *ngIf="!doc.IsDeleted"> &nbsp; </div>
+            <div class="col-3 title-icons text-right">
+              <i class="fas fa-download" (click)="DownloadDocument(doc.Id)" title="Download"></i>
+              <i class="fas fa-pencil-alt" (click)="ModifySelectedDocument(doc)" title="Edit"></i>
+              <i *ngIf="!doc.IsDeleted" class="fas fa-trash-alt" (click)="ArchiveDocument(doc.Id)" title="Delete"></i>
+              <i *ngIf="doc.IsDeleted" class="fas fa-trash-restore" (click)="UnArchiveDocument(doc.Id)"
+                title="Restore"></i>
+            </div>
+          </div>
+          <div class="col-11">
+            <div class="row align-items-center">
+              <div class="col-7">
+                <h5 class="title">
+                  {{doc.Name == null || doc.Name.length == 0 ? 'This Document Doesnt Have A Name': doc.Name}}
+                </h5>
+              </div>
+              <div class="col-1 title" *ngIf="doc.IsDeleted"> Archived </div>
+              <div class="col-1 title" *ngIf="!doc.IsDeleted"> &nbsp; </div>
+              <div class="col-3 title-icons text-right">
+                <i class="fas fa-download" (click)="DuplicateExercise(doc.Id)" title="Download"></i>
+                <i class="fas fa-pencil-alt" (click)="doc.ShowDetails = !doc.ShowDetails" title="Edit"></i>
+                <i *ngIf="!doc.IsDeleted" class="fas fa-trash-alt" (click)="ArchiveExercise(doc.Id)" title="Delete"></i>
+                <i *ngIf="doc.IsDeleted" class="fas fa-trash-restore" (click)="UnArchiveExercise(doc.Id)"
+                  title="Restore"></i>
+                <i *ngIf="doc.IsDeleted" class="fas fa-ban" (click)="ToggleHardDeleteModal(doc.Id)"
+                  aria-hidden="Hard Delete"></i>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm d-flex tags">
+                <p class="tags-title">Tags:</p>
+                <div *ngFor="let tags of doc.Tags">
+                  <span class="badge badge-pill badge-light">{{tags.Name}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- start document list -->
+    </div>
+  </div>
+</div>

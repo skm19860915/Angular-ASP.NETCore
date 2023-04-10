@@ -1,0 +1,69 @@
+@import "../../styles.less";
+
+
+.circle-plus {
+    height   : 6em;
+    width    : 6em;
+    font-size: 1em
+        /*Will change icon size*/
+    ;
+    cursor: pointer;
+}
+
+.circle-plus .circle {
+    position     : relative;
+    width        : 4.5em;
+    height       : 4.5em;
+    border-radius: 100%;
+    border       : solid .8em #DFDAD7;
+}
+
+.circle-plus .circle .horizontal {
+    position        : absolute;
+    background-color: #DFDAD7;
+    width           : 2.4em;
+    height          : .7em;
+    top             : 1.9em;
+    left            : 1.05em;
+}
+
+.circle-plus .circle .vertical {
+    position        : absolute;
+    background-color: #DFDAD7;
+    width           : .7em;
+    height          : 2.4em;
+    top             : 1.05em;
+    left            : 1.9em;
+}
+
+// .circle-plus:hover ,.circle:hover,.circle .horizontal:hover,.circle .vertical:hover { background-color:  @logo-green-color;}
+.circle-plus   :hover .circle {
+    border: solid .8em @logo-green-color
+}
+
+.circle-plus:hover .circle .horizontal {
+    background-color: @logo-green-color
+}
+
+.circle-plus:hover .circle .vertical {
+    background-color: @logo-green-color
+}
+
+.itemMenu {
+    height       : 50px;
+    width        : 50px;
+    margin-left  : 10px;
+    margin-right : 10px;
+    padding-left : 20px;
+    border-bottom: 2px solid transparent;
+}
+
+.itemMenu:hover {
+    border-bottom: 2px solid #1111e0;
+}
+
+
+.itemMenu img {
+    height: 30px;
+    width : 30px;
+}

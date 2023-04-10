@@ -1,0 +1,104 @@
+<div class="col-sm-12 page-inner-content metrics-page">
+  <div class="row align-items-center top-settings">
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <input type="text" class="form-control grey-bg-input" aria-describedby="Search" placeholder="Search by Name"
+        [(ngModel)]="searchString">
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 ">
+      <app-scp-tag-input (TagRemoved)="RemoveTag($event)" (TagAdded)="AddTag($event)" [autocompleteItems]="AllTags" [ResetTags]="AlertTagComponentReset">
+      </app-scp-tag-input>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 d-lg-none d-xl-none">&nbsp;</div>
+    <div class="col-3 col-sm-2 col-md-2 col-lg-2">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="showArchived" [checked]=" ShowArchive"
+          (change)="ToggleArchive()">
+        <label class="custom-control-label" for="showArchived">Show Archived</label>
+      </div>
+    </div>
+    <div class="col-4 col-sm-5 col-md-5 col-lg-2 text-right">
+      <span class="icon" ><i class="fas fa-question"></i></span>
+    </div>
+    <div class="col-4 col-sm-5 col-md-5 col-lg-2 text-right">
+      <button type="button" class="btn btn-link create-btn" (click)="ViewCreateMetricMenu()">Create <span
+          class="icon"><i class="fas fa-plus"></i></span></button>
+    </div>
+  </div>
+
+  <div class="metrics-list">
+    <!-- create/edit metric starts -->
+    <app-metric-form
+    [View]="View"
+    [LabelVisible]="true"
+    [SelectedMetric]="SelectedMetric"
+    [newMetricTagItems]="newMetricTagItems"
+    (SaveCallBack)="Save($event)"
+    (CancelCallBack)="ViewAllMetrics()">
+    </app-metric-form>
+    <!-- create/edit metric ends -->
+    <!-- metrics list starts -->
+    <div
+      *ngFor="let mt of AllMetrics  | TagFilterPipe : TagItems | SearchTaggableFilterPipe : searchString | HideDeletedSortPipe: ShowArchive;let i = index; let c = count;first as isFirst;"
+      [@fadeInAnimation]>
+      <app-paginator *ngIf="isFirst" [TotalItemCount]="c" (ItemDisplayChange)="UpdatePaginiationDisplay($event)">
+      </app-paginator>
+      <div class="row one-metric no-gutters"  *ngIf="i >= paginationStart && i <= paginationEnd">
+        <div class="col-12">
+          <div class="row align-items-center">
+            <div class="col-7" (click)="ModifySelectedMetric(mt)">
+              <h5 class="title"> {{mt.Name == null || mt.Name.length == 0 ? 'This Metric Doesnt Have A Name': mt.Name}}
+              </h5>
+            </div>
+            <div class="col-1 title" *ngIf="mt.IsDeleted"> Archived </div>
+            <div class="col-1 title" *ngIf="!mt.IsDeleted"> &nbsp; </div>
+            <div class="col-3 title-icons text-right">
+              <i class="fas fa-pencil-alt" (click)="ModifySelectedMetric(mt)" title="Edit"></i>
+              <i class="far fa-copy" (click)="DuplicateMetric(mt.Id)" title="Copy"></i>
+              <i *ngIf="!mt.IsDeleted" class="fas fa-trash-alt" (click)="ArchiveMetric(mt.Id)" title="Delete"></i>
+              <i *ngIf="mt.IsDeleted" class="fas fa-trash-restore" (click)="UnArchiveMetric(mt.Id)" title="Restore"></i>
+              <i *ngIf="mt.IsDeleted && mt.CanModify" class="fas fa-ban" (click)="ToggleHardDeleteModal(mt.Id)"
+              aria-hidden="Hard Delete"></i>
+            </div>
+          </div>
+          <div class="row">
+            <p class="col-9">Can Be Modified:{{mt.CanModify ? 'Yes': 'No'}}</p>
+          </div>
+          <div class="row">
+            <div class="col-sm d-flex tags">
+              <p class="tags-title">Tags:</p>
+              <div>
+                <span class="badge badge-pill badge-light" *ngFor="let tags of mt.Tags">{{tags.Name}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- metrics list ends -->
+  </div>
+</div>
+<app-alert [messages]="AlertMessages"></app-alert>
+
+<!-- Hard Delete modal -->
+<div class="metric-modal scp-modal" *ngIf="ShowHardDeleteWindow"
+  [@fadeInAnimation]="ShowHardDeleteWindow ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+    <button type="button" class="close" aria-label="Close" (click)="ToggleHardDeleteModal(0)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="scp-modal-title">Delete Metric</h3>
+    <div class="row scp-modal-content no-gutters">
+      <div class="col-12 col-lg-12 create-measure-con">
+        <p>Once an Metric is <b>DELETED</b> there is <b>NO WAY</b> to recover any information of that Metric.
+      </div>
+      <div class="col-5  save-btn-con">
+        <button type="submit" type="button" class="btn btn-lg btn-block btn-red btn-normal"
+          (click)="HardDelete()">DELETE</button>
+      </div>
+      <div class="col-5 offset-md-1  cancel-btn-con">
+        <button type="button" class="btn btn-lg btn-block btn-green btn-normal"
+          (click)="ToggleHardDeleteModal(0)">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

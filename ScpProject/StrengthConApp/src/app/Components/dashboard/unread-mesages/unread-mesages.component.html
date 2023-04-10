@@ -1,0 +1,72 @@
+<div id="unread-messages" class="dashboard-widgets">
+    <div class="widget-container">
+        <div class="widget-title-section">
+            <div class="widget-title">
+                <svg>
+                    <use xlink:href="#unreadmessages" />
+                </svg>
+                <span>Unread Messages</span>
+            </div>
+            <div class="widget-count">{{TotalMessageCount}}</div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="widget-content-section">
+            <div class="content-row" *ngFor="let c of OrderedMessagePreviews">
+                <div class="notification-query">
+                    <h5 *ngIf="c.MessageGroupTitle === undefined">
+                        {{c.LastSentFirstName}}&nbsp;{{c.LastSentLastName}}</h5>
+                        <h5 *ngIf="c.MessageGroupTitle !== undefined">{{c.MessageGroupTitle}}</h5>
+                        <p [innerHtml]="c.MessageContent"></p>
+                </div>
+                <div class="notification-status">
+                    <svg>
+                        <use xlink:href="#UnreadM" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="widget-tail-section">
+            <div class="widget-arrows">
+                <div  (click)="DecrementPageNumber()" style="float:left ; cursor:pointer;">
+                    <svg>
+                        <use xlink:href="#ArrowLt" />
+                    </svg>
+                </div>
+                <div (click)="AdvancePageNumber()" style="float:left; cursor:pointer;">
+                    <svg>
+                        <use xlink:href="#ArrowRt" />
+                    </svg>
+                </div>
+            </div>
+          
+            <div class="more-details-link">
+                <a routerLink="/Chat" >More Details</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<svg width="0" height="0" class="hidden">
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 27" id="ArrowLt">
+        <title>ArrowLt</title>
+        <path
+            d="M3.38 14.58h23a4.14 4.14 0 0 0 .61 0 1.09 1.09 0 0 0 0-2.17 5.23 5.23 0 0 0-.56 0H3.5l-.12-.2a4.22 4.22 0 0 0 .54-.36L14 2.22c.12-.11.24-.22.35-.34a1 1 0 0 0 0-1.52 1.05 1.05 0 0 0-1.54 0l-.36.33L.89 11.75a2.21 2.21 0 0 0 0 3.54q5.85 5.63 11.72 11.23a1.19 1.19 0 0 0 1.79.13c.42-.42.33-1.11-.24-1.66L3.92 15.14z"
+            fill="#8bc53f"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 27" id="ArrowRt">
+        <title>ArrowRt</title>
+        <path
+            d="M24.62 14.58h-23a4.14 4.14 0 0 1-.61 0A1.09 1.09 0 0 1 1 12.4a5.23 5.23 0 0 1 .56 0H24.5l.12-.2a4.22 4.22 0 0 1-.54-.36L14 2.22c-.12-.11-.24-.22-.35-.34a1 1 0 0 1 0-1.52 1.05 1.05 0 0 1 1.54 0l.36.33 11.56 11.06a2.21 2.21 0 0 1 0 3.54q-5.85 5.63-11.72 11.23a1.19 1.19 0 0 1-1.79.13c-.42-.42-.33-1.11.24-1.66l10.24-9.85z"
+            fill="#8bc53f"></path>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.58 24.62" id="UnreadM">
+        <title>UnreadM</title>
+        <path d="M26.58 11.05v12.14H1.42V5.06h18.65v-.31a6 6 0 0 1 .11-1.13H0v21h28V10.85a6.08 6.08 0 0 1-1.42.2z">
+        </path>
+        <path
+            d="M23.5 20.37L17 15.52l-.24-.19.21-.2L22.79 10a6.56 6.56 0 0 1-1.08-1L17 13.23l-3 2.68-.14-.12-9.71-8.71c-.08-.08-.15-.14-.24-.2a.7.7 0 0 0-1.09.41.78.78 0 0 0 .33.82l7.86 7a1.39 1.39 0 0 0 .22.15l-.26.2-4.17 3.18-2.46 1.84a.71.71 0 0 0-.3.72.66.66 0 0 0 .49.55.78.78 0 0 0 .73-.17Q8.64 19 12 16.5l.26-.2L14 17.83l1.7-1.53.23.16 6.25 4.7c.23.17.45.35.69.51a.7.7 0 0 0 .95-.17.71.71 0 0 0-.11-1z">
+        </path>
+        <circle cx="26.58" cy="5" r="5" fill="#f05053"></circle>
+    </symbol>
+</svg>

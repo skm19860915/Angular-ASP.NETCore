@@ -1,0 +1,345 @@
+<div class="col-sm-12 page-inner-content program-page">
+
+  <!-- Page top settings start -->
+  <div class="row align-items-center top-settings">
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <input type="text" class="form-control grey-bg-input" aria-describedby="Search" placeholder="Search"
+        [(ngModel)]="programSearchString">
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 ">
+      <app-scp-tag-input (TagRemoved)="RemoveTag($event)" (TagAdded)="AddTag($event)"  [autocompleteItems]="allProgramTags">
+      </app-scp-tag-input>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 d-lg-none d-xl-none">&nbsp;</div>
+    <div class="col-3 col-sm-2 col-md-2 col-lg-2">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="showArchived" (change)="ToggleArchive()">
+        <label class="custom-control-label" for="showArchived">Show Archived</label>
+      </div>
+    </div>
+    <div class="col-4 col-sm-5 col-md-5 col-lg-2 text-right">
+      <span class="icon"><i class="fas fa-question"></i></span>
+    </div>
+    <div class="col-4 col-sm-5 col-md-5 col-lg-2 text-right">
+      <button type="button" class="btn btn-link create-btn" (click)="NavigateToBuilder()">Create <span
+          class="icon"><i class="fas fa-plus"></i></span></button>
+    </div>
+
+  </div>
+  <!-- Page top settings end -->
+
+  <!-- Program list starts -->
+  <div class="program-list">
+
+    <div class="row one-program no-gutters" *ngIf="programMenu" [@fadeInAnimation]="programMenu ? 'enter' : 'leave'">
+      <div class="col-12">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-7">
+            <h5 class="title">{{SelectedProgram.Name}} </h5>
+          </div>
+          <div class="col-12 col-md-5 title-icons text-right align-items-center">
+            <p class="weeks">{{SelectedProgram.WeekCount}} <span>{{SelectedProgram.WeekCount > 1 ? 'weeks' : 'week'}}
+              </span> | {{SelectedProgram.DayCount}}
+              <span>{{SelectedProgram.DayCount > 1 ? 'days': 'day'}}</span></p>
+            <span class="right-icon-con">
+              <i class="far fa-copy" (click)="DuplicateProgram(SelectedProgram.Id)"></i>
+              <i class="fas fa-trash-alt" (click)="ArchiveProgram(SelectedProgram.Id)"></i>
+            </span>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm d-flex tags">
+            <div *ngFor="let tags of SelectedProgram.Tags">
+              <span class="badge badge-pill badge-light">{{tags.Name}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="edit-block">
+          <div class="form-group row">
+
+            <label for="name" class="col-lg-3 col-xl-2 col-form-label">Athlete Name:</label>
+            <div class="col-lg-3">
+              <input type="text" class="form-control white-bg-input" id="name" [(ngModel)]='athleteSearchString' (ngModelChange)="NameChange($event)">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="tags" class="col-lg-3 col-xl-2 col-form-label">Include Athletes with Tags:</label>
+            <div class="col-lg-6">
+              <app-scp-tag-input (TagRemoved)="AthleteIncludeRemoveTag($event)"
+                (TagAdded)="AthleteInculdeAddTag($event)"  [autocompleteItems]="allAthleteTags">
+              </app-scp-tag-input>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="tagsExclude" class="col-lg-3 col-xl-2 col-form-label">Exclude Athletes with Tags:</label>
+            <div class="col-lg-6">
+              <app-scp-tag-input (TagRemoved)="AthleteExcludeRemoveTag($event)"
+                (TagAdded)="AthleteExcludeAddTag($event)"  [autocompleteItems]="allAthleteTags">
+              </app-scp-tag-input>
+            </div>
+          </div>
+          <div class="row" *ngIf="processing">
+            <div>
+              <img src=" assets/LoadingGif.gif" style="margin-left:100px;height:50px;">
+            </div>
+          </div>
+          <div class="row" *ngIf="!processing">
+            <div class="col-lg-12 btn-con">
+              <button type="submit" class="btn btn-lg btn-green btn-normal"
+                (click)="CheckAthletesForAssignedPrograms(SelectedProgram.Id)">Assign to Athletes</button>
+              <button type="button" class="btn btn-lg btn-red btn-normal edit-btn"
+                (click)="ProgramList()">Cancel</button>
+              <button type="button" class="btn btn-link btn-link-underline " (click)="ToggleShowProgramPrintMenu()"><img
+                  src="../../../assets/print.png">Print</button>
+              <button type="button" class="btn btn-link btn-link-underline "
+                routerLink="/ProgramBuilder/{{SelectedProgram.Id}}"><img
+                  src="../../../assets/view.png">View{{SelectedProgram.CanModify ? '/Edit':''}}</button>
+              <button type="button" class="btn btn-link tv  btn-link-underline" (click)="ToggleWhiteBoardView()"><img
+                  src=".../../../assets/TV.png">Whiteboard</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Individual Program starts -->
+    <div *ngIf="!programMenu" [@fadeInAnimation]="programMenu ? 'enter' : 'leave'">
+      <div 
+        *ngFor="let ex of AllPrograms | TagFilterPipe : ProgramTagItems | SearchTaggableFilterPipe : programSearchString | HideDeletedSortPipe : ShowArchive; let i = index; let c = count;first as isFirst;">
+        <app-paginator *ngIf="isFirst" [TotalItemCount]="c" (ItemDisplayChange)="UpdatePaginiationDisplay($event)">
+        </app-paginator>
+        <div class="row one-program no-gutters" *ngIf="i >= paginationStart && i <= paginationEnd">
+        <div class="col-12">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-7" (click)="ManipulateProgram(ex)">
+              <h5 class="title">{{ex.Name}}</h5>
+            </div>
+            <div class="col-12 col-md-5 title-icons text-right align-items-center">
+              <div class="col-1 title" *ngIf="ex.IsDeleted"> Archived </div>
+              <div class="col-1 title" *ngIf="!ex.IsDeleted"> &nbsp; </div>
+              <p class="weeks">{{ex.WeekCount}} <span>{{ex.WeekCount > 1 ? 'weeks' : 'week'}} </span> | {{ex.DayCount}}
+                <span>{{ex.DayCount > 1 ? 'days': 'day'}}</span></p>
+              <span class="right-icon-con" *ngIf="ex.isBusy !== undefined && ex.isBusy">
+                <img src=" assets/LoadingGif.gif" style="height:75px;">
+              </span>
+              <span class="right-icon-con" *ngIf="ex.isBusy === undefined || !ex.isBusy">
+                <i class="fas fa-pencil-alt" (click)="ManipulateProgram(ex)" title="Edit"></i>
+                <i class="far fa-copy" (click)="DuplicateProgram(ex)" title="Copy"></i>
+                <i *ngIf="!ex.IsDeleted" class="fas fa-trash-alt" (click)="ArchiveProgram(ex.Id)" title="Delete"></i>
+                <i *ngIf="ex.IsDeleted" class="fas fa-trash-restore" (click)="UnArchiveProgram(ex.Id)"
+                  title="Restore"></i>
+                <i *ngIf="ex.IsDeleted && ex.CanModify" class="fas fa-ban" (click)="ToggleHardDeleteModal(ex.Id)"
+                  aria-hidden="Hard Delete"></i>
+              </span>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="tags-title col-sm d-flex">Can Be Modified: {{ex.CanModify ? 'Yes': 'No'}}</div>
+          </div>
+          <div class="row">
+            <div class="col-sm d-flex tags">
+              <p class="tags-title">Tags:</p>
+              <div *ngFor="let tags of ex.Tags">
+                <span class="badge badge-pill badge-light">{{tags.Name}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- Individual Program ends -->
+    <!-- Roster container starts -->
+    <div class="row" *ngIf="programMenu" [@fadeInAnimation]="programMenu ? 'enter' : 'leave'">
+      <div class="check-all checked">
+        <i class="fas " [ngClass]="{'fa-check': allChecked}" (click)="CheckAllAthletes()"></i>
+        <h5>Check All</h5>
+      </div>
+      <div class="col-12">
+        <div class="roster-con">
+
+          <!-- One athlete starts-->
+          <div class="athlete-con " [ngClass]="{selected: a.Checked}"
+            *ngFor="let a of AllAthletes | TagFilterPipe : AthleteTagItems | SearchTaggableFilterPipe : athleteSearchString | ExcludeTagFilterPipe:AthleteExcludedTagItems | HideDeletedSortPipe">
+            <div class="selectedHitboxHack" (click)="ToggleAthleteIdInList(a.Id)"></div>
+            <div class="profile-image" [routerLink]="['/AthleteProfile',a.Id]">
+              <img *ngIf="a.ProfilePicture == undefined " src="../../../assets/Avatar.png">
+              <img
+                *ngIf="a.ProfilePicture != undefined && a.ProfilePicture.Profile != undefined && a.ProfilePicture.Profile != '' "
+                [src]="((a.ProfilePicture.URL + a.ProfilePicture.Profile) | encodeUri)">
+            </div>
+            <h5 [routerLink]="['/AthleteProfile',a.Id]">{{a.FirstName}} {{a.LastName}}</h5>
+          </div>
+          <!-- One athlete ends -->
+
+        </div>
+      </div>
+      <!-- Print Pdf Model -->
+      <div class="metric-modal scp-modal" *ngIf="ShowProgramPrintMenu"
+        [@fadeInAnimation]="ShowProgramPrintMenu ? 'enter' : 'leave'">
+        <div class="scp-modal-in right">
+
+
+          <h3 class="scp-modal-title">Print Options</h3>
+          <p style="text-align:center">This will Email you a PDF containing all programs</p>
+          <div class="row scp-modal-content no-gutters" style="height:300px">
+
+            <div class="col-12 offset-1">
+              <i class="fas fa-check-square greenInput" style="float:left" (click)="togglePrintMaster()" [disabled]="SelectedProgram.HasAdvancedOptions || printUsingAdvancedOptions"
+                [ngClass]="{'fa-check-square': PrintMasterPdf && !SelectedProgram.HasAdvancedOptions  || printUsingAdvancedOptions ,'fa-square': printUsingAdvancedOptions|| !PrintMasterPdf || SelectedProgram.HasAdvancedOptions}"> </i>
+              <div><div style="margin-left:10px;line-height:2;"> &nbsp; Print Master</div> <br /><i *ngIf="SelectedProgram.HasAdvancedOptions || printUsingAdvancedOptions">Master PDF is disabled For Advanced PDFs, an Advanced PDF is one which uses Advanced Options.</i></div>
+            </div>
+            <div class="col-12 offset-1">
+              <i class="fas fa-check-circle greenInput" style="float:left" (click)="toggleOnlyCheckedPrint()"
+                [ngClass]="{'fa-check-circle': OnlyPrintChecked,'fa-circle': !OnlyPrintChecked}"> </i>
+              <div style="float:left;margin-left:10px;line-height:2;">Print The Assigned Program Of All Checked Athletes</div>
+            </div>
+            <!-- <div class="col-12  offset-1">
+              <i class="fas fa-circle greenInput" style="float:left" (click)="toggleOnlyCheckedPrint()"
+                [ngClass]="{'fa-check-circle': !OnlyPrintChecked,'fa-circle': OnlyPrintChecked}"></i>
+              <div style="float:left;margin-left:10px;line-height:2;">Print All Assigned</div>
+            </div> -->
+            <div class="col-12  offset-1" *ngIf="SelectedProgram.HasAdvancedOptions">
+              <i class="fas fa-check-circle greenInput" style="float:left" ></i>  
+              <div style="float:left;margin-left:10px;line-height:2;">Print Using Advanced Options Printing</div>
+              <div style="font-size:12px; color:#f24e52;width:80%;clear:both">This option is automatically turned on because the program uses advanced options</div>
+            </div>
+            <div class="col-12  offset-1" *ngIf="!SelectedProgram.HasAdvancedOptions">
+              <i class="fas fa-circle greenInput" style="float:left" (click)="ToggleOnlyCheckedAdvancedOptionsPrint()"
+              [ngClass]="{'fa-check-circle': printUsingAdvancedOptions,'fa-circle': !printUsingAdvancedOptions}" [disabled]="SelectedProgram.HasAdvancedOptions"></i>
+              <div style="float:left;margin-left:10px;line-height:2;">Print Using Advanced Options Printing</div>
+            </div>
+            <div style="clear:both;height:30px;"></div>
+            <div class="col-12 col-md-6 save-btn-con">
+              <button type="submit" class="btn btn-lg btn-block btn-green btn-normal"
+                (click)="PrintPdf(SelectedProgram.Id)">Print</button>
+            </div>
+
+            <div class="col-12 col-md-6 cancel-btn-con">
+              <button type="button" class="btn btn-lg btn-block btn-red btn-normal"
+                (click)="ToggleShowProgramPrintMenu()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end Print Pdf Model -->
+      <!-- Whiteboard view options -->
+      <div class="metric-modal scp-modal" *ngIf="ShowWhiteBoardView"
+        [@fadeInAnimation]="ShowWhiteBoardView ? 'enter' : 'leave'">
+        <div class="scp-modal-in right">
+
+
+          <h3 class="scp-modal-title">White Board Options</h3>
+
+          <div class="row scp-modal-content no-gutters" style="height:250px">
+
+            <div class="col-12 offset-1">
+              <i class="fas fa-check-circle darkInput" style="float:left" (click)="ToggleDarkTheme()"
+                [ngClass]="{'fa-check-circle': darkTheme,'fa-circle': !darkTheme}"> </i>
+              <div style="float:left;margin-left:10px;line-height:2;">Dark Theme</div>
+            </div>
+            <div class="col-12  offset-1">
+              <i class="fas fa-circle lightInput" style="float:left" (click)="ToggleDarkTheme()"
+                [ngClass]="{'fa-check-circle': !darkTheme,'fa-circle': darkTheme}"></i>
+              <div style="float:left;margin-left:10px;line-height:2;">LightTheme</div>
+            </div>
+            <div class="col-12 ">
+              <div class="days-selector">
+                <span class="days-in in-con">Days<i class="fas fa-chevron-left" (click)="Day = Day-1"></i><span
+                    class="counter">{{Day}}</span><i class="fas fa-chevron-right" (click)="Day = Day+1"></i></span>
+                <span class="weeks-in in-con">Weeks<i class="fas fa-chevron-left" (click)="Week = Week - 1"></i><span
+                    class="counter">{{Week}}</span><i class="fas fa-chevron-right" (click)="Week = Week + 1"></i></span>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 save-btn-con">
+              <button type="submit" class="btn btn-lg btn-block btn-green btn-normal"
+                (click)="RedirectToWhiteBoardView()">Go</button>
+            </div>
+
+            <div class="col-12  col-md-6 cancel-btn-con">
+              <button type="button" class="btn btn-lg btn-block btn-red btn-normal"
+                (click)="ToggleWhiteBoardView()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end white board view options -->
+
+
+
+      <!-- start already assigned modal -->
+      <div class="metric-modal scp-modal" *ngIf="ShowAthletesWithAssignedProgramsModal"
+        [@fadeInAnimation]="ShowAthletesWithAssignedProgramsModal ? 'enter' : 'leave'">
+        <div class="scp-modal-in right">
+          <button type="button" class="close" aria-label="Close"
+            (click)="ToggleShowAthletesWithAssignedProgramsModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="scp-modal-title">Athletes With Assigned Programs</h3>
+
+          <div class="row" *ngFor="let athlete of AthletesThatHaveAssignedPrograms" style="margin:20px;">
+            <div class="col-md-3">
+              <img *ngIf="athlete.ProfilePicture == undefined "
+                src="../../../assets/Avatar.png" style="height:75px;width:75px;">
+                <img *ngIf="athlete.ProfilePicture != undefined "
+                [src]="((athlete.PictureBaseURL + athlete.ProfilePicture) | encodeUri)"  style="height:75px;width:75px">
+ 
+            </div>
+            <div class="col-md-4" style="line-height:5">{{athlete.FirstName}}&nbsp;{{athlete.LastName}}</div>
+            <div class="col-md-5" style="line-height:5">{{athlete.ProgramName}}</div>
+          </div>
+          <div class="row">
+            <div class="col-4  offset-md-1 save-btn-con">
+              <button type="submit" class="btn btn-lg btn-block btn-green btn-normal"
+                (click)="AssignProgramToAllFilteredAthletes(SelectedProgram.Id)">Assign</button>
+            </div>
+
+            <div class=" col-4 offset-md-1 cancel-btn-con">
+              <button type="button" class="btn btn-lg btn-block btn-red btn-normal"
+                (click)="ToggleShowAthletesWithAssignedProgramsModal()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end already assigned modal -->
+
+
+    </div>
+    <!-- Roster container starts -->
+  </div>
+</div>
+<!-- Program list ends -->
+
+<!-- Hard Delete modal -->
+<div class="metric-modal scp-modal" *ngIf="ShowHardDeleteWindow"
+  [@fadeInAnimation]="ShowHardDeleteWindow ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+    <button type="button" class="close" aria-label="Close" (click)="ToggleHardDeleteModal(0)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="scp-modal-title">Delete Program</h3>
+    <div class="row scp-modal-content no-gutters">
+      <div class="col-12 col-lg-12 create-measure-con">
+        <p>Once an Program is <b>DELETED</b> there is <b>NO WAY</b> to recover any information of that Program.
+      </div>
+      <div *ngIf="ProcessDelete">
+        <div style="height: 100px; width: 50px; margin: 0 0 0 100px">
+          <img src=" assets/LoadingGif.gif" style="height:75px;">
+        </div>
+      </div>
+      <div class="col-5 save-btn-con" *ngIf="!ProcessDelete">
+        <button type="submit" type="button" class="btn btn-lg btn-block btn-red btn-normal"
+          (click)="HardDelete()">DELETE</button>
+      </div>
+      <button type="button" *ngIf="!ProcessDelete" class="col-5 offset-md-1 btn btn-lg btn-block btn-green btn-normal"
+        (click)="ToggleHardDeleteModal(0)">Cancel</button>
+    </div>
+  </div>
+</div>
+<!-- END HARD DELETE MODAL -->
+
+<app-alert [messages]="AlertMessages"></app-alert>

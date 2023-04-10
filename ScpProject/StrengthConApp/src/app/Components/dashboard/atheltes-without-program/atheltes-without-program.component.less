@@ -1,0 +1,1300 @@
+
+/*** Dashboard CSS Starts Here ***/
+
+.dashboard-page {
+    display: table;
+    background: url(../../../../assets/newReg/dashboard-bg.png) no-repeat scroll left top;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    display: table-cell;
+    vertical-align: top; 
+    width: 92px;
+    background-color: #4E4E4E;
+}
+
+.page-container {
+    display: table-cell;
+    vertical-align: top;
+    padding: 30px 0px;
+    position: relative;
+}
+
+.dashboard-logo {
+    padding: 11px 0px;
+    text-align: center;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+.dashboard-logo a {
+    display: inline-block;
+}
+
+.dashboard-logo img {
+    width: 74px;
+    height: auto;
+}
+
+svg.hidden {
+    display: none;
+}
+
+.main-nav {
+    position: relative;
+    padding: 15px 0px;
+    text-align: center;
+}
+
+.main-nav::after {
+    content: "";
+    position: absolute;
+    top: -27px;
+    left: 0px;
+    width: 0px;
+    height: 0px;
+    border-top: 27px solid rgba(0,0,0,0);
+    border-left: 46px solid #4E4E4E;
+    border-right: 46px solid #4E4E4E;
+}
+
+.main-nav li {
+    display: block;
+}
+
+.main-nav li:hover {
+    background-color: #3B3A3A; 
+}
+
+.main-nav a {
+    display: inline-block;
+    width: 100%;
+    padding: 15px 0px;
+    vertical-align: middle;
+    position: relative;
+}
+
+.main-nav li.active a::after {
+    position: absolute;
+    top: 0px;
+    right: -4px;
+    content: " ";
+    background-color: #8bc53f;
+    width: 4px;
+    height: 100%;
+}
+
+.main-nav li.active a {
+    background-color: #3B3A3A;
+}
+
+.main-nav svg {
+    width: 23px;
+    height: auto;
+    max-height: 23px;
+    max-width: 23px;
+    fill: #FFFFFF;
+    margin-bottom: -4px;
+}
+
+.main-nav li.active svg {
+    fill: #8bc53f;
+}
+
+.dashboard-header {
+    display: block;
+    padding-left: 40px;
+}
+
+.dashboard-header h1 {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000000;
+    width: 15%;
+    margin: 4px 0px;
+    float: left;
+}
+
+.topright-menu {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+    width: 85%;
+}
+
+.welcome-note {
+    color: #4E4E4E;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px 25px 0px 0px;
+}
+
+.logout {
+    background-color: #4E4E4E;
+    padding: 7px 9px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logout svg {
+    width: 23px;
+    height: auto;
+    max-height: 23px;
+    max-width: 23px;
+    fill: #FFFFFF;
+    margin-bottom: -4px;
+}
+
+.action-box {
+    display: inline-block;
+    padding: 7px 9px;
+    vertical-align: middle;
+    background-color: #DFDEDE;
+    border-radius: 100px 0px 0px 100px;
+}
+
+.settings, .support {
+    display: inline-block;
+    margin: 0px 6px;
+}
+
+.settings svg, .support svg {
+    width: 23px;
+    height: auto;
+    max-height: 23px;
+    max-width: 23px;
+    fill: #4E4E4E;
+    margin-bottom: -4px;
+}
+
+.clearfix {
+    clear: both;
+    float: none;
+}
+
+.dashboard-widgets-container {
+    display: block;
+    padding: 30px 40px 0px;
+}
+
+.dashboard-widgets {
+    display: inline-block;
+    width: 550px;
+    height: 309px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px -1px 6px 0px rgba(1, 2, 2, 0.22);
+    -moz-box-shadow: 0px -1px 6px 0px rgba(1, 2, 2, 0.22);
+    box-shadow: 0px -1px 6px 0px rgba(1, 2, 2, 0.22);
+    margin-bottom: 28px;
+    vertical-align: top;
+}
+
+.dashboard-widgets:nth-child(2n) {
+    margin-left: 22px;
+}
+
+.widget-container {
+    display: block;
+    padding: 22px 30px;
+}
+
+.widget-title-section {
+    border-bottom: 1px solid #E6E6E6;
+    height: 45px;
+}
+
+.widget-title {
+    display: inline-block;
+    height: 30px;
+}
+
+.widget-title svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 23px;
+    height: auto;
+    max-height: 30px;
+    fill: #4E4E4E;
+}
+
+.widget-title span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    color: #4E4E4E;
+}
+
+.widget-count {
+    display: inline-block;
+    float: right;
+    margin-left: 20px;
+    font-size: 28px;
+    font-weight: 400;
+    color: #8bc53f;
+}
+
+.widget-content-section {
+    display: block;
+}
+
+.widget-content-section .content-row {
+    padding: 6px 0px;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.widget-content-section .notification-query {
+    display: inline-block;
+    width:80%;
+}
+
+.widget-content-section .notification-query h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1C1F2A;
+    line-height: normal;
+    margin: 0px;
+}
+
+.widget-content-section .notification-query p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #1C1F2A;
+    line-height: normal;
+    margin: 0px;
+}
+
+.notification-status {
+    display: inline-block;
+    float: right;
+}
+
+.notification-status svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 22px;
+    height: auto;
+    max-height: 33px;
+    fill: #4E4E4E;
+}
+
+.widget-tail-section {
+    display: block;
+    padding-top: 12px;
+}
+
+.widget-tail-section .widget-arrows {
+    display: inline-block;
+}
+
+.widget-tail-section .widget-arrows svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: auto;
+    max-height: 21px;
+    fill: #4E4E4E;
+    margin-right: 10px;
+}
+
+.widget-tail-section .more-details-link {
+    display: inline-block;
+    float: right;
+}
+
+.widget-tail-section .more-details-link a {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4E4E4E;
+}
+
+.widget-filter-box {
+    display: inline-block;
+    vertical-align: middle;
+    width: 145px;
+    float: right;
+}
+
+.widget-filter-box .selectbox {
+    position: relative;
+}
+
+.widget-filter-box .selectbox select {
+    display: block;
+    width: 100%;
+    border-radius: 100px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4E4E4E;
+    line-height: normal;
+    padding: 9px 14px 9px;
+    border: none;
+    background-color: #DFDEDE;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    background-image: url(../../../../assets/newReg/dd-arrow.png);
+    background-position: 90% center;
+    background-repeat: no-repeat;
+    background-size: 10px auto;
+    outline: none;
+}
+
+.widget-filter-box .selectbox .dummyselect {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+}
+
+.checkbox-list {
+    display: none;
+    border: 1px solid #DADADA;
+    position: absolute;
+    z-index: 2;
+    background: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: 180px;
+}
+
+.checkbox-list label {
+    position: relative;
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4E4E4E;
+    padding: 9px 0px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox-list label:not(:last-child) {
+    border-bottom: 1px solid #ECECEC;
+}
+
+.checkbox-list label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0px;
+    width: 0px;
+}
+
+.checkimg {
+    display: none;
+    position: absolute;
+    top: 9px;
+    right: 5px;
+    height: 16px;
+    width: 16px;
+    background: url(../../../../assets/newReg/check-mark.png) no-repeat center center;
+    background-size: 16px auto;
+}
+  
+.checkbox-list label input:checked ~ .checkimg {
+    display: block;
+} 
+
+
+.athlete-list-item {
+    display: block;
+}
+
+.athlete-list-item img {
+    display: inline-block;
+    width: 50px;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.athlete-list-item p {
+    display: inline-block;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+.athlete-status {
+    display: block;
+    padding: 7px 0px 8px;
+}
+
+.athlete-status p {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1C1F2A;
+    line-height: normal;
+    margin: 0px;
+    display: inline-block;
+}
+
+.progress-container {
+    display: inline-block;
+    width: 145px;
+    height: 9px;
+    position: relative;
+    background-color: #F1F1F1;
+    float: right;
+    margin-top: 6px;
+}
+
+.progressbar {
+    background-color: #757575;
+    height: 100%;
+    position: absolute;
+    line-height: normal;
+}
+
+.rounded-corner {
+    border-radius: 16px !important;
+}
+
+.redbar {
+    background-color: #F24E52;
+}
+
+.greenbar {
+    background-color: #8BC53F;
+}
+
+.info-icon {
+    position: absolute;
+    bottom: 58px;
+    right: 20px;
+    display: inline-block;
+    width: 43px;
+    height: 43px;
+}
+
+.info-icon svg {
+    width: 43px;
+    height: auto;
+    max-height: 43px;
+    fill: #FFFFFF;
+}
+
+/*** Dashboard CSS Ends Here ***/
+
+
+/*** Responsive Media Query Starts ***/
+@media (min-width: 1900px) {
+
+    /*** Dashboard CSS Starts Here ***/
+    .sidebar {
+        width: 130px;
+    }
+
+    .dashboard-logo {
+        padding: 15px 0px;
+    }
+
+    .dashboard-logo img {
+        width: 100px;
+    }
+
+    .main-nav {
+        padding: 20px 0px;
+    }
+
+    .main-nav::after {
+        top: -37px;
+        border-top: 38px solid rgba(0,0,0,0);
+        border-left: 65px solid #4E4E4E;
+        border-right: 65px solid #4E4E4E;
+    }
+
+    .main-nav a {
+        padding: 20px 0px;
+    }
+
+    .main-nav svg {
+        width: 30px;
+        max-height: 32px;
+        max-width: 30px;
+    }
+
+    .page-container {
+        padding: 35px 0px;
+    }
+
+    .dashboard-header {
+        padding-left: 62px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 32px;
+    }
+
+    .logout {
+        padding: 10px;
+    }
+
+    .logout svg {
+        width: 30px;
+        max-height: 30px;
+        max-width: 30px;
+    }
+
+    .action-box {
+        padding: 10px 15px;
+    }
+
+    .settings, .support {
+        margin: 0px 8px;
+    }
+
+    .settings svg, .support svg {
+        width: 30px;
+        max-height: 30px;
+        max-width: 30px;
+    }
+
+    .welcome-note {
+        font-size: 24px;
+        margin: 0px 35px 0px 0px;
+    }
+
+    .dashboard-widgets-container {
+        padding: 45px 62px 0px;
+    }
+
+    .dashboard-widgets {
+        width: 770px;
+        height: 420px;
+        -webkit-box-shadow: 0px -2px 9px 0px rgba(1, 2, 2, 0.22);
+        -moz-box-shadow: 0px -2px 9px 0px rgba(1, 2, 2, 0.22);
+        box-shadow: 0px -2px 9px 0px rgba(1, 2, 2, 0.22);
+        margin-bottom: 38px;
+        vertical-align: top;
+    }
+
+    .dashboard-widgets:nth-child(2n) {
+        margin-left: 32px;
+    }
+
+    .info-icon {
+        bottom: 80px;
+        right: 50px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .info-icon svg {
+        width: 60px;
+        max-height: 60px;
+    }
+
+    .widget-container {
+        padding: 30px 38px;
+    }
+
+    .widget-title-section {
+        height: 62px;
+    }
+
+    .widget-title {
+        height: auto;
+        margin-top: 9px;
+    }
+
+    .widget-title svg {
+        width: 30px;
+        max-height: 35px;
+    }
+
+    .widget-title span {
+        font-size: 24px;
+        margin-left: 20px;
+    }
+
+    .widget-count {
+        font-size: 42px;
+    }
+
+    .widget-filter-box {
+        width: 200px;
+    }
+
+    .widget-filter-box .selectbox select {
+        font-size: 18px;
+        padding: 13px 16px;
+        background-size: auto;
+    }
+
+    .checkbox-list {
+        padding: 10px 24px;
+        width: 250px;
+    }
+
+    .checkbox-list label {
+        font-size: 18px;
+        padding: 15px 0px;
+    }
+
+    .checkimg {
+        top: 15px;
+        right: 8px;
+        height: 20px;
+        width: 20px;
+        background-size: 20px auto;
+    }
+
+    .widget-content-section .content-row {
+        padding: 11px 0px;
+    }
+
+    .widget-content-section .notification-query h5 {
+        font-size: 18px;
+    }
+
+    .widget-content-section .notification-query p {
+        font-size: 16px;
+    }
+
+    .notification-status svg {
+        width: 30px;
+        max-height: 38px;
+    }
+
+    .widget-tail-section .widget-arrows svg {
+        width: 30px;
+        max-height: 25px;
+    }
+
+    .widget-tail-section {
+        padding-top: 16px;
+    }
+
+    .widget-tail-section .more-details-link a {
+        font-size: 18px;
+    }
+
+    .athlete-list-item img {
+        width: 62px;
+        margin-right: 30px;
+    }
+
+    .athlete-list-item p {
+        font-size: 18px;
+    }
+
+    .athlete-status p {
+        font-size: 18px;
+    }
+
+    .progress-container {
+        width: 200px;
+        height: 12px;
+        margin-top: 5px;
+    }
+
+    .athlete-status {
+        padding: 9px 0px 10px;
+    }
+
+    /*** Dashboard CSS Ends Here ***/
+
+}
+
+@media (min-width: 1500px) {
+    .site-logo img {
+        width: 164px;
+        height: auto;
+    }
+
+    .page-content {
+        width: 710px;
+        padding-top: 68px;
+    }
+
+    .formsteps {
+        margin: 0px 0px 68px;
+    }
+
+    .reg-form-step {
+        padding: 30px 0px 20px;
+    }
+
+    .step-block {
+        width: 72px;
+        height: 72px;
+        margin: 0px;
+        padding: 0px;
+        border: 3px solid #929293;
+    }
+
+    .step-stick {
+        width: 238px;
+        height: 3px;
+    }
+
+    .inner-ring {
+        width: 62px;
+        height: 62px;
+    }
+
+    .formtext h1 {
+        font-size: 30px;
+        margin: 20px 0px;
+    }
+
+    .formtext p {
+        font-size: 18px;
+    }
+
+    .form-element:not(:last-child) {
+        margin-bottom: 14px;
+    }
+
+    .form-element input[type="text"],
+    .form-element input[type="email"],
+    .form-element input[type="password"] {
+        width: 600px;
+        padding: 20px 28px;
+        font-size: 18px;
+    }
+
+    .left-input input {
+        width: 290px !important;
+        margin: 0px 7px 0px 0px;
+    }
+
+    .right-input input {
+        width: 290px !important;
+        margin: 0px 0px 0px 7px;
+    }
+
+    .chk-input-container {
+        width: 600px;
+    }
+
+    .chkbx-container {
+        font-size: 18px;
+    }
+
+    .greenbtn {
+        font-size: 24px;
+        width: 293px;
+        height: 75px;
+        margin: 40px 7px 0px 0px;
+    }
+
+    .redbtn {
+        font-size: 24px;
+        width: 293px;
+        height: 75px;
+        margin: 40px 0px 0px 7px;
+    }
+
+    .inner-ring span {
+        font-size: 28px;
+    }
+
+    .plan-sticker {
+        clip-path: polygon(65% 0%, 97% 0%, 0% 97%, 0% 65%);
+        width: 114px;
+        height: 114px;
+    }
+
+    .plan-sticker span {
+        font-size: 13px;
+        left: -10px;
+        top: 39px;
+    }
+
+    .subscription-plan.left-align {
+        margin-right: 18px;
+    }
+
+    .subscription-plan.right-align {
+        margin-left: 19px;
+    }
+
+    .subscription-plan .active,
+    .subscription-plan .inactive {
+        width: 334px;
+        height: 414px;
+    }
+
+    .plan-price {
+        font-size: 26px;
+    }
+
+    .plan-price h4 {
+        font-size: 35px;
+        margin: 26px 0px 0px;
+    }
+
+    .subscription-box.active .plan-title h4,
+    .subscription-box.inactive .plan-title h4 {
+        font-size: 38px;
+    }
+
+    .plan-subtitle {
+        font-size: 25px;
+    }
+
+    .subscription-box.active .plan-duration,
+    .subscription-box.inactive .plan-duration {
+        font-size: 33px;
+    }
+
+    .subscription-box.active .plan-trial,
+    .subscription-box.inactive .plan-trial {
+        font-size: 40px;
+    }
+
+    .plan-title {
+        top: 160px;
+    }
+
+    .plan-subtitle {
+        top: 210px;
+    }
+
+    .plan-duration {
+        top: 280px;
+    }
+
+    .plan-trial {
+        top: 330px;
+    }
+
+    /*** Dashboard CSS Starts Here ***/
+    .sidebar {
+        width: 104px;
+    }
+
+    .dashboard-logo {
+        padding: 11px 0px 7px;
+    }
+
+    .dashboard-logo img {
+        width: 84px;
+    }
+
+    .main-nav {
+        padding: 20px 0px;
+    }
+
+    .main-nav::after {
+        top: -30px;
+        border-top: 30px solid rgba(0,0,0,0);
+        border-left: 52px solid #4E4E4E;
+        border-right: 52px solid #4E4E4E;
+    }
+
+    .main-nav a {
+        padding: 15px 0px;
+    }
+
+    .main-nav svg {
+        width: 27px;
+        max-height: 29px;
+        max-width: 27px;
+    }
+
+    .page-container {
+        padding: 30px 0px;
+    }
+
+    .dashboard-header {
+        padding-left: 50px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 32px;
+    }
+
+    .logout {
+        padding: 10px;
+    }
+
+    .logout svg {
+        width: 30px;
+        max-height: 30px;
+        max-width: 30px;
+    }
+
+    .action-box {
+        padding: 10px 15px;
+    }
+
+    .settings, .support {
+        margin: 0px 8px;
+    }
+
+    .settings svg, .support svg {
+        width: 30px;
+        max-height: 30px;
+        max-width: 30px;
+    }
+
+    .welcome-note {
+        font-size: 24px;
+        margin: 0px 35px 0px 0px;
+    }
+
+    .dashboard-widgets-container {
+        padding: 40px 50px 0px;
+    }
+
+    .dashboard-widgets {
+        width: 600px;
+        height: 335px;
+        -webkit-box-shadow: 0px -2px 9px 0px rgba(1, 2, 2, 0.22);
+        -moz-box-shadow: 0px -2px 9px 0px rgba(1, 2, 2, 0.22);
+        box-shadow: 0px -2px 9px 0px rgba(1, 2, 2, 0.22);
+        margin-bottom: 38px;
+        vertical-align: top;
+    }
+
+    .dashboard-widgets:nth-child(2n) {
+        margin-left: 32px;
+    }
+
+    .info-icon {
+        bottom: 80px;
+        right: 40px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .info-icon svg {
+        width: 50px;
+        max-height: 50px;
+    }
+
+    .widget-container {
+        padding: 24px 34px;
+    }
+
+    .widget-title-section {
+        height: 52px;
+    }
+
+    .widget-title {
+        height: auto;
+        margin-top: 7px;
+    }
+
+    .widget-title svg {
+        width: 27px;
+        max-height: 29px;
+    }
+
+    .widget-title span {
+        font-size: 18px;
+        margin-left: 15px;
+    }
+
+    .widget-count {
+        font-size: 34px;
+        margin-left: 13px;
+    }
+
+    .widget-filter-box {
+        width: 155px;
+    }
+
+    .widget-filter-box .selectbox select {
+        font-size: 14px;
+        padding: 10px 16px;
+        background-size: 12px auto;
+    }
+
+    .checkbox-list {
+        padding: 10px 24px;
+        width: 200px;
+    }
+
+    .checkbox-list label {
+        font-size: 14px;
+        padding: 11px 0px;
+    }
+
+    .checkimg {
+        top: 11px;
+        right: 5px;
+        height: 18px;
+        width: 18px;
+        background-size: 18px auto;
+    }
+
+    .widget-content-section .content-row {
+        padding: 6px 0px;
+    }
+
+    .widget-content-section .notification-query h5 {
+        font-size: 15px;
+    }
+
+    .widget-content-section .notification-query p {
+        font-size: 13px;
+    }
+
+    .notification-status svg {
+        width: 27px;
+        max-height: 29px;
+        margin-top: 2px;
+    }
+
+    .widget-tail-section .widget-arrows svg {
+        width: 24px;
+        max-height: 20px;
+    }
+
+    .widget-tail-section {
+        padding-top: 14px;
+    }
+
+    .widget-tail-section .more-details-link a {
+        font-size: 16px;
+    }
+
+    .athlete-list-item img {
+        width: 53px;
+        margin-right: 25px;
+    }
+
+    .athlete-list-item p {
+        font-size: 16px;
+    }
+
+    .athlete-status p {
+        font-size: 14px;
+    }
+
+    .progress-container {
+        width: 150px;
+        height: 10px;
+        margin-top: 4px;
+    }
+
+    .athlete-status {
+        padding: 8px 0px 9px;
+    }
+
+    /*** Dashboard CSS Ends Here ***/
+
+}
+
+@media (min-width: 1200px) and (max-width: 1359px) {
+    .dashboard-widgets-container {
+        padding: 30px 15px 0px;
+    }
+    .dashboard-widgets {
+        width: 530px;
+        height: 309px;
+        margin-bottom: 15px;
+    }
+    .dashboard-widgets:nth-child(2n) {
+        margin-left: 10px;
+    }
+    .widget-filter-box {
+        width: 140px;
+    }
+    .widget-count {
+        margin-left: 13px;
+    }
+    .athlete-status p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .dashboard-widgets:nth-child(2n) {
+        margin-left: auto;
+    }
+    .dashboard-widgets {
+        display: block;
+        margin: 0px auto 28px;
+    }
+}
+
+@media (max-width: 991px) {
+    .site-logo {
+        position: static;
+        padding: 30px 0px 0px 30px;
+    }
+
+    .page-content {
+        padding: 40px 0px;
+    }
+
+    .formsteps {
+        margin: 0px 0px 40px;
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        width: 100%;
+    }
+
+    .site-logo {
+        padding: 25px 0px 0px 25px;
+    }
+
+    .page-content {
+        position: static;
+        padding: 40px 0px 30px;
+        transform: none;
+        -ms-transform: none;
+    }
+
+    .formsteps {
+        margin: 0px 0px 30px;
+    }
+
+    .dashboard-page {
+        min-width: 768px;
+    }
+}
+
+@media (max-width: 575px) {
+    body {
+        background-size: auto;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .site-logo {
+        padding: 20px 0px 0px 20px;
+    }
+
+    .site-logo img {
+        width: 80px;
+        height: auto;
+    }
+
+    .page-content {
+        position: static;
+        top: 0%;
+        left: 0%;
+        transform: none;
+        -ms-transform: none;
+        width: 360px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .formsteps {
+        margin: 0px 0px 20px;
+        padding: 0px 10px;
+    }
+
+    .step-block {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #929293;
+    }
+
+    .inner-ring {
+        width: 34px;
+        height: 34px;
+        margin: 3px;
+    }
+
+    .step-stick {
+        width: 31.4%;
+        height: 1px;
+    }
+
+    .formtext {
+        padding: 0px 10px;
+    }
+
+    .reg-form-step {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .form-element.left-input,
+    .form-element.right-input {
+        display: block;
+    }
+
+    .form-element input[type="text"],
+    .form-element input[type="email"],
+    .form-element input[type="password"] {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #7DBC27;
+        font-size: 14px;
+    }
+
+    .left-input input,
+    .right-input input {
+        display: block;
+        width: 100% !important;
+        margin: 0px;
+    }
+
+    .chk-input-container {
+        width: 100%;
+    }
+
+    .greenbtn {
+        font-size: 18px;
+        width: 160px;
+        height: auto;
+        padding: 10px 0px;
+        margin: 20px 7px 0px 0px;
+    }
+
+    .redbtn {
+        font-size: 18px;
+        width: 160px;
+        height: auto;
+        padding: 10px 0px;
+        margin: 20px 0px 0px 7px;
+    }
+
+    .subscription-plan.left-align,
+    .subscription-plan.right-align {
+        margin: 10px 0px;
+    }
+
+}
+
+@media (max-width: 359px) {
+    .page-content {
+        width: 320px;
+    }
+
+    .step-stick {
+        width: 29%;
+    }
+
+    .greenbtn {
+        font-size: 16px;
+        width: 140px;
+    }
+
+    .redbtn {
+        font-size: 16px;
+        width: 140px;
+    }
+}
+/*** Responsive Media Query Ends ***/

@@ -1,0 +1,120 @@
+<div *ngIf="View=='CreateWorkout'" [ngClass]="FormViewMode" [@fadeInAnimation]="View == 'CreateWorkout' ? 'enter' : 'leave'">
+    <h3 *ngIf="ShowTitle" class="sets-and-reps-modal-title col-12 col-md-12" style="text-align:center">Create Sets & reps</h3>
+    <div class="col-lg-12 top-section">
+      <div class="form-group row">
+        <label for="name" [ngClass]="SetModalStyle == true ? 'col-lg-1 col-form-label' : 'col-lg-3 col-form-label mb-2'">Name:</label>
+        <div [ngClass]="SetModalStyle == true ? 'col-lg-5' : 'col-lg-9 mb-2'">
+          <input type="text" class="form-control white-bg-input" id="name" placeholder="Enter Name"
+            [(ngModel)]="SelectedWorkout.Name">
+        </div>
+        <label for="tags" [ngClass]="SetModalStyle == true ? 'col-lg-1 col-form-label' : 'col-lg-3 col-form-label'">Tags:</label>
+        <div [ngClass]="SetModalStyle == true ? 'col-lg-5' : 'col-lg-9'">
+          <app-scp-tag-input [ExistingTags]="newWorkoutTagItems" (TagRemoved)="RemoveNewSetAndRepTags($event)"
+            (TagAdded)="AddNewNewSetAndRepTags($event)" [autocompleteItems]="AllTags">
+          </app-scp-tag-input>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 bottom-section">
+      <div class="row">
+        <div class="col-12 top-btns">
+          <button type="button" class="btn btn-link add-btn" (click)="AddWeek(SelectedWorkout.TotalWorkout)"><i
+              class="fas fa-plus"></i> &nbsp;&nbsp;Add Week</button>
+          <button type="button" class="btn btn-link remove-btn" (click)="RemoveWeek(SelectedWorkout.TotalWorkout)"
+            style="line-height:2.5"><i class="fas fa-trash"></i> &nbsp;&nbsp; Delete Week</button>
+          <app-sets-and-reps-table [subSelectedWorkout]="SelectedWorkout"></app-sets-and-reps-table>
+        </div>
+        <div class="col-12">
+          <div class="col-6 weeks-list" *ngIf="SelectedWorkout.ShowRestBox">
+            <div class="week-con">
+              <div class="form-group">
+                <label class="week-title">Rest</label>
+                <textarea name="selectedWorkoutRest" cols="40" rows="3" class="form-control" aria-describedby="Rest"
+                  [(ngModel)]="SelectedWorkout.Rest"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 weeks-list">
+          <div class="row no-gutters">
+            <!-- One week starts -->
+            <div [ngClass]="WeekViewMode" *ngFor="let w of SelectedWorkout.TotalWorkout">
+              <div class="week-con">
+                <p class="week-title checked"><i class="fas fa-check"></i> Week {{w.Position}}</p>
+                <div class="row no-gutters week-in" *ngFor="let s of w.SetsAndReps; let i = index">
+                  <hr *ngIf="i > 0 " style=" width:100%">
+                  <div class="col-3" *ngIf="SelectedWorkout.ShowPercentageBox">
+                    <div class="form-group">
+                      <label>%</label>
+                      <input type="text" class="form-control" aria-describedby="Percent" [(ngModel)]="s.Percent"
+                        (change)="CheckAddAnotherSet(SelectedWorkout,w)">
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="SelectedWorkout.ShowSetsBox">
+                    <div class="form-group">
+                      <label>Set</label>
+                      <input type="text" class="form-control" aria-describedby="Sets" [(ngModel)]="s.Sets"
+                        (change)="CheckAddAnotherSet(SelectedWorkout,w)">
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="SelectedWorkout.ShowRepsBox">
+                    <div class="form-group">
+                      <label>Rep</label>
+                      <input type="text" class="form-control" aria-describedby="Reps" [(ngModel)]="s.Reps"
+                        (change)="CheckAddAnotherSet(SelectedWorkout,w)">
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="SelectedWorkout.ShowWeight">
+                    <div class="form-group">
+                      <label>Weight</label>
+                      <input type="text" class="form-control" aria-describedby="Weight" [(ngModel)]="s.Weight"
+                        (change)="CheckAddAnotherSet(SelectedWorkout,w)">
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="SelectedWorkout.ShowTimeBox">
+                    <div class="form-group">
+                      <label>Minute</label>
+                      <input type="text" class="form-control" aria-describedby="Minutes" [(ngModel)]="s.Minutes"
+                        (change)="CheckAddAnotherSet(SelectedWorkout,w)">
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="SelectedWorkout.ShowTimeBox">
+                    <div class="form-group">
+                      <label>Second</label>
+                      <input type="text" class="form-control" aria-describedby="Seconds" [(ngModel)]="s.Seconds"
+                        (change)="CheckAddAnotherSet(SelectedWorkout,w)">
+                    </div>
+                  </div>
+
+                  <div class="col-3" *ngIf="SelectedWorkout.ShowDistanceBox">
+                    <div class="form-group">
+                      <label>Distance</label>
+                      <input type="text" class="form-control" aria-describedby="Distance" [(ngModel)]="s.Distance"
+                        (change)="CheckAddAnotherSet(SelectedWorkout,w)">
+                    </div>
+                  </div>
+                  <div class="col-3" *ngIf="SelectedWorkout.ShowOtherBox">
+                    <div class="form-group">
+                      <label>Other</label>
+                      <input type="text" class="form-control" aria-describedby="Other" [(ngModel)]="s.Other"
+                        (change)="CheckAddAnotherSet(SelectedWorkout,w)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- One week ends -->
+          </div>
+        </div>
+        <div class="col-lg-12 btns-con">
+          <button type="button" class="btn btn-lg btn-green btn-normal"
+            (click)="Save(SelectedWorkout,newWorkoutTagItems)">Save</button>
+          <button type="button" class="btn btn-lg btn-red btn-normal edit-btn"
+            (click)='Cancel()'>Cancel</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,110 @@
+﻿SET IDENTITY_INSERT SubscriptionTypes ON
+GO
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (1
+		   ,'Trainer'
+           ,10
+           ,1
+           ,'plan_GKwAkVUWhf33Ks'
+		   ,12.99)
+GO
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (2
+		   ,'Head Coach'
+           ,99999999
+           ,1
+           ,'plan_GKwBHSuC2a6ZWz'
+		   ,49.99)
+GO
+
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (3
+		   ,'coach'
+           ,25
+           ,1
+           ,'plan_GKwBNqV1IdBnUf'
+		   ,24.99)
+GO
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (4
+		   ,'Unlimited Head Coach'
+           ,999999999
+           ,1
+           ,'plan_GKwCMqxy6gb5Lq'
+		   ,499.99)
+GO
+
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([id]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+		   ,[Cost])
+     VALUES
+           (5
+		   ,'FOUNDER'
+           ,99999999
+           ,0
+           ,'xxxxxxxx'
+		   ,499.99)
+GO
+
+
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([ID]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+           ,[Cost]
+           ,[Tiered])
+     VALUES
+           (-1,'CANCELLED',0,0,'',0,0)
+
+           
+INSERT INTO [dbo].[SubscriptionTypes]
+           ([ID]
+		   ,[Name]
+           ,[AthleteCount]
+           ,[Recurring]
+           ,[StripeSubscriptionGuid]
+           ,[Cost]
+           ,[Tiered])
+     VALUES
+           (7,'LifeTiem1000',999999,0,'',0,999.99)
+
+SET IDENTITY_INSERT SubscriptionTypes OFF

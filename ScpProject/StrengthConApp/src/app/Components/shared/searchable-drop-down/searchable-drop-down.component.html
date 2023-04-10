@@ -1,0 +1,7 @@
+<div style="width:400px">
+  <input class="defaultDropDown" type="text" placeholder="{{placeholderText}}" [(ngModel)]="searchText" (focus)="focus()"
+    (focusout)="focusOut()">
+  <div class="defaultDropDownDataHolder" [hidden]="hideDataHolder">
+      <div style="width:400px" class="defaultDropDownData" *ngFor="let data of list | DropDownListItemFilterPipe: searchText" (click)="ChangeSelectedItem(data)">{{data.Name}}{{hideDataHolder}}</div>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<div *ngIf="view == 'weightroom'" style="margin-top:100px;">
+
+  <div class="col-sm-12 page-inner-content weight-room-page">
+    <div class="row no-gutters">
+      <div class="col-lg-5">
+
+        <div class="col-md-12 col-lg-10 col-xl-8">
+          <input type="text" class="form-control grey-bg-input" aria-describedby="Search"
+            placeholder="Search Through Tags" (keyup)="FilterTag(tagSearchString)" [(ngModel)]="tagSearchString">
+        </div>
+        <div class="col-12 tags-col">
+          <div class="tags-con">
+            <p class="tags-title">Tags:</p>
+            <div *ngFor="let tag of AllTags">
+              <span class="badge badge-pill badge-light " [ngClass]="{ 'selected' : IsTagSelected(tag.value)}"
+                (click)="ToggleSelectedTag(tag)">
+                <div style="float:left;padding-right:30px;">{{tag.display}} </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+
+        <div class="row">
+          <div class="col-md-4 col-lg-6"> <input type="text" class="form-control grey-bg-input "
+              aria-describedby="Search Through Athlete" placeholder="Search Athlete" [(ngModel)]="AthleteSearchString"
+              (ngModelChange)="NameChange($event)">
+          </div>
+          <div class="col-12 col-sm-12 d-lg-none d-xl-none d-md-none">&nbsp;</div>
+          <div class="col-10 col-sm-10 col-md-5 col-lg-3 col-xl-2">
+            <button type="submit" class="btn  btn-green btn-block btn-normal " (click)="StartWorkout()">Next</button>
+          </div>
+          <div class="col-2 col-sm-2 col-md-2 col-lg-2  text-right">
+            <span class="icon"><i class="fas fa-question"></i></span>
+          </div>
+        </div>
+
+        <div class="check-all checked">
+          <i class="fas " [ngClass]="{'fa-check': allChecked}" (click)="ToggleAllCheckedAthletes()"></i>
+          <h5>Check All</h5>
+        </div>
+
+        <!-- Roster container starts -->
+        <div class="roster-con">
+
+          <!-- One athlete starts-->
+          <div class="athlete-con " *ngFor="let a of AllAthletes" [ngClass]="{selected: a.Checked}">
+            <div class="selectedHitboxHack" (click)="ToggleAthleteIdInList(a.Id, a)"></div>
+            <div class="profile-image">
+              <img *ngIf="a.ProfilePicture == undefined " src="../../../assets/Avatar.png">
+              <img
+                *ngIf="a.ProfilePicture != undefined && a.ProfilePicture.Profile != undefined && a.ProfilePicture.Profile != '' "
+                [src]="((a.ProfilePicture.URL + a.ProfilePicture.Profile) | encodeUri)">
+            </div>
+            <h5> {{a.FirstName}} {{a.LastName}}</h5>
+          </div>
+          <!-- One athlete ends -->
+
+
+
+        </div>
+        <!-- Roster container starts -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view == 'workout'" class="col-sm-12 page-inner-content weight-room-con">
+  <div class="content-con">
+    <div class="col-sm-12 top-menu" style="padding: 0%;">
+        <button class="btn btn-link" (click)="ToggleMenu()">
+          <h3>
+		        <i class="fas fa-bars"></i>
+          </h3>
+        </button>
+        <div class="weight-in">
+        <div class="selected-athlete">
+          <div [ngSwitch]="SelectedAthletes.length">
+            <app-weight-room-single-view  *ngSwitchCase="1" [athleteArray]="SelectedAthletes"></app-weight-room-single-view>
+            <app-weight-room-split-view   *ngSwitchCase="2" [athleteArray]="SelectedAthletes"></app-weight-room-split-view>
+            <app-weight-room-trifold-view *ngSwitchCase="3" [athleteArray]="SelectedAthletes"></app-weight-room-trifold-view>
+            <app-weight-room-grid-view    *ngSwitchCase="4" [athleteArray]="SelectedAthletes"></app-weight-room-grid-view>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div 
+    class="scp-modal" 
+    *ngIf="showMenu" 
+    [@fadeInAnimation]="showMenu ? 'enter' : 'leave'"
+>
+    <div class="scp-modal-in left">
+        <div class="scp-modal-content">
+            <div class="row">
+              <h3 class="scp-modal-title col-lg-10 text-center">Select Active Athletes</h3>
+              <span class="scp-modal-title col-lg-2" (click)="ToggleMenu()">Close</span>
+            </div>
+            <div class="row d-flex flex-column align-items-center">
+              <h3 class="page-heading" (click)="StartWeightRoom()">
+                <button type="button" class="btn btn-link">
+                  <i class="fas fa-arrow-left"></i>
+                </button>
+                Weight Room View
+              </h3>
+              <app-paginator 
+                      [TotalItemCount]="CheckedAthletes.length" 
+                      (ItemDisplayChange)="UpdatePaginationDisplay($event)"
+              ></app-paginator>
+              <div *ngFor="let athlete of CheckedAthletes; let idx = index">
+                <app-weight-room-athlete-header
+                  *ngIf="idx >= paginationStart && idx <= paginationEnd"
+                  [athlete]="athlete"
+                  [isSelected]="SelectedAthletes.includes(athlete)"
+                  (click)="ToggleSelectedAthletes(athlete)"
+                ></app-weight-room-athlete-header>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,215 @@
+@import "../../../styles.less";
+@import "../../../assets/StyleSheets/Tag.less";
+@import "../../../assets/StyleSheets/Buttons.less";
+
+@import "../../../assets/StyleSheets/Tabs.less";
+@import "../../../assets/StyleSheets/Modal.less";
+
+@import '../../../assets/StyleSheets/Colors.less';
+@import '../../../assets/StyleSheets/Inputs.less';
+@import '../../../assets/StyleSheets/Alerts.less';
+
+.metrics-con{
+
+
+  .table{
+    margin-bottom: 0;
+    padding: 1rem;
+    border: 3px solid rgba(  @our-grey, 0.5);
+    border-radius: 0.625rem;
+    margin: 1.875rem 0;
+  }
+
+  thead{
+    tr{
+      th{
+        font-family: @font;
+        font-weight: 400;
+        color: @our-green;
+        font-size: 1.125rem;
+        border-top: none;
+      }
+
+      th:not(:last-child){
+        border-right: 1px solid @our-grey;
+      }
+    }
+  }
+
+  tbody{
+    tr{
+      td{
+        font-family: @font;
+        font-weight: 300;
+        color: @light-black;
+        font-size: 0.9375rem;
+        border-top: 1px solid @our-grey;
+      }
+
+      td:not(:last-child){
+        border-right: 1px solid @our-grey;
+      }
+    }
+  }
+
+}
+
+
+
+.carousel-container {
+  background: white;
+  position: relative;
+  display: block;
+  padding: 0 2.5rem;
+  border-radius: 0.625rem;
+  margin-top: 0.5rem;
+  height: 140px;
+  overflow:hidden;
+
+  .owl-carousel {
+    .owl-prev,
+    .owl-next {
+      position: absolute;
+      top: 1.25rem;
+      font-size: 3.125rem;
+      color: rgba(@light-black, 0.8);
+      outline: none;
+    }
+
+    .owl-prev.disabled,
+    .owl-next.disabled {
+      color: @our-grey;
+    }
+
+    .owl-prev {
+      left: -1.875rem;
+    }
+
+    .owl-next {
+      right: -1.875rem;
+    }
+
+    .carousel-in {
+      background: @white;
+      border-left: 1px solid rgba(@light-black, 0.5);
+      padding: 0.625rem 0.9375rem;
+      margin: 0.625rem 1rem 0 1rem;
+      cursor: pointer;
+      width: 250px;
+      float: left;
+
+      .title {
+        font-family: @font;
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: @our-green;
+        margin-top: 0.125rem;
+        padding: 0;
+        margin-bottom: 0.625rem;
+      }
+
+      p {
+        font-family: @font;
+        font-weight: 300;
+        font-size: 0.875rem;
+        margin-bottom: 0;
+        color: @light-black;
+        margin-bottom: 0.3125rem;
+      }
+    }
+
+    
+    .carousel-in:hover {
+      background: @our-green;
+      border-color: @our-green !important;
+      border-radius: 0.625rem;
+      position: relative;
+
+      &:after {
+        content: "";
+        bottom: -0.625rem;
+        position: absolute;
+        right: 48%;
+        width: 0;
+        height: 0;
+        border-left: 0.625rem solid transparent;
+        border-right: 0.625rem solid transparent;
+        border-top: 0.625rem solid @our-green;
+      }
+
+      .title,
+      p {
+        color: @white;
+      }
+    }
+
+    .carousel-in.selected {
+      background: @our-green;
+      border-color: @our-green !important;
+      border-radius: 0.625rem;
+      position: relative;
+
+
+      &:after {
+        content: "";
+        bottom: -0.625rem;
+        position: absolute;
+        right: 48%;
+        width: 0;
+        height: 0;
+        border-left: 0.625rem solid transparent;
+        border-right: 0.625rem solid transparent;
+        border-top: 0.625rem solid @our-green;
+      }
+
+      .title,
+      p {
+        color: @white;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .carousel-in {
+        border-color: transparent;
+      }
+    }
+
+    .owl-item.active:first-child .carousel-in {
+      border-color: transparent;
+    }
+
+    .owl-dots {
+      display: none !important;
+    }
+  }
+}
+
+.slideCarouselItem
+{
+  background: #fff;
+  border-right: 1px solid rgba(78,78,78,.5);
+  padding: .625rem .9375rem;
+  margin: 10px;
+  cursor: pointer;
+
+}
+
+.slideCarouselItemSelected, .slideCarouselItem:hover
+{
+  background: #8bc53f;
+  border-color: #8bc53f!important;
+  border-radius: .625rem;
+  position: relative;
+}
+.slideCarouselItemSelected::after , .slideCarouselItem:hover::after
+{
+content: "";
+bottom: -.625rem;
+position: absolute;
+right: 48%;
+width: 0;
+height: 0;
+border-left: .625rem solid transparent;
+border-right: .625rem solid transparent;
+border-top: .625rem solid #8bc53f;
+}

@@ -1,0 +1,28 @@
+  <!-- <div class="offset-md-9 col-md-2 cancel-btn-con">
+    <button type="button" class="btn btn-lg btn-block btn-red btn-normal" (click)="pastProgramId = 0"
+      *ngIf="pastProgramId != 0">Cancel</button>
+  </div>
+
+  <app-athlete-workout [AutoLoad]="false" [AthleteId]="CurrentAthlete.Id" [PastAssignedWorkoutId]="pastProgramId"
+    *ngIf="pastProgramId != 0 " [ViewSurveysOnly]="true" [DisplayPrintButton]="false"></app-athlete-workout>
+
+  <div class="metrics-list">
+    <div class="row one-metric no-gutters" *ngFor="let s of HistoricSurvyes">
+      <div class="col-12">
+        <div class="row align-items-center">
+          <div class="col-9" (click)="ShowPastProgram(s.AssignedProgramId,0)">
+            <h5 class="title"> {{s.SurveyName}}
+            </h5>
+            <p style="margin-top: 20px;font-size: 18px;">Recorded On Program &nbsp;:&nbsp;{{s.ProgramName}}</p>
+            <p style="margin-top: 20px;font-size: 18px;" *ngIf="s.SurveyCompleted !== null">Last Question Answered Time &nbsp;:&nbsp;{{s.SurveyCompleted | date :  "MM/dd/y"}} &nbsp;&nbsp;(MM/DD/YYYY)</p>
+            <p style="margin-top: 20px;font-size: 18px;" *ngIf="s.SurveyCompleted === null">The Athlete hasn't answered any questions on this survey</p>
+          </div>
+          <div class="col-3 text-right">
+            <i class="fas fa-trash-alt"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <h1 style="text-align: center; margin: 10% 0% 0% 10%; width:80%">This page is currently being redesigned to work with out new Athlete Programming Engine</h1>

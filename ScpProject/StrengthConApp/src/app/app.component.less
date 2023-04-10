@@ -1,0 +1,146 @@
+@import "../styles.less";
+
+
+.page-container {
+	width                : 100%;
+	min-height           : 100%;
+	min-height           : 100vh;
+	background           : @black url(./../assets/loginBG.png) no-repeat center center;
+	background-size      : cover;
+	background-attachment: fixed;
+	overflow             : hidden;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
+
+:host {
+
+	/deep/ .weightRoomView~* {
+		  position: absolute;
+		  width:100%;
+	}
+	
+	/deep/ .routerOutletContainer~* {
+		  position: absolute;
+	}
+
+	@media screen and (min-width: 1390px) {
+
+		/deep/ .routerOutletContainer~* {
+			width: 90%;
+		}
+	}
+
+	@media screen and (max-width: 1380px) {
+
+		/deep/ .routerOutletContainer~* {
+			width: 85%;
+		}
+	}
+
+	@media screen and (max-width:950px) {
+
+		/deep/ .routerOutletContainer~* {
+			width: 80%;
+		}
+	}
+
+	@media screen and (max-width:768px) {
+
+		/deep/ .routerOutletContainer~* {
+			width: 100%;
+		}
+	}
+	@media screen and (max-width:425px) {
+
+		/deep/.routerOutletContainer~* {
+			width:100%;
+		}
+		.blocks-con{
+			padding-top:.9375em !important;
+		}
+
+	}
+}
+
+// .loginImage {
+//     height: 100%;
+//     /* Center and scale the image nicely */
+//     background-position: center;
+//     background-repeat  : no-repeat;
+//     background-size    : cover;
+//     background-image   : url("../assets/Login.jpg")
+// }
+
+// .overlay {
+
+//     background-image: linear-gradient(to bottom right, #78DA54, #000000);
+//     opacity         : .6;
+//     z-index         : 2;
+// }
+
+// .routerBody {
+//     width: calc(100%-260px);
+// }
+
+// @media screen and (max-width: 1040px) {
+//     .navMenuContainer {
+//         width       : 7%;
+//     }
+// }
+
+// @media screen and (min-width: 1041px) {
+//     .navMenuContainer {
+//         width       : 20%;
+//     }
+// }
+
+// @media screen and (min-width: 1300px) {
+//     .navMenuContainer {
+//         width       : 15%;
+//     }
+// }
+// @media screen and (min-width: 1500px) {
+//     .navMenuContainer {
+//         width       : 13%;
+//     }
+// }
+// @media screen and (min-width: 1800px) {
+//     .navMenuContainer {
+//         width       : 11%;
+//     }
+// }
+// .navMenuContainer {
+//     float       : left;
+//     height      : 100%;
+//     margin-right: 25px;
+// }
+
+
+// @media screen and (max-width: 1040px) {
+//     .appRouterContainer {
+//         width : 80%;
+//     }
+// }
+
+// @media screen and (min-width: 1041px) {
+//     .appRouterContainer {
+//         width : 75%;
+//     }
+// }
+
+// @media screen and (min-width: 1300px) {
+//     .appRouterContainer {
+//         width : 80%;
+//     }
+// }
+// @media screen and (min-width: 1500px) {
+//     .appRouterContainer {
+//         width : 84%;
+//     }
+// }
+// .appRouterContainer {
+//     float : left;
+//     height: 100%;
+// }

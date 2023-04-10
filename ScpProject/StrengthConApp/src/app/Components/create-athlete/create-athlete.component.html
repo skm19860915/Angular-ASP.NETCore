@@ -1,0 +1,194 @@
+<!-- Page inner content starts -->
+<div class="col-sm-12 page-inner-content rosters-page no-gutters">
+
+
+  <!-- Account setting inputs start -->
+  <div class="col-12">
+    <div class="row athlete-profile no-gutters">
+
+      <div class="col-lg-8 col-xl-6">
+        <div class="form-group row">
+          <label for="firstName" class="col-md-3 col-form-label">First Name:</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control white-bg-input" id="firstName" placeholder="Athlete First name"
+              [(ngModel)]="SelectedAthlete.FirstName">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="lastName" class="col-md-3 col-form-label">Last Name:</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control white-bg-input" id="lastName" placeholder="Athlete Last name"
+              [(ngModel)]="SelectedAthlete.LastName">
+          </div>
+        </div>
+        <div class="form-group row ">
+          <label for="tags" class="col-md-3 col-form-label">Tags:</label>
+          <div class="col-md-9 text-left">
+            <app-scp-tag-input (TagRemoved)="RemoveAthleteTag($event)" (TagAdded)="AddNewAthleteTag($event)">
+            </app-scp-tag-input>
+          </div>
+        </div>
+        <!-- <div class="form-group row">
+          <label for="birthday" class="col-md-3 col-form-label">Birthday:</label>
+          <div class="col-md-9 col-lg-5 col-xl-3">
+            <dp-date-picker style="float:left" [(ngModel)]="SelectedAthlete.Birthday" [config]="datePickerConfig"
+              theme="dp-material"></dp-date-picker>
+          </div>
+        </div> -->
+
+        <div class="form-group row">
+          <label for="heightFeet" class="col-md-3 col-form-label">Height In ft or m:</label>
+          <div class="col-md-9 col-lg-9 col-xl-3">
+            <input type="text" class="form-control white-bg-input" id="heightFeet"
+              [(ngModel)]="SelectedAthlete.HeightPrimary">
+          </div>
+          <label for="heightInch" class="col-md-3 col-form-label text-right">Height In in or cm:</label>
+          <div class="col-md-9 col-lg-9 col-xl-3 multi-col">
+            <input type="text" class="form-control white-bg-input" id="heightInch"
+              [(ngModel)]="SelectedAthlete.HeightSecondary">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="weight" class="col-md-3 col-form-label">Weight in lbs or kg:</label>
+          <div class="col-md-9 col-lg-9 col-xl-3">
+            <input type="text" class="form-control white-bg-input" id="weight" [(ngModel)]="SelectedAthlete.Weight">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="email" class="col-md-3 col-form-label">Email:</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control white-bg-input" id="email" placeholder="athlete@email.com"
+              [(ngModel)]="SelectedAthlete.Email">
+              <p>*Optional*</p>
+          </div>
+        </div>
+
+
+
+        <div class="form-group row">
+          <label for="metric" class="col-md-3 col-form-label">Enter Metrics:</label>
+          <div class="col-md-7">
+            <ng-select id="exerciseCalculation" [(items)]="DisplayMetrics" bindLabel="Name" bindValue="Id"
+             (change)="AddMetricToCompletedList(TargetMetricId)" [searchFn]="SelectSearch" 
+              [(ngModel)]="TargetMetricId" style="width:100%;float:left">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}} <br />
+                <div *ngIf="item.Tags.length > 0  ">
+                  <div *ngFor="let tags of item.Tags">
+                    <div class="badge badge-pill badge-light floatLeft">{{tags.Name}}</div>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+
+        <div *ngFor="let a of AddedMetrics; let i = index;" class="row no-gutters" style="margin-top:10px">
+          <div style="color:red;cursor:pointer" (click)="RemoveMetricFromCompletedList(a.MetricId)">
+            Delete
+          </div>
+          <label [for]="'metric'+i" class="col-md-5 col-form-label">{{a.MetricName}}
+          </label>
+
+          <div class="col-md-2">
+            <input class="form-control white-bg-input text text-center" [id]="'metric'+i" [(ngModel)]="a.Value" />
+          </div>
+          <input type="text" matInput class="form-control white-bg-input col-md-2 text-center" ngxDaterangepickerMd
+          [locale]="{applyLabel: 'ok', format: 'MM-DD-YYYY'}" [(ngModel)]="a.CompletedDate"  [autoApply]="true" drops="up"
+          [singleDatePicker]="true" />
+
+
+
+          <div style="clear:both;"></div>
+        </div>
+
+
+      </div>
+
+      <div class="col-lg-4 col-xl-4 offset-xl-1 profile-img-con">
+
+        <div *ngIf="uploader.queue.length == 0">
+          <img src="../../../assets/Avatar.png">
+        </div>
+
+        <div *ngFor="let item of uploader.queue">
+          <img src="" imgPreview [image]="item?._file" class="media-object" width="300" />
+          <div style="clear:both"></div>
+          <button type="button" class="btn  btn-red btn-normal edit-btn"
+            style="position: absolute;top: -10px;left: -10px;padding: 0px;margin: 0px;width: 20px;"
+            (click)="ClearUploaderQueue(uploader)">
+            X</button>
+        </div>
+
+        <input type="button" type="file" ng2FileSelect [uploader]="uploader"
+          (onFileSelected)="ForceUploaderQueueToBeJustOne(uploader)" text="Browse" />
+
+      </div>
+
+      <div class="col-lg-8 col-xl-6 btns-con">
+        <div class="form-group row">
+          <div class="col-lg-9 offset-lg-3" *ngIf="!Processing">
+            <button type="submit" class="btn btn-lg btn-green btn-above-normal"
+              (click)="CreateAthlete(SelectedAthlete,AthleteTags,AddedMetrics, uploader)">Create Athlete</button>
+          </div>
+          <div *ngIf="Processing" style="height: 100px; width: 50px; margin: 10% 0% 0% 40%">
+            <img src=" assets/LoadingGif.gif" style="height:75px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Create metric/measurement modal starts -->
+  <div class="metric-modal scp-modal" *ngIf="ShowAuthorizationStatement"
+    [@fadeInAnimation]="ShowAuthorizationStatement ? 'enter' : 'leave'">
+    <div class="scp-modal-in right">
+      <button type="button" class="close" aria-label="Close" (click)="ToggleArchive()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <h3 class="scp-modal-title">Account Upgrade</h3>
+
+      <div class="row scp-modal-content no-gutters">
+
+        <!-- Create measurement starts -->
+        <div class="col-12 col-lg-12 create-measure-con">
+          <p>You will need to upgrade your account in order to create a new athlete.
+            Your account currently has {{athleteTotal.TotalAthletes}} athletes, and can have a maximum of
+            {{athleteTotal.MaxAthletes}} athletes.
+            If you agree to upgrade your account, your new paln will become {{subPlan.NextSubPlan}} and will cost
+            ${{subPlan.NextSubPlanCost}}. This plan
+            will let you have {{subPlan.NextSubAthleteNumber}}. By clicking yes, you are agreeing to have your
+            subscription automatically upgraded.
+        </div>
+        <!-- Create measurement ends -->
+        <div class="col-12 col-lg-12">
+          <label for="measureName" class="col-form-label">Confirmation</label>
+          <input type="text" class="form-control white-bg-input" id="measureName"
+              placeholder="type 'yes' to Confirm " [(ngModel)]="upgradeConfirmation">
+      </div>
+
+        <div class="col-12 col-md-6 save-btn-con">
+          <button type="submit" class="btn btn-lg btn-block btn-green btn-normal"  *ngIf="(upgradeConfirmation  | lowercase) == 'yes'"
+            (click)="UpgradeAccount()">Upgrade</button>
+        </div>
+
+        <div class="col-12 col-md-6 cancel-btn-con">
+          <button type="button" class="btn btn-lg btn-block btn-red btn-normal"
+            (click)="CancelAccountUpgrade()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Create metric/measurement modal ends -->
+
+
+
+
+</div>
+<!-- Page inner content ends -->
+<app-alert [messages]="AlertMessages"></app-alert>

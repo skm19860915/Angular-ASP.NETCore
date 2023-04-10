@@ -1,0 +1,61 @@
+@import '../../../../assets/StyleSheets/Colors.less';
+@import '../../../../assets/StyleSheets/Buttons.less';
+@import '../../../../assets/StyleSheets/Inputs.less';
+@import '../../../../assets/StyleSheets/Tag.less';
+@import '../../../../assets/StyleSheets/Modal.less';
+@import '../../../../assets/StyleSheets/Alerts.less';
+
+img {
+	width: 2.25rem;
+	height: 2.25rem;
+	overflow: hidden;
+}
+
+p {
+	font-weight: 300;
+	margin-bottom: 0;
+	padding-left: 0.625rem;
+	padding-right: 0.625rem;
+	color: @lightBlack;
+}
+
+.athlete-con {
+	border-radius: 1.875rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 0.3125rem;
+	padding-bottom: 0.3125rem;
+	margin-bottom: 0.3125rem;
+	margin-right: 0.15625rem;
+	cursor: pointer;
+	background: @mid-grey;
+
+	p {
+		color: @white;
+	}
+
+
+	&:hover, &.selected{
+		background: @our-green;
+
+	}
+
+}
+
+.athlete-con-selected {
+	background: @our-green;
+
+	p {
+			color: @white;
+		}
+}
+
+.scroll {
+	width: 500px;
+	height: auto;
+	position: relative;
+	white-space: nowrap;
+	overflow-x: scroll;
+	overflow-y: hidden;
+}

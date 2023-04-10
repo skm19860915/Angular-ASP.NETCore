@@ -1,0 +1,17 @@
+<div class="d-flex flex-row justify-content-between">
+  <div
+    *ngFor="let athlete of athleteArray"
+    class="scroll mx-2"
+    [ngClass]="{'active-workout': !isSelectedAthlete(athlete), 'active-workout-selected': isSelectedAthlete(athlete)}"
+    (click)="setSelectedAthlete(athlete)"
+    style="width:100%"
+    >
+    <div class="d-flex flex-row justify-content-center pt-2 stick-top">
+      <app-weight-room-athlete-header [athlete]="athlete"
+        [isSelected]="isSelectedAthlete(athlete)"></app-weight-room-athlete-header>
+  
+    </div>
+    <app-athlete-workout [AthleteId]="athlete.Id" [DisplayPrintButton]="false" [IsWeightRoomView]="true" >
+    </app-athlete-workout>
+  </div>
+</div>

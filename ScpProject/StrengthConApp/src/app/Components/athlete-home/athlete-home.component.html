@@ -1,0 +1,13 @@
+<div class="col-sm-12 page-inner-content rosters-page no-gutters">
+  <h2 style="text-align:center; margin-bottom: 50px;width:80%" *ngIf="IsCoach">{{CurrentAthlete.FirstName}}
+    {{CurrentAthlete.LastName}}</h2>
+  <!-- tabs container starts -->
+  <div class="col-sm-12 col-12" *ngIf="IsCoach">
+    <div class="tabs-con" style="margin-bottom:50px">
+      <span *ngFor="let m of tabs" [ngClass]="{ 'selected' : m.IsActive }" (click)="TabSwitch(m)">{{m.TabText}}</span>
+    </div>
+  </div>
+</div>
+<div>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,48 @@
+<div [ngClass]="LabelVisible == true ? 'row one-metric no-gutters edit-metric' : 'row one-metric no-gutters edit-metric-in-program-builder'"
+  *ngIf="View == 'CreateMetric'" [@fadeInAnimation]="View == 'CreateMetric' ? 'enter' : 'leave'">
+  <div class="col">
+    <div class="form-group row text-right">
+      <div class="col-lg-12 noModify" *ngIf='!SelectedMetric.CanModify'>This Metric is in use and only the Tags may be modified</div>
+      <h3 class="create-metric-title" *ngIf="!LabelVisible">Create Metric</h3>
+      <label *ngIf="LabelVisible" for="name" class="col-lg-1 col-form-label">Name:</label>
+      <div [ngClass]="LabelVisible == true ? 'col-lg-3' : 'col-12 col-lg-12'" >
+        <input type="text" class="form-control white-bg-input" id="name" placeholder="Enter Metric Name"
+          [(ngModel)]="SelectedMetric.Name" [disabled]="!SelectedMetric.CanModify">
+      </div>
+      <label *ngIf="LabelVisible" class="col-lg-2 col-form-label">Measurement:</label>
+      <div [ngClass]="LabelVisible == true ? 'col-lg-3' : 'col-12 col-md-6 select-con'" style="text-align:left">
+        <ng-select [items]="AllUnitsOfMeasurement" bindLabel="Name" bindValue="Id"
+          [searchFn]="SelectSearch" [(ngModel)]="SelectedMetric.UnitOfMeasurementId" [disabled]="!SelectedMetric.CanModify" placeholder="Select Measurement">
+          <ng-template ng-option-tmp let-item="item">{{item.Name}} <br /></ng-template>
+        </ng-select>
+      </div>
+      <div [ngClass]="LabelVisible == true ? 'col-lg-2' : 'col-12 col-md-6 measure-con'">
+        <button type="button" class="btn btn-lg btn-green-in inline-btn create-measure" (click)="CreateMeasurement()">Create Measurement</button>
+      </div>
+    </div>
+    <div class="form-group row text-right">
+      <label for="tags" *ngIf="LabelVisible" class="col-lg-1 col-form-label">Tags:</label>
+      <div [ngClass]="LabelVisible == true ? 'col-lg-7 text-left' : 'col-12 col-lg-12'">
+        <app-scp-tag-input [ExistingTags]="newMetricTagItems" (TagRemoved)="RemoveMetricTag($event)"
+          (TagAdded)="AddNewMetricTag($event)">
+        </app-scp-tag-input>
+      </div>
+    </div>
+    <div class="row">
+      <div [ngClass]="LabelVisible == true ? 'col-lg-11 offset-lg-1' : 'col-12 col-lg-12'">
+        <button type="submit" class="btn btn-lg btn-green btn-normal" (click)="Save(SelectedMetric, newMetricTagItems)">Save</button>
+        <button type="button" class="btn btn-lg btn-red btn-normal edit-btn" (click)="Cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Create metric-form measurement modal starts -->
+<app-metric-form-measurement
+[ShowMetricFormMeasurementModal]="ShowMeasurementCreationWindow"
+[SelectedMeasurement]="SelectedMeasurement"
+(SaveCallBack)="AddMeasurement($event)"
+(CancelCallBack)="ViewMetricForm()"
+>
+</app-metric-form-measurement>
+<!-- Create metric-form measurement modal ends -->
+<app-alert [messages]="AlertMessages"></app-alert>

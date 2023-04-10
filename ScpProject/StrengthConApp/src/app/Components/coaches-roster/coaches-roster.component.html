@@ -1,0 +1,127 @@
+<!-- Page inner content starts -->
+<div class="col-sm-12 page-inner-content coach-roster-page no-gutters">
+
+  <div class="col-lg-9 offset-lg-3 btns-con">
+
+    <span class="icon" style="margin:0px 20px 0px 20px"><i class="fas fa-question"></i></span>
+
+    <button type="button" class="btn btn-lg btn-green btn-normal" (click)="ToggleCreateCoachesWindow()">Create Assistant
+      Coach</button>
+    <button type="button" class="btn btn-lg btn-red btn-normal edit-btn" (click)="ConfirmArchive()">Delete
+      Coach</button>
+  </div>
+
+  <div class="row no-gutters" style="margin:50px 0px 0px 0px">
+    <div class="col-lg-2">
+      <div class="row no-gutters">
+        <div class="profile-img-con col-lg-12" *ngFor="let coach of Coaches | HideDeletedSortPipe "
+          (click)="SetSelectedCoach(coach)">
+          <!-- <div class="profile-image">
+        <img src="../images/athletes/athlete1.png"> 
+      </div> -->
+          <h4 class="coach" [ngClass]="{'selectedCoach': SelectedCoach.Id == coach.Id}"
+            style="text-align:left; margin:10px 0px 10px 0px;float:left; width:200px"> {{coach.FirstName}}
+            {{coach.LastName}}</h4>
+          <h4> <i class="fas fa-envelope-open-text float-left" style="margin:10px 0 0px 30px;"
+              (click)="ResendCoachEmail(coach.Id)" title="Resend Registration Email"></i></h4>
+
+        </div>
+      </div>
+    </div>
+    <!-- Permissions start -->
+    <div class="col-lg-8 offset-lg-1 permission-outer" *ngIf="SelectedCoach != undefined">
+      <div class="row no-gutters">
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3" *ngFor="let role of AllRoles; let i = index"
+          (click)="ToggleRole(role,SelectedCoach)">
+          <div class="permission-con" [ngClass]="{'checked': IsRoleAssigned(role.Id,SelectedCoach)}">
+            <i class="fas fa-check"></i>
+            {{role.Name}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Permissions end -->
+
+
+
+    <div class="metric-modal scp-modal assistant-coach-modal" *ngIf="ShowCoachCreationWindow"
+      [@fadeInAnimation]="ShowCoachCreationWindow? 'enter' : 'leave'">
+      <div class="scp-modal-in right">
+        <button type="button" (click)="ToggleCreateCoachesWindow()" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <h3 class="scp-modal-title">Create Assistant Coach</h3>
+
+        <div class="row scp-modal-content no-gutters">
+
+          <div class="col-12 col-lg-12">
+            <label class="col-form-label">Name</label>
+            <input type="text" class="form-control white-bg-input" placeholder="First Name" [(ngModel)]="FirstName">
+            <input type="text" class="form-control white-bg-input last-name" placeholder="Last Name"
+              [(ngModel)]="LastName">
+          </div>
+
+          <div class="col-12 col-lg-12">
+            <label class="col-form-label">Email</label>
+            <input type="email" class="form-control white-bg-input" placeholder="Email" [(ngModel)]="Email">
+          </div>
+
+          <div class="col-12 col-md-6 save-btn-con">
+            <button type="submit" class="btn btn-lg btn-block btn-green btn-normal"
+              (click)="CreateAssistantCoach(FirstName,LastName,Email,uploader.queue)">Save</button>
+          </div>
+
+          <div class="col-12 col-md-6 cancel-btn-con">
+            <button type="button" class="btn btn-lg btn-block btn-red btn-normal"
+              (click)="ToggleCreateCoachesWindow()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page inner content ends -->
+
+    <div class="metric-modal scp-modal assistant-coach-modal" *ngIf="ShowCoachDeleteWindow"
+      [@fadeInAnimation]="ShowCoachDeleteWindow? 'enter' : 'leave'">
+      <div class="scp-modal-in right">
+        <button (click)="CancelArchive()" type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <h3 class="scp-modal-title">Delete Assistant Coach</h3>
+
+        <div class="row scp-modal-content no-gutters">
+
+          <h5>This action <b>CANNOT BE UNDONE</b>. All of this Coaches information will be deleted from our system.
+            Are you sure you want to <b>DELETE</b> this Coach? </h5>
+          <div>
+            <br>
+            <br>
+            Please Type In Yes To Proceed
+            <div class="whiteInputContainer"
+              style=" float:left;border:2px solid red; margin: 50px 40% 50px 40%; width:150px;">
+              <label for="deleteAthlete" style="padding-right:15px"></label><input id="deleteAthlete"
+                [(ngModel)]="deleteConfirmation" style="border:0px; width:125px;" />
+            </div>
+
+          </div>
+          <br>
+          <br>
+          <div class="col-12 col-md-6 save-btn-con">
+            <div *ngIf="(deleteConfirmation  | lowercase)== 'yes'" class="btn btn-lg btn-block btn-red btn-normal"
+              style="float:left;" (click)="ArchiveCoach()">
+              Delete
+            </div>
+            <br>
+            <br>
+            <div class="col-12  cancel-btn-con">
+              <button type="button" class="btn btn-lg btn-block btn-green btn-normal"
+                (click)="CancelArchive()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-alert [messages]="AlertMessages"></app-alert>

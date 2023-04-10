@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="LoginBox" style="height:575px;top:200px;">
+    <div class="Logo"><img src="assets/Menu/SCP_tiny.png" width="180" style="margin-left:10px; margin-top:10px;"></div>
+    <br />
+
+    <div style="color:rgb(253, 255, 251);text-align:center"> In order to finish your registration, update your organization name ,please enter a login
+      name,  and update your password</div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%; float:left;">
+      <label for="OrgName" style="padding-right:15px"></label><input placeholder="Organization Name"
+        id="organizationName" [(ngModel)]="organizationName" /></div>
+        <div style="clear:both"></div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%; float:left;">
+      <label for="userName" style="padding-right:15px"></label><input placeholder="User Name" id="userName"
+        [(ngModel)]="userName" /></div>
+    <div style="clear:both"></div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%;  float:left;">
+      <label for="Password" style="padding-right:15px"></label><input placeholder="Password" id="Password"
+        [(ngModel)]="password" type="password" /></div>
+    <div style="clear:both"></div>
+    <br />
+    <div class="whiteInputContainer" style=" width:95%; ">
+      <label for="confirmPassword" style="padding-right:15px"></label><input placeholder="Confirm Password"
+        id="confirmPassword" [(ngModel)]="confirmPassword" type="password" /></div>
+    <div class="successButton defaultButton" style="height:40px;width:96%; margin-top:40px;margin-left:0px;"
+      (click)="FinishRegistration(userName,password, confirmPassword,organizationName)">Finish Registration</div>
+    <br />
+    <div style="height:100px;width:1px"></div>
+    <br />
+  </div>
+</div>

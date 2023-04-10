@@ -1,0 +1,106 @@
+<div class="row one-document no-gutters edit-document" *ngIf="View == 'CreateDocument'"
+  [@fadeInAnimation]="View == 'CreateDocument' ? 'enter' : 'leave'">
+  <div class="col-sm-12 col-md-6 col-lg-3">
+    <input type="text" class="form-control white-bg-input" [(ngModel)]="SelectedDocument.Name" placeholder="Document Name">
+  </div>
+  <div class="col-1"> &nbsp;</div>
+  <div class="col-sm-12 col-md-6 col-lg-3" style="margin-bottom: 10px;">
+    <app-scp-tag-input [ExistingTags]="NewDocumentTagItems" (TagRemoved)="RemoveDocumentTags($event)"
+      (TagAdded)="AddDocumentTags($event)" [autocompleteItems]="AllTags">
+    </app-scp-tag-input>
+  </div>
+  <div class="col-12">
+    <div class="form-group row text-right">
+      <div class="col-12 editor">
+        <angular-editor [config]="WYSIWYGConfig"
+        [(ngModel)]="SelectedDocument.Description" [placeholder]="''">
+        </angular-editor>
+      </div>
+    </div>
+    <div class="row m-0 mt-3 agreement-settings">
+      <div class="col-md-6 col-sm-12 p-0">
+        <h2 class="">Agreements</h2>
+        <p class="text-secondary">Athlete side to sign the document</p>
+      </div>
+      <div class="col-md-6 col-sm-12 text-right p-0">
+        <button type="button" class="btn btn-link add-agreement-btn" (click)="ViewCreateAgreement()">
+          Add New Agreement<span class="icon"><i class="fas fa-plus"></i></span>
+        </button>
+      </div>
+    </div>
+    <!-- start list agreements -->
+    <div [@fadeInAnimation] *ngFor="let agreement of SelectedDocument.Agreements">
+      <div class="row one-agreement no-gutters" >
+        <div class="col-sm-12 col-md-12">
+          <div class="row align-items-center">
+            <div class="col-7" >
+              <span class="d-inline-block">
+                  <input type="checkbox" class="modal_checkbox" [id]="agreement.Id">
+                  <label [for]="agreement.Id"></label>
+                  <p class="d-inline-block mb-0 pb-0"
+                    [innerHTML]="agreement.Description == null || agreement.Description.length == 0 ? 'This Agreement Doesnt Have A Description': agreement.Description">
+                  </p>
+              </span>
+            </div>
+            <div class="col-2 title" *ngIf="!agreement.IsDeleted"> &nbsp; </div>
+            <div class="col-3 title-icons text-right">
+              <i *ngIf="!agreement.IsDeleted" class="fas fa-trash-alt" (click)="ToggleDeleteAgreementConfirm(agreement.Id)" title="Delete"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end list agreements -->
+    <div class="row">
+      <div class="col-lg-11 offset-lg-1">
+        <button type="submit" class="btn btn-lg btn-green btn-normal"
+          (click)="Save(SelectedDocument, NewDocumentTagItems)">Save</button>
+        <button type="button" class="btn btn-lg btn-red btn-normal edit-btn"
+          (click)="Cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- start delete agreement -->
+<div class="metric-modal scp-modal " *ngIf="DeleteAgreementConfirmation"
+  [@fadeInAnimation]="DeleteAgreementConfirmation ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+      <div class="col-12 col-md-6" style="border:none">
+          <button type="button" style="margin-left: 200%;background-color: white;border:none;font-weight: bold;font-size: 130%;"
+          (click)="ToggleDeleteAgreementConfirm(0)">X</button>
+      </div>
+      <h3 class="scp-modal-title">Delete Agreement</h3>
+      <p style="margin:20px;">Are you sure you want to delete this agreement?</p>
+      <div class="row">
+          <button type="button" class="btn btn-lg btn-green btn-normal col-3 offset-1"
+          (click)="DeleteAgreement(SelectedDocument.Agreements)">Yes</button>
+          <button type="button" class="btn btn-lg btn-red btn-normal col-3 offset-4"
+          (click)="ToggleDeleteAgreementConfirm(0)">No</button>
+      </div>
+  </div>
+</div>
+<!-- end delete agreement -->
+
+<!-- end create agreement -->
+<div class="metric-modal scp-modal " *ngIf="CreateAgreementConfirmation"
+  [@fadeInAnimation]="CreateAgreementConfirmation ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+    <div class="col-12 col-md-6" style="border:none">
+      <button type="button" style="margin-left: 200%;background-color: white;border:none;font-weight: bold;font-size: 130%;"
+      (click)="ToggleCancelAgreementConfirm()">X</button>
+    </div>
+    <div style="position:absolute" class="row scp-modal-content no-gutters">
+      <h3 class="scp-modal-title">Create Agreement</h3>
+      <div class="col-12">
+        <input type="text" class="form-control white-bg-input" id="agreement-id" placeholder="Agreement Description"
+          [(ngModel)]="AgreementDescription">
+      </div>
+      <button type="button" class="btn btn-lg btn-green btn-normal col-3 offset-1"
+        (click)="AddAgreement(SelectedDocument.Agreements)">Save</button>
+      <button type="button" class="btn btn-lg btn-red btn-normal col-3 offset-4"
+        (click)="ToggleCancelAgreementConfirm()">Cancel</button>
+    </div>
+  </div>
+</div>
+<!-- end create agreement -->

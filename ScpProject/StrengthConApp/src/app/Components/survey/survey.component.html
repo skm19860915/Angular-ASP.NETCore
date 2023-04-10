@@ -1,0 +1,458 @@
+<h3 class="col-12" style="text-align: center;">
+  {{ View !== 'ModifyQuestions' ? 'Viewing All Surveys' : 'Viewing All Questions'}}</h3>
+<div class="row align-items-center top-settings"
+  *ngIf="View == 'CreateSurvey' || View == 'ModifySurvey' || View == 'Surveys' || View == 'ModifyQuestions'"
+  [@fadeInAnimation]="View == 'CreateSurvey' || View == 'ModifySurvey' || View == 'Surveys'  || View == 'ModifyQuestions' ? 'enter' : 'leave'">
+  <div class="col-12 col-sm-12 col-md-5 col-lg-2">
+    <input type="text" class="form-control grey-bg-input" aria-describedby="Search" placeholder="Search"
+      [(ngModel)]="searchString">
+  </div>
+  <div class="col-12 col-sm-12 col-md-7 col-lg-3 grey-tags" *ngIf="View != 'ModifyQuestions' ">
+    <app-scp-tag-input (TagRemoved)="RemoveTag($event)" (TagAdded)="AddTag($event)" [autocompleteItems]="AllTags">
+    </app-scp-tag-input>
+  </div>
+  <div class="col-12 col-sm-12 col-md-12 d-lg-none d-xl-none">&nbsp;</div>
+  <div class="col-6 col-sm-6 col-md-6 col-lg-2" *ngIf="View != 'ModifyQuestions' ">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="showArchived" [checked]="ShowArchive"
+        (change)="ToggleArchive()">
+      <label class="custom-control-label" for="showArchived">Show Archived</label>
+    </div>
+  </div>
+  <div class="col-lg-1 col-md-12 col-sm-12 col-12" *ngIf="View == 'ModifyQuestions' "></div>
+  <div class="col-5 col-sm-5 col-md-5 col-lg-2 text-right" *ngIf="View != 'ModifyQuestions' ">
+    <button type="button" class="btn btn-lg btn-black btn-normal question-btn" (click)="ModifyQuestions()">View All
+      Questions</button>
+  </div>
+  <div class="col-5 col-sm-5 col-md-5 col-lg-2 text-right" *ngIf="View == 'ModifyQuestions' ">
+    <button type="button" class="btn btn-lg btn-black btn-normal question-btn" (click)="ViewAllSurveys()">View All
+      Surveys</button>
+  </div>
+  <div class="col-5 col-sm-5 col-md-5 col-lg-1 text-right">
+    <span class="icon"><i class="fas fa-question"></i></span>
+  </div>
+  <div class="col-6 col-sm-6 col-md-6 col-lg-2 text-right" *ngIf="View != 'ModifyQuestions' ">
+    <button type="button" class="btn btn-link create-btn" (click)="CreateSurvey()">Create <span class="icon"><i
+          class="fas fa-plus"></i></span></button>
+  </div>
+  <div class="col-6 col-sm-6 col-md-7 col-lg-2 text-right" *ngIf="View == 'ModifyQuestions' ">
+    <button type="button" class="btn btn-link create-btn" (click)="NewQuestion()">Create <span class="icon"><i
+          class="fas fa-plus"></i></span></button>
+  </div>
+</div>
+
+<div class="survey-list" *ngIf="View == 'ModifyQuestions' "
+  [@fadeInAnimation]="View == 'ModifyQuestions' ? 'enter' : 'leave'">
+
+  <div *ngFor="let q of AllQuestions ;let i = index; let c = count;first as isFirst;  " [@fadeInAnimation]>
+    <app-paginator *ngIf="isFirst" [TotalItemCount]="c" (ItemDisplayChange)="UpdateQuestionPaginiationDisplay($event)">
+    </app-paginator>
+    <div class="row one-survey no-gutters" *ngIf="i >= questionPaginationStart && i <= questionPaginationEnd">
+    <div class="col-12">
+      <div class="row align-items-center">
+        <div class="col-9" (click)="ModifyQuestion(q)">
+          <h5 class="title">
+            {{q.Question}}</h5>
+        </div>
+        <div class="col-3 title-icons text-right">
+          <i class="fas fa-pencil-alt" (click)="ModifySelectedQuestion(q)"></i>
+          <i class="fas fa-trash-alt" (click)="DeleteQuestion(q.Id)"></i>
+        </div>
+      </div>
+      <div>
+        <p *ngIf="q.QuestionType == 1">Question Type: Yes/No</p>
+        <p *ngIf="q.QuestionType == 2">Question Type: Scale</p>
+        <p *ngIf="q.QuestionType == 3">Question Type: Open Ended</p>
+      </div>
+      <div class="row">
+        <label class="col-lg-3 col-form-label">Can Modify: {{q.CanModify ? 'Yes': 'No'}} </label>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="survey-list" *ngIf="View == 'CreateSurvey' || View == 'ModifySurvey' || View == 'Surveys'"
+  [@fadeInAnimation]="View == 'CreateSurvey' || View == 'ModifySurvey' || View == 'Surveys' ? 'enter' : 'leave'">
+  <!-- Individual metric create/edit starts -->
+  <div class="row one-survey no-gutters edit-survey" *ngIf="View == 'CreateSurvey' || View == 'ModifySurvey'"
+    [@fadeInAnimation]="View == 'CreateSurvey' || View == 'ModifySurvey' ? 'enter' : 'leave'">
+    <div class="col-lg-12 noModify" *ngIf='!SelectedSurvey.CanModify'>This
+      Survey is in use
+      and
+      only the Tags may be modified
+    </div>
+    <div class="col">
+      <div class="form-group row text-right">
+        <label for="name" class="col-lg-1 col-form-label">Name:</label>
+        <div class="col-lg-5">
+          <input type="text" class="form-control white-bg-input" id="name" placeholder="Enter Name"
+            [disabled]="!SelectedSurvey.CanModify" [(ngModel)]="SelectedSurvey.Name">
+        </div>
+      </div>
+
+      <div class="form-group row text-right large-tags">
+        <label for="tags" class="col-lg-1 col-form-label">Tags:</label>
+        <div class="col-lg-6 text-left">
+          <app-scp-tag-input [ExistingTags]="NewSurveyTagItems" (TagRemoved)="RemoveNewSurveyTag($event)"
+            (TagAdded)="AddNewSurveyTag($event)" [autocompleteItems]="AllTags">
+          </app-scp-tag-input>
+        </div>
+        <!-- <div class="col-lg-5 text-left">
+          <textarea class="form-control white-bg-input" rows="3" [(ngModel)]="SelectedSurvey.Description"
+            placeholder="General Description"></textarea>
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-lg-11 offset-lg-1">
+          <button type="submit" class="btn btn-lg btn-green btn-normal"
+            (click)="SaveSurvey(SelectedSurvey.Id, SelectedSurvey.Name, SelectedSurvey.Description)">Save</button>
+          <button type="button" class="btn btn-lg btn-red btn-normal edit-btn"
+            (click)="ViewAllSurveys()">Cancel</button>
+          <button type="button" class="btn btn-lg btn-black btn-normal question-btn offset-md-1"
+            (click)="ModifySurveyQuestions()" *ngIf="SelectedSurvey.Id !== undefined && SelectedSurvey.Id !== null">View
+            All Questions On Survey</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Individual metric create/edit ends -->
+  <!-- SURVEY LIST-->
+  <div
+    *ngFor="let suv of AllSurveys | async | TagFilterPipe : TagItems | SearchTaggableFilterPipe : searchString | HideDeletedSortPipe : ShowArchive; let i = index; let c = count;first as isFirst;"
+    [@fadeInAnimation]>
+    <app-paginator *ngIf="isFirst" [TotalItemCount]="c" (ItemDisplayChange)="UpdateSurveyPaginiationDisplay($event)">
+    </app-paginator>
+    <div  class="row one-survey no-gutters" *ngIf="i >= surveyPaginationStart && i <= surveyPaginationEnd">
+    <div class="col-12">
+      <div class="row align-items-center">
+        <div class="col-7" (click)="ModifySelectedSurvey(suv)">
+          <h5 class="title">
+            {{suv.Name == "" || suv.Name == undefined ? "This Survey Doesn't Have A Title": suv.Name}}</h5>
+        </div>
+        <div class="col-1 title" *ngIf="suv.IsDeleted"> Archived </div>
+        <div class="col-1 title" *ngIf="!suv.IsDeleted"> &nbsp; </div>
+        <div class="col-3 title-icons text-right">
+          <i class="fas fa-pencil-alt" (click)="ModifySelectedSurvey(suv)" title="Edit"></i>
+          <i class="far fa-copy" (click)="DuplicateSurvey(suv.Id)" title="Copy"></i>
+          <i *ngIf="!suv.IsDeleted" class="fas fa-trash-alt" (click)="ArchiveSurvey(suv.Id)" title="Delete"></i>
+          <i *ngIf="suv.IsDeleted" class="fas fa-trash-restore" (click)="UnArchiveSurvey(suv.Id)" title="Restore"></i>
+          <i *ngIf="suv.IsDeleted && suv.CanModify" class="fas fa-ban" (click)="ToggleHardDeleteModal(suv.Id)"
+            aria-hidden="Hard Delete"></i>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-lg-3 col-form-label">Can Modify: {{suv.CanModify ? 'Yes': 'No'}}</label>
+      </div>
+      <div class="row">
+        <div class="col-sm d-flex tags" (click)="ModifySelectedSurvey(suv)">
+          <p class="tags-title">Tags:</p>
+          <div>
+            <span class="badge badge-pill badge-light" *ngFor="let tags of suv.Tags">{{tags.Name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- END SURVEY LIST-->
+</div>
+
+<div class="row questions-con" *ngIf="View == 'ModifySurveyQuestions'"
+  [@fadeInAnimation]="View == 'ModifySurveyQuestions' ? 'enter' : 'leave'">
+  <div class="col-lg-12 noModify" *ngIf='!SelectedSurvey.CanModify'>This
+    Survey is in use
+    and
+    only the Tags may be modified
+  </div>
+
+  <div class="col-lg-6 col-xl-5 survey-questions-con">
+    <h5 class="top-heading">Questions On The Survey <span>(Click To Remove)</span></h5>
+
+    <!-- One question starts -->
+    <div class="question-in " *ngFor="let q of SelectedSurvey.Questions">
+      <div>
+        <h5 class="question-title">{{q.Question}} </h5>
+        <p *ngIf="q.QuestionType == 1">Yes/No</p>
+        <p *ngIf="q.QuestionType == 2">Scale</p>
+        <p *ngIf="q.QuestionType == 3">Open Ended</p>
+      </div>
+      <div>
+        <i class="fas fa-pencil-alt" (click)="ModifySelectedQuestion(q)" style=" height:30px ;width:30px"></i>
+        <i class="fas fa-minus" (click)="RemoveQuestionFromSurvey(q.SurveysToQuestionsId,SelectedSurvey.Id)"
+          style=" height:30px ;width:30px"></i>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xl-5 existing-questions-con">
+    <h5 class="top-heading">Existing Question <span>(Click To Add)</span></h5>
+
+    <!--  Questions not on survey question starts -->
+    <div class="question-in" *ngFor="let q of AllQuestions">
+      <div>
+        <h5 class=" question-title">{{q.Question}}</h5>
+        <p *ngIf="q.QuestionType == 1">Yes/No</p>
+        <p *ngIf="q.QuestionType == 2">Scale</p>
+        <p *ngIf="q.QuestionType == 3">Open Ended</p>
+      </div>
+      <div>
+        <i class="fas fa-pencil-alt" (click)="ModifySelectedQuestion(q)" style=" height:30px ;width:30px"></i>
+        <i class="fas fa-plus" (click)="AddQuestionToCurrentSurvey(q.QuestionId,SelectedSurvey.Id)"
+          style=" height:30px ;width:30px"></i>
+      </div>
+    </div>
+    <!-- One question ends -->
+  </div>
+
+  <div class="col-lg-12 btns-con">
+    <button type="button" class="btn btn-lg btn-green btn-above-normal" (click)="NewQuestion()">New Question</button>
+    <button type="button" class="btn btn-lg btn-red btn-above-normal edit-btn"
+      (click)="ViewAllSurveys()">Cancel</button>
+  </div>
+</div>
+
+
+<!-- New Question modal starts -->
+<div class="scp-modal question-modal" *ngIf="ShowCreateQuestionModal"
+  [@fadeInAnimation]="ShowCreateQuestionModal ? 'enter' : 'leave'">>
+  <div class="scp-modal-in right">
+    <button type="button" (click)="ToggleCreateQuestionModal()" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <h3 class="scp-modal-title">Question Entry</h3>
+    <div class="tabContainer" *ngIf=" SelectedQuestion.QuestionType !== 3">
+      <div (click)="EditNotifications = false"
+        [ngClass]="{'selectedTab': !EditNotifications, 'tab':EditNotifications} ">
+        Edit Question</div>
+      <div (click)="EditNotifications = true" [ngClass]="{'selectedTab': EditNotifications, 'tab':!EditNotifications} "
+        class="selectedTab">Edit Notifications
+      </div>
+    </div>
+    <div *ngIf="!EditNotifications">
+
+      <div class="row"><b style="text-align:center;margin-top:10px;" class="col-md-12">
+          {{SelectedQuestion.CanModify === false ? "This Question Is In Use. Only Notifications Can Be Modified" :
+          ""}}</b>
+      </div>
+      <div class="row scp-modal-content no-gutters">
+        <label for="name" class="col-form-label">Name</label>
+        <div class="col-12 col-lg-12">
+          <input type="text" class="form-control white-bg-input" id="name" placeholder="Enter Name"
+            [(ngModel)]="SelectedQuestion.Question" [disabled]="SelectedQuestion.CanModify === false">
+        </div>
+
+        <div class="col-12 question-type-con">
+          <div class="question-type" [ngClass]="{'checked' : SelectedQuestion.QuestionType == 2}"
+            (click)="UpdateSelectedQuestion(2)">
+            <i class="fas fa-check"></i> Scale Question
+          </div>
+          <div class="question-type" [ngClass]="{'checked' : SelectedQuestion.QuestionType == 1}"
+            (click)="UpdateSelectedQuestion(1)">
+            <i class="fas fa-check"></i> Yes or No Question
+          </div>
+          <div class="question-type " [ngClass]="{'checked' : SelectedQuestion.QuestionType == 3}"
+            (click)="UpdateSelectedQuestion(3)">
+            <i class="fas fa-check"></i>Open Ended Question
+          </div>
+        </div>
+        <div>
+          <div *ngIf="SelectedQuestion.QuestionType == 1">
+            <div class="col-12 description">
+              A Question which asks the user to measure their response with a Yes Or No answer
+            </div>
+            <h5>Example:</h5>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" [(ngModel)]="DemoCheckBox">
+              <label class="custom-control-label">{{DemoCheckBox? 'Yes': 'No'}}</label>
+            </div>
+          </div>
+          <div *ngIf="SelectedQuestion.QuestionType == 2">
+            <div class="col-12 description">
+              A Question which asks the user to measure their response on a 1 - 10 scale
+            </div>
+
+            <div class="col-12 rating-con">
+              <h5>Example:</h5>
+              <p>On A Scale from 1-10, How easy was todays workout</p>
+              <span *ngFor="let index of [0,1,2,3,4,5,6,7,8,9]"></span>
+            </div>
+          </div>
+          <div *ngIf="SelectedQuestion.QuestionType == 3">
+            <div class="col-12 description">
+              A Question which asks the user to respond with an text response
+            </div>
+            <h5>Example:</h5>
+            <p>
+              <textarea name="Text1" cols="40" rows="5"
+                placeholder="This will provide the athlete with a text box to answer in" disabled></textarea>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 btns-con">
+        <p style="color:red" *ngIf=" SelectedQuestion.Question === undefined">*To Create A Question You Need To Supply A
+          Question</p>
+        <p style="color:red" *ngIf="SelectedQuestion.QuestionType === undefined">*To Create A Question You Need To
+          Choose
+          A Question Type</p>
+        <button type="submit" class="btn btn-lg btn-green btn-above-normal"
+          *ngIf="SelectedQuestion.QuestionId !== undefined"
+          [disabled]="SelectedQuestion.QuestionType === undefined || SelectedQuestion.Question === undefined"
+          (click)="UpdateQuestion(SelectedSurvey.Id,SelectedQuestion.Question,SelectedQuestion.QuestionType,SelectedQuestion.QuestionId)">Update</button>
+        <button type="submit" class="btn btn-lg btn-green btn-above-normal"
+          *ngIf="SelectedQuestion.QuestionId === undefined"
+          [disabled]="SelectedQuestion.QuestionType === undefined || SelectedQuestion.Question === undefined"
+          (click)="CreateQuestion(SelectedSurvey.Id,SelectedQuestion.Question,SelectedQuestion.QuestionType)">Save</button>
+        <button type="button" class="btn btn-lg btn-red btn-above-normal edit-btn"
+          (click)="ToggleCreateQuestionModal()">Cancel</button>
+
+
+
+      </div>
+    </div>
+    <div *ngIf="EditNotifications">
+      <div *ngIf="SelectedQuestion.QuestionType === 2" class="col-11 offset-1">
+        <div *ngFor="let t of scaleThresholds; let i = index " class="row">
+          <div *ngIf=" i > 0" style="width:90% ;margin:20px 9% 10px 9%; border-bottom:1px solid black;height:1px"></div>
+          <i class="col-3 fa fa-trash" style="color:red; cursor:pointer;margin-top:10px" aria-hidden="true"
+            title="Delete" (click)="RemoveScaleThreshold(t)"></i>
+          <ng-select [(items)]="AllCoaches" bindLabel="FullName" bindValue="Id" placeholder="Select A Coach"
+            (click)="AddCoachScaleThreshold(t.CoachId,t)" style="width:100%;float:left" [(ngModel)]="t.CoachId"
+            class="col-10 " style="margin:0px 0px 10px 0px;">
+          </ng-select>
+          <ng-select [(items)]="Comparers" bindLabel="Name" bindValue="Id" placeholder="Select A Comparer"
+            style="width:100%;float:left" [(ngModel)]="t.Comparer" class="col-5">
+          </ng-select>
+          <label class="col-4 offset-md-1" style="padding-top:10px">Threshold Value</label>
+          <div class="col-2 ">
+            <input type="text" class="form-control white-bg-input" placeholder="Threshold Value"
+              [(ngModel)]="t.ThresholdValue" style="text-align:center">
+          </div>
+          <div *ngIf="t.Coaches.length > 0" class="col-12" style="margin:10px 0">*This Notification will be sent to
+          </div>
+          <div class="col-12">
+            <div *ngFor="let c of t.Coaches" class="row">
+              <div class="col-8 offset-1">
+                {{c.FullName}}</div><i class="col- 4 fa fa-trash" style="color:red; cursor:pointer;" aria-hidden="true"
+                title="Delete" (click)="RemoveCoachFromScaleThreshold(c,t)"></i>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="top-settings">
+          <button type="button" class="btn btn-link create-btn" (click)="AddScaleThreshold()"> <span class="icon"><i
+                class="fas fa-plus"></i></span></button>
+        </div>
+      </div>
+      <div *ngIf=" SelectedQuestion.QuestionType === 1" class="col-11 offset-1">
+        <div *ngFor="let t of YesNoThresholds; let i = index " class="row">
+
+          <div *ngIf=" i > 0" style="width:90% ;margin:20px 9% 10px 9%; border-bottom:1px solid black;height:1px"></div>
+          <label class="col-9" style="margin-top:10px;">Coach</label>
+          <i class="col-3 fa fa-trash" style="color:red; cursor:pointer;margin-top:10px;" aria-hidden="true"
+            title="Delete" (click)="RemoveYesThreshold(t)"></i>
+          <ng-select [(items)]="AllCoaches" bindLabel="FullName" bindValue="Id"
+            (click)="AddCoachYesNoThreshold(t.CoachId,t)" style="width:100%;float:left" [(ngModel)]="t.CoachId"
+            class="col-10 " style="margin:0px 0px 10px 0px;">
+          </ng-select>
+          <div class="top-settings">
+            <label>Send Notification When The Answer Is <b style="text-transform: uppercase;cursor:pointer;"
+                class="btn btn-green-in " (click)="ToggleThresholdValue(t)">{{t.ThresholdValue === true ? 'Yes':
+                'No'}}</b></label>
+          </div>
+          <div *ngIf="t.Coaches.length> 0" class="col-12" style="margin:10px 0">*This Notification will be sent to
+          </div>
+          <div class="col-12">
+            <div *ngFor="let c of t.Coaches" class="row">
+              <div class="col-7 offset-1">
+                {{c.FullName}}</div><i class="col-4 fa fa-trash" style="color:red; cursor:pointer;" aria-hidden="true"
+                title="Delete" (click)="RemoveCoachFromYesNoThreshold(c,t)"></i>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="top-settings">
+          <button type="button" class="btn btn-link create-btn" (click)="AddYesNoThreshold()"> <span class="icon"><i
+                class="fas fa-plus"></i></span></button>
+        </div>
+
+      </div>
+      <br>
+      <p style="color:red" *ngIf=" SelectedQuestion.Question === undefined">*To Create A Question You Need To Supply A
+        Question</p>
+      <p style="color:red" *ngIf="SelectedQuestion.QuestionType === undefined">*To Create A Question You Need To
+        Choose
+        A Question Type</p>
+      <button type="submit" class="btn btn-lg btn-green btn-above-normal"
+        *ngIf="SelectedQuestion.QuestionId !== undefined"
+        [disabled]="SelectedQuestion.QuestionType === undefined || SelectedQuestion.Question === undefined"
+        (click)="UpdateQuestion(SelectedSurvey.Id,SelectedQuestion.Question,SelectedQuestion.QuestionType,SelectedQuestion.QuestionId)">Update</button>
+      <button type="submit" class="btn btn-lg btn-green btn-above-normal"
+        *ngIf="SelectedQuestion.QuestionId === undefined"
+        [disabled]="SelectedQuestion.QuestionType === undefined || SelectedQuestion.Question === undefined"
+        (click)="CreateQuestion(SelectedSurvey.Id,SelectedQuestion.Question,SelectedQuestion.QuestionType)">Save</button>
+      <button type="button" class="btn btn-lg btn-red btn-above-normal edit-btn"
+        (click)="ToggleCreateQuestionModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+<!-- New Question modal ends -->
+
+<!-- Hard Delete modal -->
+<div class="metric-modal scp-modal" *ngIf="ShowHardDeleteWindow"
+  [@fadeInAnimation]="ShowHardDeleteWindow ? 'enter' : 'leave'">
+  <div class="scp-modal-in right">
+    <button type="button" class="close" aria-label="Close" (click)="ToggleHardDeleteModal(0)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="scp-modal-title">Delete Survey</h3>
+    <div class="row scp-modal-content no-gutters">
+      <div class="col-12 col-lg-12 create-measure-con">
+        <p>Once an Survey is <b>DELETED</b> there is <b>NO WAY</b> to recover any information of that Survey.
+          Questions on that Survey <b>WILL NOT</b> be deleted
+      </div>
+      <div class="col-5  save-btn-con">
+        <button type="submit" type="button" class="btn btn-lg btn-block btn-red btn-normal"
+          (click)="HardDelete()">DELETE</button>
+      </div>
+      <div class="col-5 offset-md-1  cancel-btn-con">
+        <button type="button" class="btn btn-lg btn-block btn-green btn-normal"
+          (click)="ToggleHardDeleteModal(0)">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END HARD DELETE MODAL -->
+
+<app-alert [messages]="AlertMessages"></app-alert>

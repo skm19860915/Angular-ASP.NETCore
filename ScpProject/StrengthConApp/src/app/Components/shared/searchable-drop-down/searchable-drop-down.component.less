@@ -1,0 +1,54 @@
+
+@import "../../../../styles.less";
+@import "../../../../assets/StyleSheets/Inputs.less";
+
+.defaultDropDown{
+ background-color: @gray-input-background-color;
+ height:50px;
+ border:0px;
+ padding:0px 10px 0px 15px;
+ font-size:18px;
+  border:2px solid @gray-input-background-color;
+  width:100%;
+  }
+    
+  .defaultDropDown:hover, .defaultDropDown:focus{
+    border:2px solid @logo-green-color;
+    outline: none !important;
+    }
+
+  .defaultDropDown:focus + .defaultDropDownDataHolder
+   {
+   visibility:visible;
+   }
+ 
+ .defaultDropDownDataHolder{
+  padding:0px 10px 0px 15px;
+  font-size:22px;
+  //visibility:hidden;
+  background-color: @gray-input-background-color;
+  position: absolute;
+  z-index:10;
+  }
+ 
+  
+ .defaultDropDownData{
+  cursor:pointer;
+  width:300px
+  }
+   
+ 
+ .defaultDropDownData:after {
+  content: '';
+    display: block;
+    margin: auto;
+    height: 3px;
+    width: 0px;
+    background: transparent;
+    transition: width .3s ease, background-color .3s ease;
+  }
+ 
+ .defaultDropDownData:hover:after {
+    width: 100%;
+    background-color:@logo-green-color;
+  }

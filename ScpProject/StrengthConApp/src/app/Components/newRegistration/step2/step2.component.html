@@ -1,0 +1,64 @@
+<div class="formtext">
+    <h1>Welcome to the Strength Coach Pro family</h1>
+    <!-- <p>After creating and Organization, select a plan from below. All plans have a 14 day free trail. The default plan
+        is A Yearly Subscription at the Head Coach Level</p> -->
+</div>
+<div class="reg-form-step">
+    <form action="#" method="post">
+        <div class="form-element">
+
+            <label class="subscription-plan left-align" style="float:left">
+                <input type="radio" name="subscription-plan" checked="checked" value="head-coach"
+                    (click)="SelectPlan(2)" />
+                <div class="subscription-box "
+                    [ngClass]="{'active':SelectedPlanId === 4, 'inactive': SelectedPlanId !== 4}">
+             <div class="plan-sticker"><span>Black Friday</span></div> 
+                    <!-- <div class="plan-price"><h4>499.99/</h4>year</div> -->
+                    <div class="plan-price">
+                        <h4>199.99/</h4>year
+                    </div>
+                    <div class="plan-title">
+                        <h4>Head Coach</h4>
+                    </div>
+                    <div class="plan-subtitle">Unlimited Athletes</div>
+                    <div class="plan-duration">14 Days</div>
+                    <div class="plan-trial">Free Trial</div>
+                </div>
+                <!-- <div class="plan-sticker"><span>2 months Free</span></div>
+               <div class="plan-price"><h4>499.99/</h4>year</div> 
+               <div class="plan-price"><h4>199.99/</h4>year</div>
+               <div class="plan-title"><h4>Head Coach</h4></div>
+               <div class="plan-subtitle">Unlimited Athletes</div>
+               <div class="plan-duration">14 Days</div>
+               <div class="plan-trial">Free Trial</div> -->
+            </label>
+            <label class="blackFriday" >
+                    <h5 style="text-align:center">Black Friday Special: Signup by ​​12/2 and receive:</h5>
+                    After the first year, the subscription price will be 499.99/Year<br>
+                    ​✅FREE Access to ETD VIP "Create an Excel Template Course"(Value: $199)<br>
+                    ​✅A FREE Strength Coach Pro Tri-Blend Shirt (Value: $29)<br>
+                    ​✅LIFETIME 10% Discount To Strength Coach Pro ($49/year Discount)<br>
+                    ​✅FREE Copy of "The Strength and Conditioning Coaches Guide to Excel"(Value:$39)<br>
+                
+            </label>
+            <div style="clear:both"></div>
+            <!-- <label class="subscription-plan right-align">
+              <input type="radio" name="subscription-plan"  value="coach" (click)="SelectPlan(2)" />
+              <div class="subscription-box " [ngClass]="{'active':SelectedPlanId === 2,'inactive': SelectedPlanId !== 2}">
+                  <div class="plan-price"><h4>49.99/</h4>month</div>
+                  <div class="plan-title"><h4>Coach</h4></div>
+                  <div class="plan-subtitle">Unlimited Athletes</div>
+                  <div class="plan-duration">14 Days</div>
+                  <div class="plan-trial">Free Trial</div>
+              </div>
+          </label> -->
+        </div>
+        <div class="form-element">
+            <input type="submit" class="greenbtn" name="create-btn" value="Next" (click)="planSelected()" />
+            <input type="reset" class="redbtn" name="cancel-btn" value="Cancel" (click)="Cancel()" />
+        </div>
+    </form>
+</div>
+<!-- <div class="formtext selected-plan">
+    <p>*The Selected Payment Plan is Head Coach Yearly</p>
+</div> -->

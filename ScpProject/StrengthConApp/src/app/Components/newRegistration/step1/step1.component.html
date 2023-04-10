@@ -1,0 +1,19 @@
+<div class="formtext">
+  <h1>Welcome to the Strength Coach Pro family</h1>
+  <p>The First Step is to create an Organization. This Organization will contain all of your information. After creating
+    and Organization, select a plan from below. The default plan is Head Coach</p>
+</div>
+<div class="reg-form-step">
+  <form action="#" id="register-step1" method="post">
+    <div class="form-element">
+      <input type="text" [(ngModel)]="organizationName"
+        [ngClass]="{'error': organizationName === undefined || organizationName ===''}" name="organization-name"
+        placeholder="Organization Name" value="" />
+    </div>
+    <div class="form-element">
+      <input type="submit" [disabled]="organizationName === undefined || organizationName ===''" class="greenbtn"
+        name="create-btn" value="Next" (click)="CreateOrganization(organizationName)" />
+      <input type="reset" class="redbtn" name="cancel-btn" value="Cancel" (click)="Cancel()" />
+    </div>
+  </form>
+</div>

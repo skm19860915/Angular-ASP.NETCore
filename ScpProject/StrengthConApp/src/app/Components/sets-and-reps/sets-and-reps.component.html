@@ -1,0 +1,77 @@
+<div class="row align-items-center top-settings">
+  <div class="col-sm-12 col-md-6 col-lg-3">
+    <input type="text" class="form-control grey-bg-input" aria-describedby="Search" placeholder="Search by Name"
+      [(ngModel)]="searchString">
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-4 ">
+    <app-scp-tag-input (TagRemoved)="RemoveTag($event)" (TagAdded)="AddTag($event)" [autocompleteItems]="AllTags">
+    </app-scp-tag-input>
+  </div>
+  <div class="col-6 col-sm-6 col-md-6 col-lg-2">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="showArchived" [checked]=" ShowArchive"
+        (change)="ToggleArchive()">
+      <label class="custom-control-label" for="showArchived">Show Archived</label>
+    </div>
+  </div>
+  <div class="col-5 col-sm-5 col-md-5 col-lg-1 text-right">
+    <span class="icon">Help<i class="fas fa-question"></i></span>
+  </div>
+  <div class="col-6 col-sm-6 col-md-6 col-lg-2 text-right">
+    <button type="button" class="btn btn-link create-btn" (click)="ViewCreateNewWorkout()">Create <span class="icon"><i
+          class="fas fa-plus"></i></span></button>
+  </div>
+</div>
+<div class="sets-list">
+  <!-- Individual set edit starts -->
+  <app-sets-and-reps-form
+  [View]="View"
+  [WeekViewMode]="'col-sm-12 col-md-6 col-lg-4 col-xl-3'"
+  [FormViewMode]="'row sets-and-reps-form no-gutters'"
+  [ShowTitle] = "false"
+  [SelectedWorkout]="SelectedWorkout"
+  [newWorkoutTagItems]="newWorkoutTagItems"
+  (SaveCallBack)="Save($event)"
+  (CancelCallBack)="ViewAllWorkouts()">
+  </app-sets-and-reps-form>
+  <!-- Individual set edit ends -->
+
+  <!-- Individual set starts -->
+  <div class="row one-set no-gutters"
+    *ngFor="let ex of AllWorkouts | async | TagFilterPipe : TagItems | SearchTaggableFilterPipe : searchString  | HideDeletedSortPipe : ShowArchive">
+    <div class="col-12">
+      <div class="row align-items-center">
+        <div class="col-7" (click)="ModifySelectedWorkout(ex)">
+          <h5 class="title">
+            {{ex.Name == null || ex.Name.length == 0 ? 'This Set And Rep Doesnt Have A Name': ex.Name}}
+          </h5>
+        </div>
+        <div class="col-1 title" *ngIf="ex.IsDeleted"> Archived </div>
+        <div class="col-1 title" *ngIf="!ex.IsDeleted"> &nbsp; </div>
+        <div class="col-3 title-icons text-right">
+          <i class="fas fa-pencil-alt" (click)="ModifySelectedWorkout(ex)" title="Edit"></i>
+          <i class="far fa-copy" (click)="DuplicateWorkout(ex.Id)" title="Copy"></i>
+          <i *ngIf="!ex.IsDeleted" class="fas fa-trash-alt" (click)="ArchiveWorkout(ex.Id)" title="Delete"></i>
+          <i *ngIf="ex.IsDeleted" class="fas fa-trash-restore" (click)="UnArchiveWorkout(ex.Id)" title="Restore"></i>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm d-flex tags">
+          <p class="tags-title">Tags:</p>
+          <div>
+            <span class="badge badge-pill badge-light" *ngFor="let tags of ex.Tags">{{tags.Name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Individual set ends -->
+</div>
+
+<div class="alertContainer">
+  <div class="alert errorAlert" [ngClass]=" {'errorAlert':m.IsError, 'successAlert': !m.IsError}" [@fadeInAnimation]
+    *ngFor="let m of AlertMessages">
+    <h5>{{m.Title}}</h5>
+    <p>{{m.Message}}</p>
+  </div>
+</div>

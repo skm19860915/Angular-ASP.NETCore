@@ -1,0 +1,9 @@
+<div class="scroll">
+    <div *ngFor="let athlete of athleteArray">
+        <div class="d-flex flex-row justify-content-center pt-2 stick-top">
+        <app-weight-room-athlete-header [athlete]="athlete"
+            [isSelected]="true"></app-weight-room-athlete-header>
+        </div>
+        <app-athlete-workout [AthleteId]="athlete.Id" [DisplayPrintButton]="false" ></app-athlete-workout>
+    </div>
+</div>

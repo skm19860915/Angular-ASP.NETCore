@@ -1,0 +1,1186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8F340E1C-ABA5-4267-8E60-64D8183D9A65}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Models</RootNamespace>
+    <AssemblyName>Models</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Local|AnyCPU'">
+    <OutputPath>bin\Local\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <OutputPath>bin\Test\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Local|x64'">
+    <OutputPath>bin\x64\Local\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x64'">
+    <OutputPath>bin\x64\Test\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0-preview7-19363-02\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0-preview7-19363-02\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Administration\FeedBack.cs" />
+    <Compile Include="Athlete\AthleteTag.cs" />
+    <Compile Include="Athlete\AthleteHeightWeight.cs" />
+    <Compile Include="Athlete\CompletedMetric.cs" />
+    <Compile Include="Athlete\CompletedProgramDay.cs" />
+    <Compile Include="Athlete\CompletedProgramWeek.cs" />
+    <Compile Include="Athlete\CompletedQuestionOpenEnded.cs" />
+    <Compile Include="Athlete\CompletedQuestionScale.cs" />
+    <Compile Include="Athlete\CompletedSet.cs" />
+    <Compile Include="Athlete\CompletedQuestionYesNo.cs" />
+    <Compile Include="Athlete\CompletedSuperSet_Set.cs" />
+    <Compile Include="Athlete\PastAthleteAssignedProgram.cs" />
+    <Compile Include="Athlete\TagToAthlete.cs" />
+    <Compile Include="Documents\Agreement.cs" />
+    <Compile Include="Documents\ArgeementsToDocuments.cs" />
+    <Compile Include="Documents\AssignedDocuments.cs" />
+    <Compile Include="Documents\Document.cs" />
+    <Compile Include="Documents\DocumentTag.cs" />
+    <Compile Include="Documents\DocumentToAthlete.cs" />
+    <Compile Include="Documents\TagToDocument.cs" />
+    <Compile Include="Enums\NotificationType.cs" />
+    <Compile Include="Enums\OrganizationRole.cs" />
+    <Compile Include="Enums\MediaType.cs" />
+    <Compile Include="Enums\ProgramDayItemEnum.cs" />
+    <Compile Include="Enums\QuestionThresholdEnum.cs" />
+    <Compile Include="Enums\TagEnum.cs" />
+    <Compile Include="Enums\Visited.cs" />
+    <Compile Include="Exercise\Exercise.cs" />
+    <Compile Include="Exercise\TagToExercise.cs" />
+    <Compile Include="LogMessage.cs" />
+    <Compile Include="Messages\MessageGroupToUser.cs" />
+    <Compile Include="Messages\MessageGroup.cs" />
+    <Compile Include="Messages\MessageToUser.cs" />
+    <Compile Include="Messages\Message.cs" />
+    <Compile Include="Messages\MessageToUserInGroup.cs" />
+    <Compile Include="Metric\AddedMetric.cs" />
+    <Compile Include="Metric\Metric.cs" />
+    <Compile Include="Metric\MetricDisplayWeek.cs" />
+    <Compile Include="Metric\MetricTag.cs" />
+    <Compile Include="Metric\TagToMetric.cs" />
+    <Compile Include="Metric\UnitOfMeasurement.cs" />
+    <Compile Include="Athlete\Athlete.cs" />
+    <Compile Include="Athlete\AthleteInjury.cs" />
+    <Compile Include="Athlete\AthleteNote.cs" />
+    <Compile Include="Athlete\AthleteProgramHistory.cs" />
+    <Compile Include="Migrations\201902251840441_initial.cs" />
+    <Compile Include="Migrations\201902251840441_initial.Designer.cs">
+      <DependentUpon>201902251840441_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902271742056_addingDIsplayWeeks.cs" />
+    <Compile Include="Migrations\201902271742056_addingDIsplayWeeks.Designer.cs">
+      <DependentUpon>201902271742056_addingDIsplayWeeks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903012157149_MappedDisplayWeekSTuffToAssignedPrograms.cs" />
+    <Compile Include="Migrations\201903012157149_MappedDisplayWeekSTuffToAssignedPrograms.Designer.cs">
+      <DependentUpon>201903012157149_MappedDisplayWeekSTuffToAssignedPrograms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903012159480_fuckedItUpDontNeedToMapThemToAssignedPrograms.cs" />
+    <Compile Include="Migrations\201903012159480_fuckedItUpDontNeedToMapThemToAssignedPrograms.Designer.cs">
+      <DependentUpon>201903012159480_fuckedItUpDontNeedToMapThemToAssignedPrograms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903012204023_survey_metric_displayWeekMappedToProgramDayItem.cs" />
+    <Compile Include="Migrations\201903012204023_survey_metric_displayWeekMappedToProgramDayItem.Designer.cs">
+      <DependentUpon>201903012204023_survey_metric_displayWeekMappedToProgramDayItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903021810417_addedCompletedProgramDay.cs" />
+    <Compile Include="Migrations\201903021810417_addedCompletedProgramDay.Designer.cs">
+      <DependentUpon>201903021810417_addedCompletedProgramDay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903021843453_fixedSpellingError.cs" />
+    <Compile Include="Migrations\201903021843453_fixedSpellingError.Designer.cs">
+      <DependentUpon>201903021843453_fixedSpellingError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903021911126_addedCompletedWeeks.cs" />
+    <Compile Include="Migrations\201903021911126_addedCompletedWeeks.Designer.cs">
+      <DependentUpon>201903021911126_addedCompletedWeeks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903050255512_addedWeekCount.cs" />
+    <Compile Include="Migrations\201903050255512_addedWeekCount.Designer.cs">
+      <DependentUpon>201903050255512_addedWeekCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903050327346_FixedCompletedMetric.cs" />
+    <Compile Include="Migrations\201903050327346_FixedCompletedMetric.Designer.cs">
+      <DependentUpon>201903050327346_FixedCompletedMetric.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903051708217_moreDataForCompletedMetric.cs" />
+    <Compile Include="Migrations\201903051708217_moreDataForCompletedMetric.Designer.cs">
+      <DependentUpon>201903051708217_moreDataForCompletedMetric.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903052213223_changedToDouble.cs" />
+    <Compile Include="Migrations\201903052213223_changedToDouble.Designer.cs">
+      <DependentUpon>201903052213223_changedToDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903082017260_addedCompletedQuestions.cs" />
+    <Compile Include="Migrations\201903082017260_addedCompletedQuestions.Designer.cs">
+      <DependentUpon>201903082017260_addedCompletedQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903082107150_fixedspellingError2.cs" />
+    <Compile Include="Migrations\201903082107150_fixedspellingError2.Designer.cs">
+      <DependentUpon>201903082107150_fixedspellingError2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903082139241_addedWeekId.cs" />
+    <Compile Include="Migrations\201903082139241_addedWeekId.Designer.cs">
+      <DependentUpon>201903082139241_addedWeekId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903160219420_addingHistoryToAssignedPrograms.cs" />
+    <Compile Include="Migrations\201903160219420_addingHistoryToAssignedPrograms.Designer.cs">
+      <DependentUpon>201903160219420_addingHistoryToAssignedPrograms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903161418575_addedNullDateTIme.cs" />
+    <Compile Include="Migrations\201903161418575_addedNullDateTIme.Designer.cs">
+      <DependentUpon>201903161418575_addedNullDateTIme.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903261527534_renameCOlumn.cs" />
+    <Compile Include="Migrations\201903261527534_renameCOlumn.Designer.cs">
+      <DependentUpon>201903261527534_renameCOlumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903261533201_addedArchiveDate.cs" />
+    <Compile Include="Migrations\201903261533201_addedArchiveDate.Designer.cs">
+      <DependentUpon>201903261533201_addedArchiveDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903261534230_addedArchiveDate1.cs" />
+    <Compile Include="Migrations\201903261534230_addedArchiveDate1.Designer.cs">
+      <DependentUpon>201903261534230_addedArchiveDate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904212109218_addedEmailTokenValidation.cs" />
+    <Compile Include="Migrations\201904212109218_addedEmailTokenValidation.Designer.cs">
+      <DependentUpon>201904212109218_addedEmailTokenValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904251954225_fixedOriginalSetIdPart2.cs" />
+    <Compile Include="Migrations\201904251954225_fixedOriginalSetIdPart2.Designer.cs">
+      <DependentUpon>201904251954225_fixedOriginalSetIdPart2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904251954490_fixedOriginalSetIdPart3.cs" />
+    <Compile Include="Migrations\201904251954490_fixedOriginalSetIdPart3.Designer.cs">
+      <DependentUpon>201904251954490_fixedOriginalSetIdPart3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905061533216_AddedPercentToExercise.cs" />
+    <Compile Include="Migrations\201905061533216_AddedPercentToExercise.Designer.cs">
+      <DependentUpon>201905061533216_AddedPercentToExercise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905061551310_AddedPercentToExerciseAddID_MAdePercentDouble.cs" />
+    <Compile Include="Migrations\201905061551310_AddedPercentToExerciseAddID_MAdePercentDouble.Designer.cs">
+      <DependentUpon>201905061551310_AddedPercentToExerciseAddID_MAdePercentDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905061735582_CompletedAssignedProgramDay.cs" />
+    <Compile Include="Migrations\201905061735582_CompletedAssignedProgramDay.Designer.cs">
+      <DependentUpon>201905061735582_CompletedAssignedProgramDay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905081730325_addedFirstLastName.cs" />
+    <Compile Include="Migrations\201905081730325_addedFirstLastName.Designer.cs">
+      <DependentUpon>201905081730325_addedFirstLastName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905132034200_addingSuperSet.cs" />
+    <Compile Include="Migrations\201905132034200_addingSuperSet.Designer.cs">
+      <DependentUpon>201905132034200_addingSuperSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905142026565_flushingOUtSUperSet.cs" />
+    <Compile Include="Migrations\201905142026565_flushingOUtSUperSet.Designer.cs">
+      <DependentUpon>201905142026565_flushingOUtSUperSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905230044496_completedSuperSet_Sets.cs" />
+    <Compile Include="Migrations\201905230044496_completedSuperSet_Sets.Designer.cs">
+      <DependentUpon>201905230044496_completedSuperSet_Sets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905241543145_addedUniqueKeyToPrograms.cs" />
+    <Compile Include="Migrations\201905241543145_addedUniqueKeyToPrograms.Designer.cs">
+      <DependentUpon>201905241543145_addedUniqueKeyToPrograms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906062112579_addedIsDeletedToWhatsNeeded.cs" />
+    <Compile Include="Migrations\201906062112579_addedIsDeletedToWhatsNeeded.Designer.cs">
+      <DependentUpon>201906062112579_addedIsDeletedToWhatsNeeded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906071816502_addedCanMOdify.cs" />
+    <Compile Include="Migrations\201906071816502_addedCanMOdify.Designer.cs">
+      <DependentUpon>201906071816502_addedCanMOdify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906121917323_addedUniqueIndexsToPrograms.cs" />
+    <Compile Include="Migrations\201906121917323_addedUniqueIndexsToPrograms.Designer.cs">
+      <DependentUpon>201906121917323_addedUniqueIndexsToPrograms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906121923540_removedIXFromProgramDay.cs" />
+    <Compile Include="Migrations\201906121923540_removedIXFromProgramDay.Designer.cs">
+      <DependentUpon>201906121923540_removedIXFromProgramDay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906121926460_removedIXsForTest.cs" />
+    <Compile Include="Migrations\201906121926460_removedIXsForTest.Designer.cs">
+      <DependentUpon>201906121926460_removedIXsForTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906121928092_removedIXsForTestprt2.cs" />
+    <Compile Include="Migrations\201906121928092_removedIXsForTestprt2.Designer.cs">
+      <DependentUpon>201906121928092_removedIXsForTestprt2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906270147472_updatedLengthOfQuestionsTo300.cs" />
+    <Compile Include="Migrations\201906270147472_updatedLengthOfQuestionsTo300.Designer.cs">
+      <DependentUpon>201906270147472_updatedLengthOfQuestionsTo300.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907082102366_removedUniqueINdexes.cs" />
+    <Compile Include="Migrations\201907082102366_removedUniqueINdexes.Designer.cs">
+      <DependentUpon>201907082102366_removedUniqueINdexes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907092020372_addedEmailValidationTOkenToUsersToValidateTHeirFuckingEmails.cs" />
+    <Compile Include="Migrations\201907092020372_addedEmailValidationTOkenToUsersToValidateTHeirFuckingEmails.Designer.cs">
+      <DependentUpon>201907092020372_addedEmailValidationTOkenToUsersToValidateTHeirFuckingEmails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907092023034_addedIsEmailValidedBit.cs" />
+    <Compile Include="Migrations\201907092023034_addedIsEmailValidedBit.Designer.cs">
+      <DependentUpon>201907092023034_addedIsEmailValidedBit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907240423304_testingUniqueConstraintsAgain.cs" />
+    <Compile Include="Migrations\201907240423304_testingUniqueConstraintsAgain.Designer.cs">
+      <DependentUpon>201907240423304_testingUniqueConstraintsAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907240441004_reAddedAllUniqueConstraints.cs" />
+    <Compile Include="Migrations\201907240441004_reAddedAllUniqueConstraints.Designer.cs">
+      <DependentUpon>201907240441004_reAddedAllUniqueConstraints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907250132379_updatedUniqueIndexes.cs" />
+    <Compile Include="Migrations\201907250132379_updatedUniqueIndexes.Designer.cs">
+      <DependentUpon>201907250132379_updatedUniqueIndexes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908060119575__addedMappingsForOrgStuf.cs" />
+    <Compile Include="Migrations\201908060119575__addedMappingsForOrgStuf.Designer.cs">
+      <DependentUpon>201908060119575__addedMappingsForOrgStuf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908060313480_orgIntNotNull.cs" />
+    <Compile Include="Migrations\201908060313480_orgIntNotNull.Designer.cs">
+      <DependentUpon>201908060313480_orgIntNotNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908172137232_addedStandAloneMetrics.cs" />
+    <Compile Include="Migrations\201908172137232_addedStandAloneMetrics.Designer.cs">
+      <DependentUpon>201908172137232_addedStandAloneMetrics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908180151384_HeighWeight.cs" />
+    <Compile Include="Migrations\201908180151384_HeighWeight.Designer.cs">
+      <DependentUpon>201908180151384_HeighWeight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908182119191_addedAddedDateForWeights.cs" />
+    <Compile Include="Migrations\201908182119191_addedAddedDateForWeights.Designer.cs">
+      <DependentUpon>201908182119191_addedAddedDateForWeights.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909040146458_addingPasswordRecovery.cs" />
+    <Compile Include="Migrations\201909040146458_addingPasswordRecovery.Designer.cs">
+      <DependentUpon>201909040146458_addingPasswordRecovery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181941113_addingNOtesToTrainingBlocks.cs" />
+    <Compile Include="Migrations\201909181941113_addingNOtesToTrainingBlocks.Designer.cs">
+      <DependentUpon>201909181941113_addingNOtesToTrainingBlocks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181955337_settingsNOtesToString.cs" />
+    <Compile Include="Migrations\201909181955337_settingsNOtesToString.Designer.cs">
+      <DependentUpon>201909181955337_settingsNOtesToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909241952461_addingVideoUrl.cs" />
+    <Compile Include="Migrations\201909241952461_addingVideoUrl.Designer.cs">
+      <DependentUpon>201909241952461_addingVideoUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910140238455_addingSubscriptions.cs" />
+    <Compile Include="Migrations\201910140238455_addingSubscriptions.Designer.cs">
+      <DependentUpon>201910140238455_addingSubscriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910140244068_addSubTypeToOrganization.cs" />
+    <Compile Include="Migrations\201910140244068_addSubTypeToOrganization.Designer.cs">
+      <DependentUpon>201910140244068_addSubTypeToOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910210209507_addingStripGuid.cs" />
+    <Compile Include="Migrations\201910210209507_addingStripGuid.Designer.cs">
+      <DependentUpon>201910210209507_addingStripGuid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910290126571_changedStripeGuidTostring.cs" />
+    <Compile Include="Migrations\201910290126571_changedStripeGuidTostring.Designer.cs">
+      <DependentUpon>201910290126571_changedStripeGuidTostring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911282200220_addingMarkDayCompletedLogic.cs" />
+    <Compile Include="Migrations\201911282200220_addingMarkDayCompletedLogic.Designer.cs">
+      <DependentUpon>201911282200220_addingMarkDayCompletedLogic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912020045290_addingUserIdtoAudit.cs" />
+    <Compile Include="Migrations\201912020045290_addingUserIdtoAudit.Designer.cs">
+      <DependentUpon>201912020045290_addingUserIdtoAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912030304491_addingBooleansToPowerDashBoard.cs" />
+    <Compile Include="Migrations\201912030304491_addingBooleansToPowerDashBoard.Designer.cs">
+      <DependentUpon>201912030304491_addingBooleansToPowerDashBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912052228193_addingWeightRoomViewUsers.cs" />
+    <Compile Include="Migrations\201912052228193_addingWeightRoomViewUsers.Designer.cs">
+      <DependentUpon>201912052228193_addingWeightRoomViewUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912141932445_Added Cost to SubscriptionTypes.cs" />
+    <Compile Include="Migrations\201912141932445_Added Cost to SubscriptionTypes.Designer.cs">
+      <DependentUpon>201912141932445_Added Cost to SubscriptionTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912170358245_addingFeedBackANdStripShit.cs" />
+    <Compile Include="Migrations\201912170358245_addingFeedBackANdStripShit.Designer.cs">
+      <DependentUpon>201912170358245_addingFeedBackANdStripShit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912181631032_addingTiered.cs" />
+    <Compile Include="Migrations\201912181631032_addingTiered.Designer.cs">
+      <DependentUpon>201912181631032_addingTiered.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912211659194_moreBilling.cs" />
+    <Compile Include="Migrations\201912211659194_moreBilling.Designer.cs">
+      <DependentUpon>201912211659194_moreBilling.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912281708452_addedCost.cs" />
+    <Compile Include="Migrations\201912281708452_addedCost.Designer.cs">
+      <DependentUpon>201912281708452_addedCost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912311647505_toChangeIntsToDoubles.cs" />
+    <Compile Include="Migrations\201912311647505_toChangeIntsToDoubles.Designer.cs">
+      <DependentUpon>201912311647505_toChangeIntsToDoubles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001051948396_addedSubscriptionFlag.cs" />
+    <Compile Include="Migrations\202001051948396_addedSubscriptionFlag.Designer.cs">
+      <DependentUpon>202001051948396_addedSubscriptionFlag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001081934108_allowDoublesintoCompleted.cs" />
+    <Compile Include="Migrations\202001081934108_allowDoublesintoCompleted.Designer.cs">
+      <DependentUpon>202001081934108_allowDoublesintoCompleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001141709231_addingMessaging.cs" />
+    <Compile Include="Migrations\202001141709231_addingMessaging.Designer.cs">
+      <DependentUpon>202001141709231_addingMessaging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001141940430_addedNestedMessages.cs" />
+    <Compile Include="Migrations\202001141940430_addedNestedMessages.Designer.cs">
+      <DependentUpon>202001141940430_addedNestedMessages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001142004021_AddNullableToParentMessageid.cs" />
+    <Compile Include="Migrations\202001142004021_AddNullableToParentMessageid.Designer.cs">
+      <DependentUpon>202001142004021_AddNullableToParentMessageid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001151743448_moreMEssagingTablesForGroups.cs" />
+    <Compile Include="Migrations\202001151743448_moreMEssagingTablesForGroups.Designer.cs">
+      <DependentUpon>202001151743448_moreMEssagingTablesForGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001151745168_moreMEssagingTablesForGroups_II.cs" />
+    <Compile Include="Migrations\202001151745168_moreMEssagingTablesForGroups_II.Designer.cs">
+      <DependentUpon>202001151745168_moreMEssagingTablesForGroups_II.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001151753490_moreMEssagingTablesForGroups_III.cs" />
+    <Compile Include="Migrations\202001151753490_moreMEssagingTablesForGroups_III.Designer.cs">
+      <DependentUpon>202001151753490_moreMEssagingTablesForGroups_III.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001271959482_removedTitleFromMessages.cs" />
+    <Compile Include="Migrations\202001271959482_removedTitleFromMessages.Designer.cs">
+      <DependentUpon>202001271959482_removedTitleFromMessages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002101546535_addedNotifications.cs" />
+    <Compile Include="Migrations\202002101546535_addedNotifications.Designer.cs">
+      <DependentUpon>202002101546535_addedNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002101549389_addedNotificationsHasBeenViewed.cs" />
+    <Compile Include="Migrations\202002101549389_addedNotificationsHasBeenViewed.Designer.cs">
+      <DependentUpon>202002101549389_addedNotificationsHasBeenViewed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002101552398_addedDestinationsUserToNotifcations.cs" />
+    <Compile Include="Migrations\202002101552398_addedDestinationsUserToNotifcations.Designer.cs">
+      <DependentUpon>202002101552398_addedDestinationsUserToNotifcations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002102027287_addingsurveyThresholds.cs" />
+    <Compile Include="Migrations\202002102027287_addingsurveyThresholds.Designer.cs">
+      <DependentUpon>202002102027287_addingsurveyThresholds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002111645043_mappedNotificationsToCoaches.cs" />
+    <Compile Include="Migrations\202002111645043_mappedNotificationsToCoaches.Designer.cs">
+      <DependentUpon>202002111645043_mappedNotificationsToCoaches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003040327129_renameValueToThresholdValue.cs" />
+    <Compile Include="Migrations\202003040327129_renameValueToThresholdValue.Designer.cs">
+      <DependentUpon>202003040327129_renameValueToThresholdValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003060338227_FixAthleteNotificationsFK\.cs" />
+    <Compile Include="Migrations\202003060338227_FixAthleteNotificationsFK\.Designer.cs" />
+    <Compile Include="Migrations\202004182349329_addingInMovies.cs" />
+    <Compile Include="Migrations\202004182349329_addingInMovies.Designer.cs">
+      <DependentUpon>202004182349329_addingInMovies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004191711282_addedMovieTags.cs" />
+    <Compile Include="Migrations\202004191711282_addedMovieTags.Designer.cs">
+      <DependentUpon>202004191711282_addedMovieTags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004272359076_addingVideosToPrograms.cs" />
+    <Compile Include="Migrations\202004272359076_addingVideosToPrograms.Designer.cs">
+      <DependentUpon>202004272359076_addingVideosToPrograms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005170019570_markdayascomplete.cs" />
+    <Compile Include="Migrations\202005170019570_markdayascomplete.Designer.cs">
+      <DependentUpon>202005170019570_markdayascomplete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005302132508_AddingAdvancedOptionsToSets.cs" />
+    <Compile Include="Migrations\202005302132508_AddingAdvancedOptionsToSets.Designer.cs">
+      <DependentUpon>202005302132508_AddingAdvancedOptionsToSets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005302149030_AddingAdvancedOptionsToSetsBitRepsAchieved.cs" />
+    <Compile Include="Migrations\202005302149030_AddingAdvancedOptionsToSetsBitRepsAchieved.Designer.cs">
+      <DependentUpon>202005302149030_AddingAdvancedOptionsToSetsBitRepsAchieved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005302200119_AddingAdvancedOptionsToSuperSets.cs" />
+    <Compile Include="Migrations\202005302200119_AddingAdvancedOptionsToSuperSets.Designer.cs">
+      <DependentUpon>202005302200119_AddingAdvancedOptionsToSuperSets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005302221119_addingRepsAchievedToAthletes.cs" />
+    <Compile Include="Migrations\202005302221119_addingRepsAchievedToAthletes.Designer.cs">
+      <DependentUpon>202005302221119_addingRepsAchievedToAthletes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006040136172_addingNullableAdvancedOptions.cs" />
+    <Compile Include="Migrations\202006040136172_addingNullableAdvancedOptions.Designer.cs">
+      <DependentUpon>202006040136172_addingNullableAdvancedOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006131713478_MovingRestToExerciseWorkoutLevel.cs" />
+    <Compile Include="Migrations\202006131713478_MovingRestToExerciseWorkoutLevel.Designer.cs">
+      <DependentUpon>202006131713478_MovingRestToExerciseWorkoutLevel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006131724133_ChangingRestToString.cs" />
+    <Compile Include="Migrations\202006131724133_ChangingRestToString.Designer.cs">
+      <DependentUpon>202006131724133_ChangingRestToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006141931348_makingSuperSetsINlineEditesNullable.cs" />
+    <Compile Include="Migrations\202006141931348_makingSuperSetsINlineEditesNullable.Designer.cs">
+      <DependentUpon>202006141931348_makingSuperSetsINlineEditesNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006190130313_addedCompeltedRepsAchieved.cs" />
+    <Compile Include="Migrations\202006190130313_addedCompeltedRepsAchieved.Designer.cs">
+      <DependentUpon>202006190130313_addedCompeltedRepsAchieved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006272242286_addingImagesAndColorsToOrganizations.cs" />
+    <Compile Include="Migrations\202006272242286_addingImagesAndColorsToOrganizations.Designer.cs">
+      <DependentUpon>202006272242286_addingImagesAndColorsToOrganizations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006272308521_tertiaryColorHex.cs" />
+    <Compile Include="Migrations\202006272308521_tertiaryColorHex.Designer.cs">
+      <DependentUpon>202006272308521_tertiaryColorHex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007280142378_bb.cs" />
+    <Compile Include="Migrations\202007280142378_bb.Designer.cs">
+      <DependentUpon>202007280142378_bb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008081919550_addingStripedExpiredCardAndFailedToProcess.cs" />
+    <Compile Include="Migrations\202008081919550_addingStripedExpiredCardAndFailedToProcess.Designer.cs">
+      <DependentUpon>202008081919550_addingStripedExpiredCardAndFailedToProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009150108338_addingFontPickers.cs" />
+    <Compile Include="Migrations\202009150108338_addingFontPickers.Designer.cs">
+      <DependentUpon>202009150108338_addingFontPickers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011241539311_makingDistanceStringInsteadOfDouble.cs" />
+    <Compile Include="Migrations\202011241539311_makingDistanceStringInsteadOfDouble.Designer.cs">
+      <DependentUpon>202011241539311_makingDistanceStringInsteadOfDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012071716412_addingNameOptionToSuperSet.cs" />
+    <Compile Include="Migrations\202012071716412_addingNameOptionToSuperSet.Designer.cs">
+      <DependentUpon>202012071716412_addingNameOptionToSuperSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012210043451_addingStripeDfeaultHack.cs" />
+    <Compile Include="Migrations\202012210043451_addingStripeDfeaultHack.Designer.cs">
+      <DependentUpon>202012210043451_addingStripeDfeaultHack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101051801260_addingBitForAlwaysShowingWeight.cs" />
+    <Compile Include="Migrations\202101051801260_addingBitForAlwaysShowingWeight.Designer.cs">
+      <DependentUpon>202101051801260_addingBitForAlwaysShowingWeight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101190210519_bob.cs" />
+    <Compile Include="Migrations\202101190210519_bob.Designer.cs">
+      <DependentUpon>202101190210519_bob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101201907413_fixingShowWeight.cs" />
+    <Compile Include="Migrations\202101201907413_fixingShowWeight.Designer.cs">
+      <DependentUpon>202101201907413_fixingShowWeight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101281514315_startingToDeDupeTags.cs" />
+    <Compile Include="Migrations\202101281514315_startingToDeDupeTags.Designer.cs">
+      <DependentUpon>202101281514315_startingToDeDupeTags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102011921241_addingIXToTags.cs" />
+    <Compile Include="Migrations\202102011921241_addingIXToTags.Designer.cs">
+      <DependentUpon>202102011921241_addingIXToTags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102090245140_REMOVEDrefrencesTOuser.cs" />
+    <Compile Include="Migrations\202102090245140_REMOVEDrefrencesTOuser.Designer.cs">
+      <DependentUpon>202102090245140_REMOVEDrefrencesTOuser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102240407072_madeDistanceString.cs" />
+    <Compile Include="Migrations\202102240407072_madeDistanceString.Designer.cs">
+      <DependentUpon>202102240407072_madeDistanceString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106220207247_addingLogging.cs" />
+    <Compile Include="Migrations\202106220207247_addingLogging.Designer.cs">
+      <DependentUpon>202106220207247_addingLogging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107262247572_addingSignlarGuids.cs" />
+    <Compile Include="Migrations\202107262247572_addingSignlarGuids.Designer.cs">
+      <DependentUpon>202107262247572_addingSignlarGuids.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109010122370_v1_Of_ProgramSnapShots.cs" />
+    <Compile Include="Migrations\202109010122370_v1_Of_ProgramSnapShots.Designer.cs">
+      <DependentUpon>202109010122370_v1_Of_ProgramSnapShots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109010211368_addingAssignedMovieDisplayWeeks.cs" />
+    <Compile Include="Migrations\202109010211368_addingAssignedMovieDisplayWeeks.Designer.cs">
+      <DependentUpon>202109010211368_addingAssignedMovieDisplayWeeks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109080146114_makingCompletedShitOptional.cs" />
+    <Compile Include="Migrations\202109080146114_makingCompletedShitOptional.Designer.cs">
+      <DependentUpon>202109080146114_makingCompletedShitOptional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109080258021_removedConstraintsFromAssignedProgramTables.cs" />
+    <Compile Include="Migrations\202109080258021_removedConstraintsFromAssignedProgramTables.Designer.cs">
+      <DependentUpon>202109080258021_removedConstraintsFromAssignedProgramTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109080306290_madeLastCompletedUpdateTimeNullable.cs" />
+    <Compile Include="Migrations\202109080306290_madeLastCompletedUpdateTimeNullable.Designer.cs">
+      <DependentUpon>202109080306290_madeLastCompletedUpdateTimeNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109142216477_fixingassignedProgramMetricTable.cs" />
+    <Compile Include="Migrations\202109142216477_fixingassignedProgramMetricTable.Designer.cs">
+      <DependentUpon>202109142216477_fixingassignedProgramMetricTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109142222554_addedAssignedProgramMetricDisplaayWeeks.cs" />
+    <Compile Include="Migrations\202109142222554_addedAssignedProgramMetricDisplaayWeeks.Designer.cs">
+      <DependentUpon>202109142222554_addedAssignedProgramMetricDisplaayWeeks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109142249229_addingNotesToAssignedProgram.cs" />
+    <Compile Include="Migrations\202109142249229_addingNotesToAssignedProgram.Designer.cs">
+      <DependentUpon>202109142249229_addingNotesToAssignedProgram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109142252549_addingNoteDisplayWeekForAssignedProgram.cs" />
+    <Compile Include="Migrations\202109142252549_addingNoteDisplayWeekForAssignedProgram.Designer.cs">
+      <DependentUpon>202109142252549_addingNoteDisplayWeekForAssignedProgram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109142253436_addingNoteDisplayWeekForAssignedProgramDisplayWeeks.cs" />
+    <Compile Include="Migrations\202109142253436_addingNoteDisplayWeekForAssignedProgramDisplayWeeks.Designer.cs">
+      <DependentUpon>202109142253436_addingNoteDisplayWeekForAssignedProgramDisplayWeeks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109170151423_movedCompletedMetricToDisplayWeeks.cs" />
+    <Compile Include="Migrations\202109170151423_movedCompletedMetricToDisplayWeeks.Designer.cs">
+      <DependentUpon>202109170151423_movedCompletedMetricToDisplayWeeks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109220242020_addingAthleteToHistory.cs" />
+    <Compile Include="Migrations\202109220242020_addingAthleteToHistory.Designer.cs">
+      <DependentUpon>202109220242020_addingAthleteToHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109220334418_pointingAsisgnedNotesToRightPRogramDay.cs" />
+    <Compile Include="Migrations\202109220334418_pointingAsisgnedNotesToRightPRogramDay.Designer.cs">
+      <DependentUpon>202109220334418_pointingAsisgnedNotesToRightPRogramDay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202109230201398_addingSurveyDisplayWeeks.cs" />
+    <Compile Include="Migrations\202109230201398_addingSurveyDisplayWeeks.Designer.cs">
+      <DependentUpon>202109230201398_addingSurveyDisplayWeeks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201072140533_fixKeys.cs" />
+    <Compile Include="Migrations\202201072140533_fixKeys.Designer.cs">
+      <DependentUpon>202201072140533_fixKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201072158434_fixKeysPartDuex.cs" />
+    <Compile Include="Migrations\202201072158434_fixKeysPartDuex.Designer.cs">
+      <DependentUpon>202201072158434_fixKeysPartDuex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201072159116_fixKeysParttrois.cs" />
+    <Compile Include="Migrations\202201072159116_fixKeysParttrois.Designer.cs">
+      <DependentUpon>202201072159116_fixKeysParttrois.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201152312451_addingCompletedDateToSnapShots.cs" />
+    <Compile Include="Migrations\202201152312451_addingCompletedDateToSnapShots.Designer.cs">
+      <DependentUpon>202201152312451_addingCompletedDateToSnapShots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202091553586_addingCalculatedLoadsTOSnapSHot.cs" />
+    <Compile Include="Migrations\202202091553586_addingCalculatedLoadsTOSnapSHot.Designer.cs">
+      <DependentUpon>202202091553586_addingCalculatedLoadsTOSnapSHot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202220400326_addingCompletedDaysForSnapSHotProgramsOnly.cs" />
+    <Compile Include="Migrations\202202220400326_addingCompletedDaysForSnapSHotProgramsOnly.Designer.cs">
+      <DependentUpon>202202220400326_addingCompletedDaysForSnapSHotProgramsOnly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204120232185_addingDocumentSHit.cs" />
+    <Compile Include="Migrations\202204120232185_addingDocumentSHit.Designer.cs">
+      <DependentUpon>202204120232185_addingDocumentSHit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204120237355_addingAggreements.cs" />
+    <Compile Include="Migrations\202204120237355_addingAggreements.Designer.cs">
+      <DependentUpon>202204120237355_addingAggreements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="MultiMedia\Movie.cs" />
+    <Compile Include="MultiMedia\MovieDisplayWeek.cs" />
+    <Compile Include="MultiMedia\MovieTag.cs" />
+    <Compile Include="MultiMedia\MultiMediaTag.cs" />
+    <Compile Include="MultiMedia\Note.cs" />
+    <Compile Include="MultiMedia\Picture.cs" />
+    <Compile Include="MultiMedia\TagToMovie.cs" />
+    <Compile Include="MultiMedia\TagToMultiMedia.cs" />
+    <Compile Include="Notifications\Notification.cs" />
+    <Compile Include="Organization\Organization.cs" />
+    <Compile Include="Organization\StripeCustomerData.cs" />
+    <Compile Include="Organization\SubscriptionApprovalAudit.cs" />
+    <Compile Include="Organization\UserToOrganizationRole.cs" />
+    <Compile Include="Organization\WeightRoomAccount.cs" />
+    <Compile Include="Payment\SubscriptionType.cs" />
+    <Compile Include="Program\AssignedProgram.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_AssignedProgramHistory.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_CompletedDay.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_MetricsDisplayWeek.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_MovieDisplayWeek.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_NoteDisplayWeek.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramDay.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramDayItemMetric.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramDayItemMovie.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramDayItemNote.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramDayItemSuperSet.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_Program.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramDayItem.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramDayItemSuperSetWeek.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramDayItemSuperSet_Set.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramDayItemSurvey.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_ProgramHistory.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_SuperSetExercises.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_CompletedQuestionOpenEnded.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_CompletedQuestionScale.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_CompletedQuestionYesNo.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_SuperSetNote.cs" />
+    <Compile Include="Program\AssignedProgramSnapShots\AssignedProgram_SurveyDisplayWeeks.cs" />
+    <Compile Include="Program\CompletedAssignedProgramDay.cs" />
+    <Compile Include="Program\NoteDisplayWeek.cs" />
+    <Compile Include="Program\Program.cs" />
+    <Compile Include="Program\ProgramDay.cs" />
+    <Compile Include="Program\ProgramDayItem.cs" />
+    <Compile Include="Program\ProgramDayItemExercise.cs" />
+    <Compile Include="Program\ProgramDayItemMetric.cs" />
+    <Compile Include="Program\ProgramDayItemNote.cs" />
+    <Compile Include="Program\ProgramDayItemSuperSet.cs" />
+    <Compile Include="Program\ProgramDayItemSuperSetWeek.cs" />
+    <Compile Include="Program\ProgramDayItemSuperSet_Set.cs" />
+    <Compile Include="Program\ProgramDayItemSurvey.cs" />
+    <Compile Include="Program\ProgramDayItemMovie.cs" />
+    <Compile Include="Program\ProgramTag.cs" />
+    <Compile Include="Program\ProgramSet.cs" />
+    <Compile Include="Program\SuperSetExercise.cs" />
+    <Compile Include="Program\SuperSetNotes.cs" />
+    <Compile Include="Program\TagToProgram.cs" />
+    <Compile Include="Program\ProgramWeek.cs" />
+    <Compile Include="SetsAndReps\Set.cs" />
+    <Compile Include="SetsAndReps\TagToWorkout.cs" />
+    <Compile Include="SetsAndReps\Week.cs" />
+    <Compile Include="SetsAndReps\Workout.cs" />
+    <Compile Include="SetsAndReps\WorkoutTag.cs" />
+    <Content Include="SqlScripts\DupeDemoDataToUserStoredProc.txt" />
+    <Compile Include="Survey\Question.cs" />
+    <Compile Include="Enums\QuestionEnum.cs" />
+    <Compile Include="Survey\ScaleQuestionThreshold.cs" />
+    <Compile Include="Survey\ScaleThresholdToCoach.cs" />
+    <Compile Include="Survey\Survey.cs" />
+    <Compile Include="Survey\SurveyDisplayWeek.cs" />
+    <Compile Include="Survey\SurveysToQuestions.cs" />
+    <Compile Include="Survey\SurveyTag.cs" />
+    <Compile Include="Survey\TagToSurvey.cs" />
+    <Compile Include="Survey\YesNoQuestionThreshold.cs" />
+    <Compile Include="Survey\YesNoQuestionThresholdToCoach.cs" />
+    <Compile Include="Tag\Tag.cs" />
+    <Compile Include="Team\Team.cs" />
+    <Compile Include="User\PasswordReset.cs" />
+    <Compile Include="User\User.cs" />
+    <Compile Include="User\UserToken.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StrenContext.cs" />
+    <Compile Include="Exercise\ExerciseTag.cs" />
+    <Compile Include="User\UserVisitedStatus.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\Extensions.csproj">
+      <Project>{eb946df8-2989-4270-ba92-c176cc8582fa}</Project>
+      <Name>Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902251840441_initial.resx">
+      <DependentUpon>201902251840441_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902271742056_addingDIsplayWeeks.resx">
+      <DependentUpon>201902271742056_addingDIsplayWeeks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903012157149_MappedDisplayWeekSTuffToAssignedPrograms.resx">
+      <DependentUpon>201903012157149_MappedDisplayWeekSTuffToAssignedPrograms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903012159480_fuckedItUpDontNeedToMapThemToAssignedPrograms.resx">
+      <DependentUpon>201903012159480_fuckedItUpDontNeedToMapThemToAssignedPrograms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903012204023_survey_metric_displayWeekMappedToProgramDayItem.resx">
+      <DependentUpon>201903012204023_survey_metric_displayWeekMappedToProgramDayItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903021810417_addedCompletedProgramDay.resx">
+      <DependentUpon>201903021810417_addedCompletedProgramDay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903021843453_fixedSpellingError.resx">
+      <DependentUpon>201903021843453_fixedSpellingError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903021911126_addedCompletedWeeks.resx">
+      <DependentUpon>201903021911126_addedCompletedWeeks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903050255512_addedWeekCount.resx">
+      <DependentUpon>201903050255512_addedWeekCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903050327346_FixedCompletedMetric.resx">
+      <DependentUpon>201903050327346_FixedCompletedMetric.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903051708217_moreDataForCompletedMetric.resx">
+      <DependentUpon>201903051708217_moreDataForCompletedMetric.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903052213223_changedToDouble.resx">
+      <DependentUpon>201903052213223_changedToDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903082017260_addedCompletedQuestions.resx">
+      <DependentUpon>201903082017260_addedCompletedQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903082107150_fixedspellingError2.resx">
+      <DependentUpon>201903082107150_fixedspellingError2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903082139241_addedWeekId.resx">
+      <DependentUpon>201903082139241_addedWeekId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903160219420_addingHistoryToAssignedPrograms.resx">
+      <DependentUpon>201903160219420_addingHistoryToAssignedPrograms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903161418575_addedNullDateTIme.resx">
+      <DependentUpon>201903161418575_addedNullDateTIme.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903261527534_renameCOlumn.resx">
+      <DependentUpon>201903261527534_renameCOlumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903261533201_addedArchiveDate.resx">
+      <DependentUpon>201903261533201_addedArchiveDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903261534230_addedArchiveDate1.resx">
+      <DependentUpon>201903261534230_addedArchiveDate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904212109218_addedEmailTokenValidation.resx">
+      <DependentUpon>201904212109218_addedEmailTokenValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904251954225_fixedOriginalSetIdPart2.resx">
+      <DependentUpon>201904251954225_fixedOriginalSetIdPart2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904251954490_fixedOriginalSetIdPart3.resx">
+      <DependentUpon>201904251954490_fixedOriginalSetIdPart3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905061533216_AddedPercentToExercise.resx">
+      <DependentUpon>201905061533216_AddedPercentToExercise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905061551310_AddedPercentToExerciseAddID_MAdePercentDouble.resx">
+      <DependentUpon>201905061551310_AddedPercentToExerciseAddID_MAdePercentDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905061735582_CompletedAssignedProgramDay.resx">
+      <DependentUpon>201905061735582_CompletedAssignedProgramDay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905081730325_addedFirstLastName.resx">
+      <DependentUpon>201905081730325_addedFirstLastName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905132034200_addingSuperSet.resx">
+      <DependentUpon>201905132034200_addingSuperSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905142026565_flushingOUtSUperSet.resx">
+      <DependentUpon>201905142026565_flushingOUtSUperSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905230044496_completedSuperSet_Sets.resx">
+      <DependentUpon>201905230044496_completedSuperSet_Sets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905241543145_addedUniqueKeyToPrograms.resx">
+      <DependentUpon>201905241543145_addedUniqueKeyToPrograms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906062112579_addedIsDeletedToWhatsNeeded.resx">
+      <DependentUpon>201906062112579_addedIsDeletedToWhatsNeeded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906071816502_addedCanMOdify.resx">
+      <DependentUpon>201906071816502_addedCanMOdify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906121917323_addedUniqueIndexsToPrograms.resx">
+      <DependentUpon>201906121917323_addedUniqueIndexsToPrograms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906121923540_removedIXFromProgramDay.resx">
+      <DependentUpon>201906121923540_removedIXFromProgramDay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906121926460_removedIXsForTest.resx">
+      <DependentUpon>201906121926460_removedIXsForTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906121928092_removedIXsForTestprt2.resx">
+      <DependentUpon>201906121928092_removedIXsForTestprt2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906270147472_updatedLengthOfQuestionsTo300.resx">
+      <DependentUpon>201906270147472_updatedLengthOfQuestionsTo300.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907082102366_removedUniqueINdexes.resx">
+      <DependentUpon>201907082102366_removedUniqueINdexes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907092020372_addedEmailValidationTOkenToUsersToValidateTHeirFuckingEmails.resx">
+      <DependentUpon>201907092020372_addedEmailValidationTOkenToUsersToValidateTHeirFuckingEmails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907092023034_addedIsEmailValidedBit.resx">
+      <DependentUpon>201907092023034_addedIsEmailValidedBit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907240423304_testingUniqueConstraintsAgain.resx">
+      <DependentUpon>201907240423304_testingUniqueConstraintsAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907240441004_reAddedAllUniqueConstraints.resx">
+      <DependentUpon>201907240441004_reAddedAllUniqueConstraints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907250132379_updatedUniqueIndexes.resx">
+      <DependentUpon>201907250132379_updatedUniqueIndexes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908060119575__addedMappingsForOrgStuf.resx">
+      <DependentUpon>201908060119575__addedMappingsForOrgStuf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908060313480_orgIntNotNull.resx">
+      <DependentUpon>201908060313480_orgIntNotNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908172137232_addedStandAloneMetrics.resx">
+      <DependentUpon>201908172137232_addedStandAloneMetrics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908180151384_HeighWeight.resx">
+      <DependentUpon>201908180151384_HeighWeight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908182119191_addedAddedDateForWeights.resx">
+      <DependentUpon>201908182119191_addedAddedDateForWeights.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909040146458_addingPasswordRecovery.resx">
+      <DependentUpon>201909040146458_addingPasswordRecovery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181941113_addingNOtesToTrainingBlocks.resx">
+      <DependentUpon>201909181941113_addingNOtesToTrainingBlocks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181955337_settingsNOtesToString.resx">
+      <DependentUpon>201909181955337_settingsNOtesToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909241952461_addingVideoUrl.resx">
+      <DependentUpon>201909241952461_addingVideoUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910140238455_addingSubscriptions.resx">
+      <DependentUpon>201910140238455_addingSubscriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910140244068_addSubTypeToOrganization.resx">
+      <DependentUpon>201910140244068_addSubTypeToOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910210209507_addingStripGuid.resx">
+      <DependentUpon>201910210209507_addingStripGuid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910290126571_changedStripeGuidTostring.resx">
+      <DependentUpon>201910290126571_changedStripeGuidTostring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911282200220_addingMarkDayCompletedLogic.resx">
+      <DependentUpon>201911282200220_addingMarkDayCompletedLogic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912020045290_addingUserIdtoAudit.resx">
+      <DependentUpon>201912020045290_addingUserIdtoAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912030304491_addingBooleansToPowerDashBoard.resx">
+      <DependentUpon>201912030304491_addingBooleansToPowerDashBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912052228193_addingWeightRoomViewUsers.resx">
+      <DependentUpon>201912052228193_addingWeightRoomViewUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912141932445_Added Cost to SubscriptionTypes.resx">
+      <DependentUpon>201912141932445_Added Cost to SubscriptionTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170358245_addingFeedBackANdStripShit.resx">
+      <DependentUpon>201912170358245_addingFeedBackANdStripShit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912181631032_addingTiered.resx">
+      <DependentUpon>201912181631032_addingTiered.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912211659194_moreBilling.resx">
+      <DependentUpon>201912211659194_moreBilling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912281708452_addedCost.resx">
+      <DependentUpon>201912281708452_addedCost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912311647505_toChangeIntsToDoubles.resx">
+      <DependentUpon>201912311647505_toChangeIntsToDoubles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001051948396_addedSubscriptionFlag.resx">
+      <DependentUpon>202001051948396_addedSubscriptionFlag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001081934108_allowDoublesintoCompleted.resx">
+      <DependentUpon>202001081934108_allowDoublesintoCompleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001141709231_addingMessaging.resx">
+      <DependentUpon>202001141709231_addingMessaging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001141940430_addedNestedMessages.resx">
+      <DependentUpon>202001141940430_addedNestedMessages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001142004021_AddNullableToParentMessageid.resx">
+      <DependentUpon>202001142004021_AddNullableToParentMessageid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001151743448_moreMEssagingTablesForGroups.resx">
+      <DependentUpon>202001151743448_moreMEssagingTablesForGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001151745168_moreMEssagingTablesForGroups_II.resx">
+      <DependentUpon>202001151745168_moreMEssagingTablesForGroups_II.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001151753490_moreMEssagingTablesForGroups_III.resx">
+      <DependentUpon>202001151753490_moreMEssagingTablesForGroups_III.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001271959482_removedTitleFromMessages.resx">
+      <DependentUpon>202001271959482_removedTitleFromMessages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002101546535_addedNotifications.resx">
+      <DependentUpon>202002101546535_addedNotifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002101549389_addedNotificationsHasBeenViewed.resx">
+      <DependentUpon>202002101549389_addedNotificationsHasBeenViewed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002101552398_addedDestinationsUserToNotifcations.resx">
+      <DependentUpon>202002101552398_addedDestinationsUserToNotifcations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002102027287_addingsurveyThresholds.resx">
+      <DependentUpon>202002102027287_addingsurveyThresholds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002111645043_mappedNotificationsToCoaches.resx">
+      <DependentUpon>202002111645043_mappedNotificationsToCoaches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003040327129_renameValueToThresholdValue.resx">
+      <DependentUpon>202003040327129_renameValueToThresholdValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003060338227_FixAthleteNotificationsFK\.resx">
+      <DependentUpon>.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004182349329_addingInMovies.resx">
+      <DependentUpon>202004182349329_addingInMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004191711282_addedMovieTags.resx">
+      <DependentUpon>202004191711282_addedMovieTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004272359076_addingVideosToPrograms.resx">
+      <DependentUpon>202004272359076_addingVideosToPrograms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005170019570_markdayascomplete.resx">
+      <DependentUpon>202005170019570_markdayascomplete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005302132508_AddingAdvancedOptionsToSets.resx">
+      <DependentUpon>202005302132508_AddingAdvancedOptionsToSets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005302149030_AddingAdvancedOptionsToSetsBitRepsAchieved.resx">
+      <DependentUpon>202005302149030_AddingAdvancedOptionsToSetsBitRepsAchieved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005302200119_AddingAdvancedOptionsToSuperSets.resx">
+      <DependentUpon>202005302200119_AddingAdvancedOptionsToSuperSets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005302221119_addingRepsAchievedToAthletes.resx">
+      <DependentUpon>202005302221119_addingRepsAchievedToAthletes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006040136172_addingNullableAdvancedOptions.resx">
+      <DependentUpon>202006040136172_addingNullableAdvancedOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006131713478_MovingRestToExerciseWorkoutLevel.resx">
+      <DependentUpon>202006131713478_MovingRestToExerciseWorkoutLevel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006131724133_ChangingRestToString.resx">
+      <DependentUpon>202006131724133_ChangingRestToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006141931348_makingSuperSetsINlineEditesNullable.resx">
+      <DependentUpon>202006141931348_makingSuperSetsINlineEditesNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006190130313_addedCompeltedRepsAchieved.resx">
+      <DependentUpon>202006190130313_addedCompeltedRepsAchieved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006272242286_addingImagesAndColorsToOrganizations.resx">
+      <DependentUpon>202006272242286_addingImagesAndColorsToOrganizations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006272308521_tertiaryColorHex.resx">
+      <DependentUpon>202006272308521_tertiaryColorHex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007280142378_bb.resx">
+      <DependentUpon>202007280142378_bb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008081919550_addingStripedExpiredCardAndFailedToProcess.resx">
+      <DependentUpon>202008081919550_addingStripedExpiredCardAndFailedToProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009150108338_addingFontPickers.resx">
+      <DependentUpon>202009150108338_addingFontPickers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241539311_makingDistanceStringInsteadOfDouble.resx">
+      <DependentUpon>202011241539311_makingDistanceStringInsteadOfDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012071716412_addingNameOptionToSuperSet.resx">
+      <DependentUpon>202012071716412_addingNameOptionToSuperSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012210043451_addingStripeDfeaultHack.resx">
+      <DependentUpon>202012210043451_addingStripeDfeaultHack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101051801260_addingBitForAlwaysShowingWeight.resx">
+      <DependentUpon>202101051801260_addingBitForAlwaysShowingWeight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101190210519_bob.resx">
+      <DependentUpon>202101190210519_bob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101201907413_fixingShowWeight.resx">
+      <DependentUpon>202101201907413_fixingShowWeight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101281514315_startingToDeDupeTags.resx">
+      <DependentUpon>202101281514315_startingToDeDupeTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102011921241_addingIXToTags.resx">
+      <DependentUpon>202102011921241_addingIXToTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102090245140_REMOVEDrefrencesTOuser.resx">
+      <DependentUpon>202102090245140_REMOVEDrefrencesTOuser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102240407072_madeDistanceString.resx">
+      <DependentUpon>202102240407072_madeDistanceString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106220207247_addingLogging.resx">
+      <DependentUpon>202106220207247_addingLogging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107262247572_addingSignlarGuids.resx">
+      <DependentUpon>202107262247572_addingSignlarGuids.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109010122370_v1_Of_ProgramSnapShots.resx">
+      <DependentUpon>202109010122370_v1_Of_ProgramSnapShots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109010211368_addingAssignedMovieDisplayWeeks.resx">
+      <DependentUpon>202109010211368_addingAssignedMovieDisplayWeeks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109080146114_makingCompletedShitOptional.resx">
+      <DependentUpon>202109080146114_makingCompletedShitOptional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109080258021_removedConstraintsFromAssignedProgramTables.resx">
+      <DependentUpon>202109080258021_removedConstraintsFromAssignedProgramTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109080306290_madeLastCompletedUpdateTimeNullable.resx">
+      <DependentUpon>202109080306290_madeLastCompletedUpdateTimeNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109142216477_fixingassignedProgramMetricTable.resx">
+      <DependentUpon>202109142216477_fixingassignedProgramMetricTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109142222554_addedAssignedProgramMetricDisplaayWeeks.resx">
+      <DependentUpon>202109142222554_addedAssignedProgramMetricDisplaayWeeks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109142249229_addingNotesToAssignedProgram.resx">
+      <DependentUpon>202109142249229_addingNotesToAssignedProgram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109142252549_addingNoteDisplayWeekForAssignedProgram.resx">
+      <DependentUpon>202109142252549_addingNoteDisplayWeekForAssignedProgram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109142253436_addingNoteDisplayWeekForAssignedProgramDisplayWeeks.resx">
+      <DependentUpon>202109142253436_addingNoteDisplayWeekForAssignedProgramDisplayWeeks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109170151423_movedCompletedMetricToDisplayWeeks.resx">
+      <DependentUpon>202109170151423_movedCompletedMetricToDisplayWeeks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109220242020_addingAthleteToHistory.resx">
+      <DependentUpon>202109220242020_addingAthleteToHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109220334418_pointingAsisgnedNotesToRightPRogramDay.resx">
+      <DependentUpon>202109220334418_pointingAsisgnedNotesToRightPRogramDay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202109230201398_addingSurveyDisplayWeeks.resx">
+      <DependentUpon>202109230201398_addingSurveyDisplayWeeks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201072140533_fixKeys.resx">
+      <DependentUpon>202201072140533_fixKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201072158434_fixKeysPartDuex.resx">
+      <DependentUpon>202201072158434_fixKeysPartDuex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201072159116_fixKeysParttrois.resx">
+      <DependentUpon>202201072159116_fixKeysParttrois.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201152312451_addingCompletedDateToSnapShots.resx">
+      <DependentUpon>202201152312451_addingCompletedDateToSnapShots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202091553586_addingCalculatedLoadsTOSnapSHot.resx">
+      <DependentUpon>202202091553586_addingCalculatedLoadsTOSnapSHot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202220400326_addingCompletedDaysForSnapSHotProgramsOnly.resx">
+      <DependentUpon>202202220400326_addingCompletedDaysForSnapSHotProgramsOnly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204120232185_addingDocumentSHit.resx">
+      <DependentUpon>202204120232185_addingDocumentSHit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204120237355_addingAggreements.resx">
+      <DependentUpon>202204120237355_addingAggreements.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlScripts\ProdSubscriptionTypesAdding.txt" />
+    <Content Include="SqlScripts\TestSubscriptionTypesAdding.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\EntityFramework.6.3.0-preview7-19363-02\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0-preview7-19363-02\build\EntityFramework.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0-preview7-19363-02\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0-preview7-19363-02\build\EntityFramework.targets'))" />
+  </Target>
+</Project>

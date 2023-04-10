@@ -1,0 +1,53 @@
+<div [ngStyle]="{'position':SetModalStyle == true ? 'absolute' : 'none'}"
+  class="row survey-content" *ngIf="ShowSurveyWindow" [@fadeInAnimation]="ShowSurveyWindow ? 'enter' : 'leave'">
+    <h3 class="survey-content-title col-12 col-md-12" style="text-align:center">Create Survey</h3>
+    <label [ngClass]="SetModalStyle == true ? 'col-12 col-md-1 col-sm-4 col-form-label' : 'col-12 col-md-4 col-sm-4 col-form-label'">Name:</label>
+    <div [ngClass]="SetModalStyle == true ? 'col-12 col-md-4 col-sm-8' : 'col-12 col-md-8 col-sm-8'">
+        <input type="text" class="form-control white-bg-input" placeholder="Survey Name"
+            [(ngModel)]="NewlyCreatedSurvey.Name">
+    </div>
+    <label for="tags" [ngClass]="SetModalStyle == true ? 'col-12 col-md-1 col-sm-4 col-form-label' : 'col-12 col-md-4 col-sm-4 col-form-label'">Tags:</label>
+    <div [ngClass]="SetModalStyle == true ? 'col-12 col-md-4 col-sm-6 text-left' : 'col-12 col-md-8 col-sm-6 text-left'">
+        <app-scp-tag-input (TagRemoved)="RemoveNewSurveyTags($event)"
+            (TagAdded)="AddNewSurveyTags($event)" [autocompleteItems]="AllTags">
+        </app-scp-tag-input>
+    </div>
+    <div class="row no-gutters" style="width:100%">
+        <div [ngClass]="SetModalStyle == true ? 'offset-md-1 col-md-5 survey-questions-con' : 'offset-md-1 col-md-10 survey-questions-con'">
+            <div class="existing-questions-con">
+                <p class="top-heading">Questions On The Survey <span>(Click To Remove)</span></p>
+                <div class="question-in " *ngFor="let q of NewlyCreatedSurvey.Questions"
+                    (click)="RemoveQuestionFromSurvey(q,NewlyCreatedSurvey)">
+                    <div>
+                        <h5 class="question-title">{{q.Question}} </h5>
+                        <p *ngIf="q.QuestionType == 1">Yes/No</p>
+                        <p *ngIf="q.QuestionType == 2">Scale</p>
+                        <p *ngIf="q.QuestionType == 3">Open Ended</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-minus"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [ngClass]="SetModalStyle == true ? 'offset-1 col-md-5 existing-questions-con' : 'offset-1 col-md-10 existing-questions-con'">
+            <p class="top-heading">Existing Question <span>(Click To Add)</span></p>
+            <div class="question-in" *ngFor="let q of AllQuestions"
+                (click)="AddQuestionToCurrentSurvey(q,NewlyCreatedSurvey)">
+                <div>
+                    <h5 class=" question-title">{{q.Question}}</h5>
+                    <p *ngIf="q.QuestionType == 1">Yes/No</p>
+                    <p *ngIf="q.QuestionType == 2">Scale</p>
+                    <p *ngIf="q.QuestionType == 3">Open Ended</p>
+                </div>
+                <div>
+                    <i class="fas fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-lg btn-green btn-normal col-12 col-md-4  offset-md-1"
+        (click)="Save(NewlyCreatedSurvey)">Save</button>
+    <button type="button" class="btn btn-lg btn-red btn-normal edit-btn  col-12 col-md-4 offset-md-1"
+        (click)="Cancel()">Cancel</button>
+</div>

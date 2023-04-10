@@ -1,0 +1,97 @@
+<div id="athlete-without-program" class="dashboard-widgets">
+  <div class="widget-container">
+      <div class="widget-title-section">
+          <div class="widget-title">
+              <svg>
+                  <use xlink:href="#athletes" />
+              </svg>
+              <span>Athletes Without a Program</span>
+          </div>
+          <div class="widget-count">{{TotalAthleteCount}}</div>
+          <div class="widget-filter-box">
+              <!-- <div class="selectbox">
+                  <select>
+                      <option>Filter by tags</option>
+                  </select>
+                  <div class="dummyselect"></div>
+              </div> -->
+              <div class="checkbox-list">
+                  <label for="filter1">
+                      Tag #1<input type="checkbox" id="filter1" />
+                      <span class="checkimg"></span>
+                  </label>
+                  <label for="filter2">
+                      Tag #2<input type="checkbox" id="filter2" />
+                      <span class="checkimg"></span>
+                  </label>
+                  <label for="filter3">
+                      Tag #3<input type="checkbox" id="filter3" />
+                      <span class="checkimg"></span>
+                  </label>
+                  <label for="filter4">
+                      Tag #4<input type="checkbox" id="filter4" />
+                      <span class="checkimg"></span>
+                  </label>
+                  <label for="filter5">
+                      Tag #5<input type="checkbox" id="filter5" />
+                      <span class="checkimg"></span>
+                  </label>  
+              </div>
+          </div>
+          <div class="clearfix"></div>
+      </div>
+      <div class="widget-content-section">
+          <div class="content-row" *ngFor="let a of AllAthletes">
+              <div class="athlete-list-item">
+                <img *ngIf="a.ProfilePicture == undefined " src="../../../../assets/Avatar.png">
+                <img
+                  *ngIf="a.ProfilePicture != undefined && a.ProfilePicture.Profile != undefined && a.ProfilePicture.Profile != '' "
+                  [src]="((a.ProfilePicture.URL + a.ProfilePicture.Profile) | encodeUri)">
+                  <p>{{a.Name}}</p>
+              </div>
+          </div>
+      </div>
+      <div class="widget-tail-section">
+        <div class="widget-arrows">
+            <div  (click)="DecrementPageNumber()" style="float:left ; cursor:pointer;">
+                <svg>
+                    <use xlink:href="#ArrowLt" />
+                </svg>
+            </div>
+            <div (click)="AdvancePageNumber()" style="float:left; cursor:pointer;">
+                <svg>
+                    <use xlink:href="#ArrowRt" />
+                </svg>
+            </div>
+        </div>
+      
+        <div class="more-details-link">
+            <a routerLink="/Roster" >More Details</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<svg width="0" height="0" class="hidden">
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 27" id="ArrowLt">
+      <title>ArrowLt</title>
+      <path
+          d="M3.38 14.58h23a4.14 4.14 0 0 0 .61 0 1.09 1.09 0 0 0 0-2.17 5.23 5.23 0 0 0-.56 0H3.5l-.12-.2a4.22 4.22 0 0 0 .54-.36L14 2.22c.12-.11.24-.22.35-.34a1 1 0 0 0 0-1.52 1.05 1.05 0 0 0-1.54 0l-.36.33L.89 11.75a2.21 2.21 0 0 0 0 3.54q5.85 5.63 11.72 11.23a1.19 1.19 0 0 0 1.79.13c.42-.42.33-1.11-.24-1.66L3.92 15.14z"
+          fill="#8bc53f"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 27" id="ArrowRt">
+      <title>ArrowRt</title>
+      <path
+          d="M24.62 14.58h-23a4.14 4.14 0 0 1-.61 0A1.09 1.09 0 0 1 1 12.4a5.23 5.23 0 0 1 .56 0H24.5l.12-.2a4.22 4.22 0 0 1-.54-.36L14 2.22c-.12-.11-.24-.22-.35-.34a1 1 0 0 1 0-1.52 1.05 1.05 0 0 1 1.54 0l.36.33 11.56 11.06a2.21 2.21 0 0 1 0 3.54q-5.85 5.63-11.72 11.23a1.19 1.19 0 0 1-1.79.13c-.42-.42-.33-1.11.24-1.66l10.24-9.85z"
+          fill="#8bc53f"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 28" id="athletes">
+      <title>athletes</title>
+      <path
+          d="M7.32 13.82c.63.59 1.19 1.19 1.82 1.7a5.21 5.21 0 0 0 3.73 1.23 5.69 5.69 0 0 0 3.26-1.43c.54-.45 1.05-.94 1.67-1.49.57.3 1.31.66 2 1.09a12.28 12.28 0 0 1 4.46 4.45A4.89 4.89 0 0 1 25 21.8a3.86 3.86 0 0 1-1.31 2.77 10.15 10.15 0 0 1-3.8 2.23A22 22 0 0 1 11.8 28a20.88 20.88 0 0 1-6.68-1.2 10.29 10.29 0 0 1-3.8-2.23A4 4 0 0 1 0 22.25a4.08 4.08 0 0 1 .41-2.33 10.29 10.29 0 0 1 2.38-3.21 14.81 14.81 0 0 1 4.39-2.85z">
+      </path>
+      <path
+          d="M5.74 6.63A6.76 6.76 0 0 1 19.21 6a8.71 8.71 0 0 1-.72 4.33 10 10 0 0 1-2.74 4A5.17 5.17 0 0 1 13 15.59a4.49 4.49 0 0 1-3.24-.88 9.38 9.38 0 0 1-3.11-4 10.09 10.09 0 0 1-.91-4.08z">
+      </path>
+  </symbol>
+</svg>

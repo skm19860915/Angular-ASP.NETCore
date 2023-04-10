@@ -1,0 +1,11 @@
+<div [ngClass]="{'page-con':!DisplayLoginImage && !IsWeightRoomView, 'page-container': DisplayLoginImage && !IsWeightRoomView, 'weightRoom-container':  IsWeightRoomView}">
+    <app-nav-menu *ngIf="!DisplayLoginImage" [(HideMenu)]="HideMenu" style="position:absolute;z-index:2" class="app-nav"></app-nav-menu>
+    <div class="content-con" id="mainContent" style="z-index:1;">
+        <div class="container-fluid">
+            <app-user-ribbon *ngIf="!DisplayLoginImage"></app-user-ribbon>
+            <!-- <div [@fadeAnimation]="prepareRoute(outlet)"> -->
+                <router-outlet #outlet="outlet" class="row"></router-outlet>
+            <!-- </div> -->
+        </div>
+    </div>
+</div>

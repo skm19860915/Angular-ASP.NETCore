@@ -1,0 +1,13 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <div class="page-link" (click)="PreviousClick()">Previous</div>
+        </li>
+     <li class="page-item" *ngFor="let p of displayPages">
+            <div class="page-link" (click)="PageClick(p)" [ngClass]="{'currentPage' : p ===currentPage }">{{p}}</div>
+        </li> 
+        <li class="page-item">
+            <div class="page-link" (click)="NextClick()">Next</div>
+        </li>
+    </ul>
+</nav>

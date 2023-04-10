@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Models.Program.AssignedProgramSnapShots
+{
+   public class AssignedProgram_SuperSetExercise
+    {
+        public int Id { get; set; }
+        public int AssignedProgram_ProgramDayItemSuperSetId { get; set; }
+        public int Position { get; set; }
+        public int ExerciseId { get; set; }
+        public string Rest { get; set; }
+        public bool ShowWeight { get; set; }
+
+
+        [ForeignKey("ExerciseId")]
+        public virtual Exercise.Exercise TargetExercise { get; set; }
+
+        [ForeignKey("AssignedProgram_ProgramDayItemSuperSetId")]
+        public virtual AssignedProgram_ProgramDayItemSuperSet TargetProgramDayItemSuperSet { get; set; }
+    }
+}

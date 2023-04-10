@@ -1,0 +1,62 @@
+@import "../../../assets/StyleSheets/Buttons.less";
+
+.metrics-list {
+    margin-top      : 0.9375rem;
+
+
+    .one-metric {
+        padding      : 0.9375rem;
+        border       : 1px solid rgba(@light-black, 0.4);
+        border-radius: 0.5rem;
+        margin-bottom: 1.25rem;
+
+        .title {
+            font-family  : @font;
+            font-weight  : 600;
+            color        : @our-green;
+            cursor       : pointer;
+            margin-bottom: 0;
+        }
+
+        .title-icons {
+            font-size: 1.6rem;
+            color    : @light-black;
+
+            .far,
+            .fas {
+                margin-right: 0.625rem;
+                cursor      : pointer;
+            }
+        }
+
+        .icon-con {
+            font-size : 2.2rem;
+            text-align: center;
+            color     : @our-green;
+            align-self: center;
+        }
+
+        .tags {
+
+            margin-top: 0.3125rem;
+
+            .tags-title {
+                padding-right: 0.3125rem;
+                font-family  : @font;
+                font-weight  : 400;
+                color        : @light-black;
+                font-size    : 0.875rem;
+            }
+
+            .badge-light {
+                background   : @our-grey;
+                color        : @light-black;
+                font-family  : @font;
+                font-weight  : 300;
+                padding      : 0.4rem .7rem;
+                margin-bottom: 0.25rem;
+            }
+        }
+
+    }
+}

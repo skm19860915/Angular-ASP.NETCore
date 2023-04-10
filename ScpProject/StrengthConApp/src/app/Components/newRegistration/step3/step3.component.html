@@ -1,0 +1,61 @@
+<div class="formtext">
+  <h1>Welcome to the Strength Coach Pro family</h1>
+  <p>Great! was created. Next step is to fill in your personal information</p>
+</div>
+<div class="reg-form-step">
+  <form action="#" id="registerForm" method="post">
+      <div class="form-element left-input">
+          <input type="text"  name="fname" placeholder="First Name" [ngClass]="{'error': newInfo.FirstName === undefined || newInfo.FirstName ===''}" [(ngModel)]="newInfo.FirstName" />
+      </div>
+      <div class="form-element right-input">
+          <input type="text"  name="lname" placeholder="Last Name" value="" [ngClass]="{'error': newInfo.LastName === undefined || newInfo.LastName ===''}" [(ngModel)]="newInfo.LastName"/>
+      </div>
+      <div class="form-element">
+          <input type="email" (keyup)="ValidateFirstEmail(newInfo.Email)" name="email" placeholder="Email (Enter a valid email, for example user@email.com)" [ngClass]="{'error': newInfo.Email === undefined || newInfo.Email ===''}" value="" [(ngModel)]="newInfo.Email" />
+          <p style="color:red" *ngIf="!validFirstEmail">*Please Enter A Valid Email. For example
+            user@email.com</p>
+          <p style="color:red" *ngIf="emailInUse">*This Email is already In use. Please choose another.
+          </p>
+      </div>
+      <div class="form-element">
+          <input type="text" name="phone" placeholder="Phone" value=""[ngClass]="{'error': newInfo.Phone === undefined || newInfo.Phone ===''}"[(ngModel)]="newInfo.Phone"/>
+      </div>
+      <div class="form-element">
+          <input type="text"  name="uname" placeholder="Username" value="" [ngClass]="{'error': newInfo.UserName === undefined || newInfo.UserName ===''}" [(ngModel)]="newInfo.UserName" (keyup)="DoesUserNameExist(newInfo.UserName)"/>
+          <p style="color:red" *ngIf="UserNameAlreadyExist">*This UserName is already in use*</p>
+      </div>
+      <div class="form-element left-input">
+          <input type="password" id="reg-pass"  name="password" placeholder="Password" value="" [ngClass]="{'error': newInfo.Password === undefined || newInfo.Password ==='' || newInfo.Password !== newInfo.ConfirmPassword}" [(ngModel)]="newInfo.Password"/>
+      </div>
+      <div class="form-element right-input">
+          <input type="password"  name="confirm-password" placeholder="Confirm Password" value=""  [ngClass]="{'error': newInfo.ConfirmPassword === undefined || newInfo.ConfirmPassword ==='' || newInfo.Password !== newInfo.ConfirmPassword}"[(ngModel)]="newInfo.ConfirmPassword" />
+      </div>
+      <!-- <div class="form-element">
+          <div class="chk-input-container">
+              <label class="chkbx-container">I would like to receive a call to setup my account
+                  <input class="validate[required]" type="checkbox" name="receive-call" value="" />
+                  <span class="checkmark"></span>
+              </label>
+          </div>
+      </div> -->
+      <div class="form-element">
+          <input type="submit"
+          [disabled]="newInfo.FirstName === undefined || newInfo.FirstName ===''
+                        || newInfo.Phone === undefined || newInfo.Phone ===''
+                        || newInfo.UserName === undefined || newInfo.UserName ===''
+                        || newInfo.Password === undefined || newInfo.Password ===''
+                        ||  newInfo.ConfirmPassword === undefined || newInfo.ConfirmPassword ===''
+                        ||  newInfo.LastName === undefined || newInfo.LastName ===''
+                        || newInfo.ConfirmPassword !== newInfo.Password
+                        || UserNameAlreadyExist
+                        || emailInUse
+                        || !validFirstEmail
+                        || !isFormValidated
+                        "
+
+
+          class="greenbtn" name="register-btn" value="Next" (click)="UserInfoFilledOut()" />
+          <input type="reset" class="redbtn" name="cancel-btn" value="Cancel" (click)="Cancel()" />
+      </div>
+  </form>
+</div>

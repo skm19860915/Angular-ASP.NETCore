@@ -1,0 +1,54 @@
+<div class=" successButton defaultButton" style="float:left" (click)="fuck()">Confirm Print</div>
+
+<br />
+
+<div id="WorkoutBody" style="width:500px;">
+  <table >
+    <!-- <colgroup>
+                <col width="20%">
+                    <col width="20%">
+                        <col width="20%">
+                            <col width="20%">
+            </colgroup> -->
+    <thead>
+      <tr>
+        <th *ngFor="let d of Program.Days; let i = index">DAY {{i+1}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td *ngFor="let d of Program.Days;">
+          <table style="width:100%">
+            <thead>
+              <tr>
+                <th *ngFor="let week of [].constructor(Program.WeekCount); let i = index">Week {{i + 1}} </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let programItem of d.Items ">
+                <td>{{programItem.ItemType}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+    </tbody>
+  </table>
+  <!-- <table >
+  <tr>
+    <th *ngFor="let d of Program.Days; let i = index" >DAY {{i+1}}</th>
+  </tr>
+  <tr>
+    <td *ngFor="let d of Program.Days;">
+      <table style="width:100%">
+        <tr>
+          <th></th>
+          <th *ngFor="let week of [].constructor(Program.WeekCount); let i = index">Week {{i + 1}} </th>
+        </tr>
+        <tr *ngFor="let programItem of d.Items ">
+          <td>{{programItem.ItemType}}</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table> -->
+</div>

@@ -1,0 +1,39 @@
+@import '../../../../assets/StyleSheets/Colors.less';
+
+.active-workout {
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 2.5%;
+  border-color: @mid-grey;
+}
+
+.active-workout-selected {
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 2.5%;
+  border-color: @our-green;
+}
+
+.stick-top {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 45%;
+}
+
+@media (max-height: 1200px) {
+  .scroll {
+    height: 450px;
+  }
+}
+
+@media (max-height: 800px) {
+  .scroll {
+    height: 300px;
+  }
+}

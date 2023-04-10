@@ -1,0 +1,210 @@
+<!-- Page inner content starts -->
+<div class="col-sm-12 page-inner-content rosters-page no-gutters" style="margin-top:30px;">
+
+  <h3> <i class="col-2 offset-md-10 fa fa-trash" style="color:red; cursor:pointer;" aria-hidden="true" title="Delete"
+      (click)="ToggleAthleteDeleteWindow()"></i></h3>
+
+  <!-- Account setting inputs start -->
+  <div class="col-12">
+    <div class="row athlete-profile no-gutters">
+
+      <div class="col-lg-8 col-xl-6">
+        <div *ngIf="IsCoach">
+          <div class="form-group row">
+            <label for="firstName" class="col-md-3 col-form-label">First Name:</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control white-bg-input" id="firstName" placeholder="Athlete First name"
+                [(ngModel)]="CurrentAthlete.FirstName">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="lastName" class="col-md-3 col-form-label">Last Name:</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control white-bg-input" id="lastName" placeholder="Athlete Last name"
+                [(ngModel)]="CurrentAthlete.LastName">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row " *ngIf="IsCoach">
+          <label for="tags" class="col-md-3 col-form-label">Tags:</label>
+          <div class="col-md-9 text-left">
+            <app-scp-tag-input (TagRemoved)="RemoveAthleteTag($event)" (TagAdded)="AddNewAthleteTag($event)"
+              [ExistingTags]="CurrentAthlete.DisplayTags" [autocompleteItems]="AllTags">
+            </app-scp-tag-input>
+          </div>
+        </div>
+
+        <!-- <div class="form-group row">
+    <label for="birthday" class="col-md-3 col-form-label">Birthday:</label>
+    <div class="col-md-9 col-lg-5 col-xl-3">
+      <dp-date-picker style="float:left" [(ngModel)]="CurrentAthlete.Birthday" [config]="datePickerConfig"
+        theme="dp-material"></dp-date-picker>
+    </div>
+  </div> -->
+
+        <div class="form-group row">
+          <label for="heightFeet" class="col-md-3 col-form-label">Height In ft or m:</label>
+          <div class="col-md-9 col-lg-9 col-xl-3">
+            <input type="text" class="form-control white-bg-input" id="heightFeet"
+              [(ngModel)]="CurrentAthlete.HeightPrimary">
+          </div>
+          <label for="heightInch" class="col-md-3 col-form-label text-right">Height In in or cm:</label>
+          <div class="col-md-9 col-lg-9 col-xl-3 multi-col">
+            <input type="text" class="form-control white-bg-input" id="heightInch"
+              [(ngModel)]="CurrentAthlete.HeightSecondary">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="weight" class="col-md-3 col-form-label">Weight in lbs or kg:</label>
+          <div class="col-md-9 col-lg-9 col-xl-3">
+            <input type="text" class="form-control white-bg-input" id="weight" [(ngModel)]="CurrentAthlete.Weight">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <p style="font-size:12px;color:red" class="col-md-12" *ngIf="!ValidEmail">*<b>Optional</b>Please Enter A Valid
+            Email. For example
+            user@email.com</p>
+
+          <p style="font-size:12px;color:red " class="col-md-12" *ngIf="EmailInUse">*This Email is already In use.
+            Please choose
+            another.
+          </p>
+
+          <label for="email" class="col-md-3 col-form-label">Email:</label>
+          <div class="col-md-9">
+            <input type="text" class="form-control white-bg-input" id="email" placeholder="athlete@email.com"
+              [(ngModel)]="CurrentAthlete.Email" (keyup)="ValidateFirstEmail(CurrentAthlete.Email)">
+          </div>
+
+          <div class="col-md-12" style="margin-top:10px;">
+            <div class="form-group row">
+              <img src=" assets/LoadingGif.gif" style="height:75px;margin-left:300px"
+                *ngIf="SendingAnotherConfirmationEmail">
+              <button type="button" class="btn  btn-green btn-normal offset-3 col-md5"
+                *ngIf="!CurrentAthlete.ValidatedEmail && !SendingAnotherConfirmationEmail && CurrentAthlete.Email !== null && CurrentAthlete.Email !== undefined && CurrentAthlete.Email !== '' "
+                (click)="ResendAthleteRegistration(CurrentAthlete.Id)">Resend Registration Email
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="IsCoach">
+          <label for="metric" class="col-md-3 col-form-label">Enter Metrics:</label>
+          <div class="col-md-7">
+            <ng-select id="exerciseCalculation" [(items)]="DisplayMetrics" bindLabel="Name" bindValue="Id"
+              (change)="AddMetricToCompletedList(TargetMetricId)" [searchFn]="SelectSearch"
+              placeholder="Select A Metric" [(ngModel)]="TargetMetricId" style="width:100%;float:left">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.Name}} <br />
+                <div *ngIf="item.Tags.length > 0  ">
+                  <div *ngFor="let tags of item.Tags">
+                    <div class="badge badge-pill badge-light floatLeft">{{tags.Name}}</div>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+
+        <div *ngFor="let a of AddedMetrics; let i = index;" class="row no-gutters" style="margin-top:10px">
+
+          <label [for]="'metric'+i" class="col-md-5 col-form-label">{{a.MetricName}}
+          </label>
+
+          <div class="col-md-2">
+            <input class="form-control white-bg-input text-center" [id]="'metric'+i" [(ngModel)]="a.Value" />
+          </div>
+          <div class="col-md-1">&nbsp;</div>
+          <input type="text" matInput class="form-control white-bg-input col-md-2 text-center" ngxDaterangepickerMd
+            [locale]="{applyLabel: 'ok', format: 'MM-DD-YYYY'}" [(ngModel)]="a.CompletedDate"  [autoApply]="true" drops="up"
+            [singleDatePicker]="true" />
+            <i style="float:right;margin:0px 10px 0px 10px; color:red;font-size:1.25em" class="fas fa-trash-alt" title="Delete"
+            *ngIf="IsCoach" (click)="RemoveMetricFromCompletedList(a.MetricId)"></i>
+          <div style="clear:both;"></div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-4 col-xl-4 offset-xl-1 profile-img-con">
+
+        <div *ngIf="uploader.queue.length == 0">
+          <div class="profile-image">
+            <img *ngIf="CurrentAthlete.ProfilePicture == undefined " src="../../../assets/Avatar.png">
+            <img
+              *ngIf="CurrentAthlete.ProfilePicture != undefined && CurrentAthlete.ProfilePicture.Profile != undefined && CurrentAthlete.ProfilePicture.Profile != '' "
+              [src]="((CurrentAthlete.ProfilePicture.URL + CurrentAthlete.ProfilePicture.Profile) | encodeUri)">
+          </div>
+        </div>
+
+        <div *ngFor="let item of uploader.queue">
+          <img src="" imgPreview [image]="item?._file" class="media-object" width="300" />
+          <div style="clear:both"></div>
+          <button type="button" class="btn  btn-red btn-normal edit-btn"
+            style="position: absolute;top: -10px;left: -10px;padding: 0px;margin: 0px;width: 20px;"
+            (click)="ClearUploaderQueue(uploader)">
+            X</button>
+        </div>
+
+        <input type="button" type="file" ng2FileSelect [uploader]="uploader"
+          (onFileSelected)="ForceUploaderQueueToBeJustOne(uploader)" text="Browse" />
+
+
+
+        <div class="col-lg-8 col-xl-6 ">
+          <div class="form-group row">
+            <button type="submit" class="btn  btn-green col-12" *ngIf="!Updating" [disabled]="!ValidEmail || EmailInUse"
+              (click)="UpdateAthlete(CurrentAthlete,CurrentAthlete.DisplayTags,AddedMetrics,uploader)">Update
+              Athlete</button>
+            <div style="height: 100px; width: 50px; margin: 10% 0% 0% 20%" *ngIf="Updating">
+              <img src=" assets/LoadingGif.gif" style="height:75px;">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Page inner content ends -->
+
+
+
+  <div class="metric-modal scp-modal" *ngIf="ShowAthleteDeleteWindow"
+    [@fadeInAnimation]="ShowAthleteDeleteWindow ? 'enter' : 'leave'">
+    <div class="scp-modal-in right">
+      <button type="button" class="close" aria-label="Close" (click)="ToggleAthleteDeleteWindow()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <h3 class="scp-modal-title">Delete Athlete</h3>
+
+      <div class="row scp-modal-content no-gutters">
+
+        <!-- Create measurement starts -->
+        <div class="col-12 col-lg-12 create-measure-con">
+          <p>Once an Athlete is <b>DELETED</b> there is <b>NO WAY</b> to recover any information of that Athlete.
+            If you are sure you want to do this type 'yes' in the box below</p>
+        </div>
+        <!-- Create measurement ends -->
+
+        <div class="col-12 col-lg-12">
+          <label for="measureName" class="col-form-label">Confirmation</label>
+          <input type="text" class="form-control white-bg-input" id="measureName" placeholder="type 'yes' to delete "
+            [(ngModel)]="athleteDeleteConfirmation">
+        </div>
+
+        <div class="col-12 col-md-6 save-btn-con">
+          <button type="submit" type="button" class="btn btn-lg btn-block btn-red btn-normal"
+            *ngIf="(athleteDeleteConfirmation  | lowercase) == 'yes'" (click)="DeleteAthlete()">DELETE</button>
+        </div>
+        <div class="col-12  cancel-btn-con">
+          <button type="button" class="btn btn-lg btn-block btn-green btn-normal"
+            (click)="ToggleAthleteDeleteWindow()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Create metric/measurement modal ends -->
+  <app-alert [messages]="AlertMessages"></app-alert>
